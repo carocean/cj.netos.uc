@@ -1,0 +1,51 @@
+package cj.netos.uc.port;
+
+import cj.netos.uc.bo.Tenant;
+import cj.netos.uc.service.AuthenticationException;
+import cj.netos.uc.service.IAuthenticatorFactory;
+import cj.netos.uc.service.ITenantService;
+import cj.netos.uc.service.ITenantTokenService;
+import cj.studio.ecm.annotation.CjService;
+import cj.studio.ecm.annotation.CjServiceRef;
+import cj.studio.ecm.net.CircuitException;
+import cj.ultimate.gson2.com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@CjService(name = "/tenantToken.service")
+public class TenantTokenStub implements ITenantTokenStub {
+	@CjServiceRef(refByName = "ucplugin.tenantTokenService")
+	ITenantTokenService tenantTokenService;
+	@CjServiceRef(refByName = "ucplugin.authenticatorFactory")
+	IAuthenticatorFactory facotry;
+	@CjServiceRef(refByName = "ucplugin.tenantService")
+	ITenantService tenantService;
+
+	@Override
+	public String genToken(String tenant, String user, String pwd, long ttlMillis) throws AuthenticationException {
+		Map<String, String> result = new HashMap<>();
+		try {
+			Tenant exists = tenantService.getTenant(tenant);
+			if (exists == null) {
+				throw new AuthenticationException("404", "不存在租户：" + tenant);
+			}
+			facotry.authenticate("auth.password", tenant, user, pwd, ttlMillis);
+			String ret = tenantTokenService.genToken(tenant, user, ttlMillis);
+			result.put("status", "200");
+			result.put("message", "OK");
+			result.put("result", ret);
+		} catch (Exception e) {
+			CircuitException ce = CircuitException.search(e);
+			if (ce != null) {
+				result.put("status", ce.getStatus());
+				result.put("message", ce.getMessage());
+			} else {
+				result.put("status", "500");
+				result.put("message", e.getMessage());
+			}
+		}
+		return new Gson().toJson(result);
+	}
+
+}

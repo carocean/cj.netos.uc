@@ -1,0 +1,54 @@
+{
+	entryPoint : {
+		plugins: [
+
+		],
+		activators: [
+			{
+				name: '开放口服务活动器',
+				class: 'cj.studio.openport.OpenportEntryPointActivator',
+				parameters: {
+					"publicAPIPath": '/portsapi',
+					accessControlStrategy: '',
+					checkTokenStrategy: ''
+				}
+			}
+		]
+	},
+	assemblyInfo : {
+		assemblyTitle : "usercenter",
+		assemblyResource:"site=/site;http.root=$(site)/web;http.jss=$(site)/jss/http;ws.jss=$(site)/jss/ws",
+		assemblyDescription : "cj工作室出品，lns平台制造",
+		assemblyConfiguration : "",
+		assemblyCompany : "cj工作室",
+		assemblyProduct : "cj.studio.backend.uc",
+		assemblyCopyright : "Copyright   2011",
+		assemblyTrademark : "",
+		assemblyCulture : "",
+		guid : "3AD05D29-80AE-440B-AC52-C9D9150F9797",
+		assemblyVersion : "1.0.0.0",
+		assemblyFileVersion : "1.0.0.0"
+	},
+	global:{
+		default:"zh_CN",
+		desc:"如果系统环境要求各芯片采用的语言本芯片没有，则芯片可采用默认语言"
+		},
+	serviceContainer : {
+		name : "netContainer",
+		switchFilter:"off",
+		monitor: "cj.studio.openport.client.DefaultOpenportsServicesMonitor",
+		jss:[{
+			module:"services1",
+			package:"cj.studio.backend.uc.jss",
+			unzip:"true",
+			searchMode:"link",
+			extName:".jss.js"
+		}],
+		scans : [{
+					package : "cj.studio.backend.uc",
+					extName : ".class|.json|.xml",
+					exoterical:"true"
+				}]
+
+	}
+}

@@ -1,0 +1,4 @@
+include "cj.netos.uc.program"
+include "cj.netos.uc.main"
+include "cj.netos.uc.plugin.core"
+include "cj.netos.uc.openport"

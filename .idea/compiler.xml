@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="cj.netos.uc.cj.studio.backend.uc.debug.main" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.debug.test" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.plugin.main" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.plugin.test" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.program.main" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.program.test" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.stub.main" target="1.8" />
+      <module name="cj.netos.uc.cj.studio.backend.uc.stub.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

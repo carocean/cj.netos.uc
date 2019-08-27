@@ -1,0 +1,10 @@
+[
+  {
+    "name": "httpsite",
+    "protocol": "http",
+    "host": "localhost:7070",
+    "props": {
+      "workThreadCount": 20
+    }
+  }
+]
