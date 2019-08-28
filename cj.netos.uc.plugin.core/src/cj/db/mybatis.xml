@@ -13,7 +13,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://localhost:3306/netos.uc?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;rewriteBatchedStatements=true" />
+					value="jdbc:mysql://localhost:3306/netos.uc2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;rewriteBatchedStatements=true" />
 				<property name="username" value="cj" />
 				<property name="password" value="mysql123" />
 				<!-- 如果数据源的defaultAutoCommit设置为True了，那么方法中如果自己捕获了异常，事务是不会回滚的，如果没有自己捕获异常则事务会回滚  -->
@@ -28,24 +28,5 @@
 	</environments>
 	<mappers>
 		<mapper resource="cj/db/mappings/AccountAttributeMapper.xml" />
-		<mapper resource="cj/db/mappings/AccountMapper.xml" />
-		<mapper resource="cj/db/mappings/AccountSegmentMapper.xml" />
-		<mapper resource="cj/db/mappings/TenantAttributeMapper.xml" />
-		<mapper resource="cj/db/mappings/TenantMapper.xml" />
-		<mapper resource="cj/db/mappings/TenantSegmentMapper.xml" />
-		<mapper resource="cj/db/mappings/AttributeMapper.xml" />
-		<mapper resource="cj/db/mappings/OrganizationMapper.xml" />
-		<mapper resource="cj/db/mappings/GlobalRoleMapper.xml" />
-		<mapper resource="cj/db/mappings/SegmentMapper.xml" />
-		<mapper resource="cj/db/mappings/UserAttributeMapper.xml" />
-		<mapper resource="cj/db/mappings/UserMapper.xml" />
-		<mapper resource="cj/db/mappings/UserSegmentMapper.xml" />
-		<mapper resource="cj/db/mappings/UAMapper.xml" />
-		<mapper resource="cj/db/mappings/CompanyMapper.xml" />
-		<mapper resource="cj/db/mappings/CompanySegmentMapper.xml" />
-		<mapper resource="cj/db/mappings/CompanyAttributeMapper.xml" />
-		<mapper resource="cj/db/mappings/TenantGroupMapper.xml" />
-		<mapper resource="cj/db/mappings/TenantRoleMapper.xml" />
-		<mapper resource="cj/db/mappings/TenantPostMapper.xml" />
 	</mappers>
 </configuration>
