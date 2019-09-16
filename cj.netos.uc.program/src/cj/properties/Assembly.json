@@ -21,7 +21,7 @@
 		assemblyDescription : "cj工作室出品，lns平台制造",
 		assemblyConfiguration : "",
 		assemblyCompany : "cj工作室",
-		assemblyProduct : "cj.studio.backend.uc",
+		assemblyProduct : "cj.netos.uc.program",
 		assemblyCopyright : "Copyright   2011",
 		assemblyTrademark : "",
 		assemblyCulture : "",
@@ -39,13 +39,13 @@
 		monitor: "cj.studio.openport.client.DefaultOpenportsServicesMonitor",
 		jss:[{
 			module:"services1",
-			package:"cj.studio.backend.uc.jss",
+			package:"cj.netos.uc.jss",
 			unzip:"true",
 			searchMode:"link",
 			extName:".jss.js"
 		}],
 		scans : [{
-					package : "cj.studio.backend.uc",
+					package : "cj.netos.uc",
 					extName : ".class|.json|.xml",
 					exoterical:"true"
 				}]

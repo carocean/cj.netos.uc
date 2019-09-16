@@ -36,7 +36,7 @@
 			tableName="uc_user" />
 		<table schema="netos.uc2" domainObjectName="UcUserSegment"
 			tableName="uc_user_seg" />
-		<table schema="netos.uc2" domainObjectName="ucUserAttr"
+		<table schema="netos.uc2" domainObjectName="UcUserAttr"
 			tableName="uc_user_attr" />
 		<table schema="netos.uc2" domainObjectName="UcUserAttrVal"
 			tableName="uc_user_attr_val" />

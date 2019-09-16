@@ -1,32 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<settings>
+    <settings>
         <!-- 打印查询语句 -->
-        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
-	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
-				<property name="url"
-					value="jdbc:mysql://localhost:3306/netos.uc2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;rewriteBatchedStatements=true" />
-				<property name="username" value="cj" />
-				<property name="password" value="mysql123" />
-				<!-- 如果数据源的defaultAutoCommit设置为True了，那么方法中如果自己捕获了异常，事务是不会回滚的，如果没有自己捕获异常则事务会回滚  -->
-				<property name="defaultAutoCommit" value="false" />
-				<property name="poolPingEnabled" value="true" />
-				<property name="poolPingQuery"
-					value="select now() from kpi.lastupdatedlog limit 1" />
-				<property name="poolPingConnectionsNotUsedFor"
-					value="3600000" />
-			</dataSource>
-		</environment>
-	</environments>
-	<mappers>
-		<mapper resource="cj/db/mappings/AccountAttributeMapper.xml" />
-	</mappers>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/netos.uc2?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;autoReconnect=true&amp;rewriteBatchedStatements=true"/>
+                <property name="username" value="cj"/>
+                <property name="password" value="mysql123"/>
+                <!-- 如果数据源的defaultAutoCommit设置为True了，那么方法中如果自己捕获了异常，事务是不会回滚的，如果没有自己捕获异常则事务会回滚  -->
+                <property name="defaultAutoCommit" value="false"/>
+                <property name="poolPingEnabled" value="true"/>
+                <property name="poolPingQuery"
+                          value="select now() from kpi.lastupdatedlog limit 1"/>
+                <property name="poolPingConnectionsNotUsedFor"
+                          value="3600000"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="cj/db/mappings/AppMenuMapper.xml"/>
+        <mapper resource="cj/db/mappings/AppRoleMapper.xml"/>
+        <mapper resource="cj/db/mappings/PaMenuMapper.xml"/>
+        <mapper resource="cj/db/mappings/TenantAccountMapper.xml"/>
+        <mapper resource="cj/db/mappings/TenantAppMapper.xml"/>
+        <mapper resource="cj/db/mappings/TenantRoleMapper.xml"/>
+        <mapper resource="cj/db/mappings/UaAppRoleUserMapper.xml"/>
+        <mapper resource="cj/db/mappings/UaRoleEmployeeMapper.xml"/>
+        <mapper resource="cj/db/mappings/UaRoleUserMapper.xml"/>
+        <mapper resource="cj/db/mappings/UaTenantRoleUserMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcCompanyMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcDeptMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcEmployeeMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcRoleMapper.xml"/>
+		<mapper resource="cj/db/mappings/UcTenantMapper.xml"/>
+		<mapper resource="cj/db/mappings/ucUserAttrMapper.xml"/>
+		<mapper resource="cj/db/mappings/UcUserAttrValMapper.xml"/>
+		<mapper resource="cj/db/mappings/UcUserMapper.xml"/>
+		<mapper resource="cj/db/mappings/UcUserSegmentMapper.xml"/>
+    </mappers>
 </configuration>

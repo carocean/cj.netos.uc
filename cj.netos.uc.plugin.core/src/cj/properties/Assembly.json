@@ -52,7 +52,7 @@
 					extName : ".class|.json|.xml",
 					exoterical:"true"
 				},{
-					package : "cj.studio.backend.uc.plugin",
+					package : "cj.netos.uc.plugin",
 					extName : ".class|.json|.xml",
 					exoterical:"true"
 				}]
