@@ -17,7 +17,7 @@ public interface ITenantService {
 
     UcTenant getTenantById(String tenantid) throws CircuitException;
 
-    UcTenant getTenantByUser(String uid) throws CircuitException;
+    List<UcTenant> getTenantByUser(String uid) throws CircuitException;
 
     List<TenantApp> pageApp(int currPage, int pageSize) throws CircuitException;
 

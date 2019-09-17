@@ -19,13 +19,28 @@ public class UcUserPorts implements IUcUserPort {
     }
 
     @Override
-    public UcUser registerByIphone(String tenant, String phone) throws CircuitException {
-        return ucUserService.registerByIphone(tenant, phone);
+    public UcUser registerByIphone(String tenant, String phone,String password) throws CircuitException {
+        return ucUserService.registerByIphone(tenant, phone,password);
     }
 
     @Override
-    public UcUser registerByEmail(String tenant, String email) throws CircuitException {
-        return ucUserService.registerByEmail(tenant, email);
+    public UcUser registerByEmail(String tenant, String email,String password) throws CircuitException {
+        return ucUserService.registerByEmail(tenant, email,password);
+    }
+
+    @Override
+    public UcUser addByIphone(String uid, String tenant, String phone, String password) throws CircuitException {
+        return ucUserService.addByIphone(uid,tenant,phone,password);
+    }
+
+    @Override
+    public UcUser addByEmail(String uid, String tenant, String email, String password) throws CircuitException {
+        return ucUserService.addByEmail(uid,tenant,email,password);
+    }
+
+    @Override
+    public UcUser getUserById(String uid) {
+        return ucUserService.getUserById(uid);
     }
 
     @Override

@@ -15,10 +15,19 @@ public interface IUcUserPort extends IOpenportService {
     UcUser registerByPassword(@CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "accountName", usage = "帐号名") String accountName, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
 
     @CjOpenport(usage = "通过电话号码注册")
-    UcUser registerByIphone(@CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "phone", usage = "电话号码") String phone) throws CircuitException;
+    UcUser registerByIphone(@CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "phone", usage = "电话号码") String phone, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
 
     @CjOpenport(usage = "通过邮箱注册")
-    UcUser registerByEmail(@CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "email", usage = "电话号码") String email) throws CircuitException;
+    UcUser registerByEmail(@CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "email", usage = "电话号码") String email, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
+
+    @CjOpenport(usage = "为指定用户添加手机账户")
+    UcUser addByIphone(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "phone", usage = "电话号码") String phone, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
+
+    @CjOpenport(usage = "为指定用户添加邮箱账户")
+    UcUser addByEmail(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "email", usage = "电话号码") String email, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
+
+    @CjOpenport(usage = "获取统一用户")
+    UcUser getUserById(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid);
 
     @CjOpenport(usage = "获取统一用户")
     UcUser getUser(@CjOpenportParameter(name = "tenant", usage = "租户标识") String tenant, @CjOpenportParameter(name = "accountName", usage = "帐号名") String accountName) throws CircuitException;
