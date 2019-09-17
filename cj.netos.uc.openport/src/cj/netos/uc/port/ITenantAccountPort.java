@@ -1,11 +1,12 @@
-package cj.netos.uc.service;
+package cj.netos.uc.port;
 
 import cj.netos.uc.domain.TenantAccount;
 import cj.studio.ecm.net.CircuitException;
+import cj.studio.openport.IOpenportService;
 
 import java.util.List;
 
-public interface IAccountService {
+public interface ITenantAccountPort extends IOpenportService {
     String addAccount(String tenantid, String uid, String accountName, byte namekind, String pwd) throws CircuitException;
 
     void removeAccount(String accountid) throws CircuitException;
