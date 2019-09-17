@@ -27,9 +27,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="cj/db/mappings/AppMenuMapper.xml"/>
         <mapper resource="cj/db/mappings/AppRoleMapper.xml"/>
-        <mapper resource="cj/db/mappings/PaMenuMapper.xml"/>
         <mapper resource="cj/db/mappings/TenantAccountMapper.xml"/>
         <mapper resource="cj/db/mappings/TenantAppMapper.xml"/>
         <mapper resource="cj/db/mappings/TenantRoleMapper.xml"/>

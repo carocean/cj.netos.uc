@@ -54,8 +54,6 @@
 			tableName="tenant_account" />
 		<table schema="netos.uc2" domainObjectName="AppRole"
 			tableName="app_role" />
-		<table schema="netos.uc2" domainObjectName="AppMenu"
-			tableName="app_menu" />
 		<table schema="netos.uc2" domainObjectName="UaAppRoleUser"
 			tableName="ua_app_role_user" />
 		<table schema="netos.uc2" domainObjectName="UcEmployee"
@@ -66,8 +64,6 @@
 			tableName="ua_role_user" />
 		<table schema="netos.uc2" domainObjectName="UaTenantRoleUser"
 			tableName="ua_tenant_role_user" />
-		<table schema="netos.uc2" domainObjectName="PaMenu"
-			tableName="pa_menu" />
 		<table schema="netos.uc2" domainObjectName="UcRole"
 			tableName="uc_role" />
 	</context>

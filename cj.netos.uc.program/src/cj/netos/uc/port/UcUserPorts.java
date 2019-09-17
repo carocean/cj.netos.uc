@@ -1,9 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.UcUser;
-import cj.netos.uc.domain.UcUserAttr;
-import cj.netos.uc.domain.UcUserAttrVal;
-import cj.netos.uc.domain.UcUserSegment;
+import cj.netos.uc.domain.*;
 import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -94,5 +91,25 @@ public class UcUserPorts implements IUcUserPort {
     @Override
     public void removeAttribute(String attibuteid) throws CircuitException {
         ucUserService.removeAttribute(attibuteid);
+    }
+
+    @Override
+    public List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
+        return ucUserService.pageRoleInUser(uid, currPage, pageSize);
+    }
+
+    @Override
+    public void addRoleToUser(String roleid, String uid) throws CircuitException {
+        ucUserService.addRoleToUser(roleid, uid);
+    }
+
+    @Override
+    public void removeRoleFromUser(String roleid, String uid) throws CircuitException {
+        ucUserService.removeRoleFromUser(roleid, uid);
+    }
+
+    @Override
+    public boolean isEmployee(String uid) throws CircuitException {
+        return ucUserService.isEmployee(uid);
     }
 }

@@ -1,9 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.UcUser;
-import cj.netos.uc.domain.UcUserAttr;
-import cj.netos.uc.domain.UcUserAttrVal;
-import cj.netos.uc.domain.UcUserSegment;
+import cj.netos.uc.domain.*;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.annotations.CjOpenport;
@@ -30,7 +27,7 @@ public interface IUcUserPort extends IOpenportService {
     void updateProfile(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "user", usage = "用户信息") UcUser user) throws CircuitException;
 
     @CjOpenport(usage = "设置属性值")
-    void setAttributeValue(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "attributeid", usage = "属性标识")String attributeid,@CjOpenportParameter(name = "value", usage = "属性值") String value) throws CircuitException;
+    void setAttributeValue(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "attributeid", usage = "属性标识") String attributeid, @CjOpenportParameter(name = "value", usage = "属性值") String value) throws CircuitException;
 
     @CjOpenport(usage = "列出属性值")
     List<UcUserAttrVal> listAttributeValue(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "segmentid", usage = "信息段标识") String segmentid) throws CircuitException;
@@ -61,4 +58,16 @@ public interface IUcUserPort extends IOpenportService {
 
     @CjOpenport(usage = "移除属性性")
     void removeAttribute(@CjOpenportParameter(name = "attibuteid", usage = "属性标识") String attibuteid) throws CircuitException;
+
+    @CjOpenport(usage = "列出一页用户的角色")
+    List<UcRole> pageRoleInUser(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "页大小") int pageSize) throws CircuitException;
+
+    @CjOpenport(usage = "添加角色到用户")
+    void addRoleToUser(@CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid, @CjOpenportParameter(name = "uid", usage = "用户标识") String uid) throws CircuitException;
+
+    @CjOpenport(usage = "移除角色从用户")
+    void removeRoleFromUser(@CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid, @CjOpenportParameter(name = "uid", usage = "用户标识") String uid) throws CircuitException;
+
+    @CjOpenport(usage = "是否是雇员")
+    boolean isEmployee(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid) throws CircuitException;
 }

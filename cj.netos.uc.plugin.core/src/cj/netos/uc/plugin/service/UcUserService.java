@@ -1,11 +1,9 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.UcUser;
-import cj.netos.uc.domain.UcUserAttr;
-import cj.netos.uc.domain.UcUserAttrVal;
-import cj.netos.uc.domain.UcUserSegment;
+import cj.netos.uc.domain.*;
 import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.annotation.CjService;
+import cj.studio.ecm.net.CircuitException;
 
 import java.util.List;
 
@@ -89,5 +87,25 @@ public class UcUserService implements IUcUserService {
     @Override
     public void removeAttribute(String attibuteid) {
 
+    }
+
+    @Override
+    public List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
+        return null;
+    }
+
+    @Override
+    public void addRoleToUser(String roleid, String uid) throws CircuitException {
+
+    }
+
+    @Override
+    public void removeRoleFromUser(String roleid, String uid) throws CircuitException {
+
+    }
+
+    @Override
+    public boolean isEmployee(String uid) throws CircuitException {
+        return false;
     }
 }
