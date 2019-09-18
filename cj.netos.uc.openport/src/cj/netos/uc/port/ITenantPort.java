@@ -28,25 +28,4 @@ public interface ITenantPort extends IOpenportService {
 
     @CjOpenport(usage = "获取租户")
     List<UcTenant> getTenantsByUser(@CjOpenportParameter(usage = "用户标识", name = "uid") String uid) throws CircuitException;
-
-    @CjOpenport(usage = "分页app")
-    List<TenantApp> pageApp(@CjOpenportParameter(usage = "当前页", name = "currPage") int currPage, @CjOpenportParameter(usage = "页大小", name = "pageSize") int pageSize) throws CircuitException;
-
-    @CjOpenport(usage = "分页角色")
-    List<TenantRole> pageRole(@CjOpenportParameter(usage = "当前页", name = "currPage") int currPage, @CjOpenportParameter(usage = "页大小", name = "pageSize") int pageSize) throws CircuitException;
-
-    @CjOpenport(usage = "分页账户")
-    List<TenantAccount> pageAccount(@CjOpenportParameter(usage = "当前页", name = "currPage") int currPage, @CjOpenportParameter(usage = "页大小", name = "pageSize") int pageSize) throws CircuitException;
-
-    @CjOpenport(usage = "添加app")
-    void addApp(@CjOpenportParameter(usage = "租户标识", name = "tenantid") String tenantid, @CjOpenportParameter(usage = "应用标识", name = "appid") String appid) throws CircuitException;
-
-    @CjOpenport(usage = "移除app")
-    void removeApp(@CjOpenportParameter(usage = "租户标识", name = "tenantid") String tenantid, @CjOpenportParameter(usage = "应用标识", name = "appid") String appid) throws CircuitException;
-
-    @CjOpenport(usage = "添加角色")
-    void addRole(@CjOpenportParameter(usage = "租户标识", name = "tenantid") String tenantid, @CjOpenportParameter(usage = "角色标识", name = "roleid") String roleid) throws CircuitException;
-
-    @CjOpenport(usage = "移除角色")
-    void removeRole(@CjOpenportParameter(usage = "租户标识", name = "tenantid") String tenantid, @CjOpenportParameter(usage = "角色标识", name = "roleid") String roleid) throws CircuitException;
 }

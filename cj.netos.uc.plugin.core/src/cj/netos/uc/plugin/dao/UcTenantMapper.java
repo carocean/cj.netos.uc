@@ -72,4 +72,6 @@ public interface UcTenantMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:41 CST 2019
 	 */
 	int updateByPrimaryKey(UcTenant record);
+
+	List<UcTenant> pageTenant(@Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
 }

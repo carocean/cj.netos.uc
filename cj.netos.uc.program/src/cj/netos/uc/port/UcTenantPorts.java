@@ -38,39 +38,4 @@ public class UcTenantPorts implements ITenantPort {
     public List<UcTenant> getTenantsByUser(String uid) throws CircuitException {
         return tenantService.getTenantByUser(uid);
     }
-
-    @Override
-    public List<TenantApp> pageApp(int currPage, int pageSize) throws CircuitException {
-        return tenantService.pageApp(currPage, pageSize);
-    }
-
-    @Override
-    public List<TenantRole> pageRole(int currPage, int pageSize) throws CircuitException {
-        return tenantService.pageRole(currPage, pageSize);
-    }
-
-    @Override
-    public List<TenantAccount> pageAccount(int currPage, int pageSize) throws CircuitException {
-        return tenantService.pageAccount(currPage, pageSize);
-    }
-
-    @Override
-    public void addApp(String tenantid, String appid) throws CircuitException {
-        tenantService.addApp(tenantid, appid);
-    }
-
-    @Override
-    public void removeApp(String tenantid, String appid) throws CircuitException {
-        tenantService.removeApp(tenantid, appid);
-    }
-
-    @Override
-    public void addRole(String tenantid, String roleid) throws CircuitException {
-        tenantService.addRole(tenantid, roleid);
-    }
-
-    @Override
-    public void removeRole(String tenantid, String roleid) throws CircuitException {
-        tenantService.removeRole(tenantid, roleid);
-    }
 }

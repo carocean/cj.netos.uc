@@ -19,17 +19,4 @@ public interface ITenantService {
 
     List<UcTenant> getTenantByUser(String uid) throws CircuitException;
 
-    List<TenantApp> pageApp(int currPage, int pageSize) throws CircuitException;
-
-    List<TenantRole> pageRole(int currPage, int pageSize) throws CircuitException;
-
-    List<TenantAccount> pageAccount(int currPage, int pageSize) throws CircuitException;
-
-    void addApp(String tenantid, String appid) throws CircuitException;
-
-    void removeApp(String tenantid, String appid) throws CircuitException;
-
-    void addRole(String tenantid, String roleid) throws CircuitException;
-
-    void removeRole(String tenantid, String roleid) throws CircuitException;
 }

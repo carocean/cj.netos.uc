@@ -1,6 +1,7 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.domain.TenantRole;
+import cj.netos.uc.domain.UcUser;
 import cj.netos.uc.service.ITenantAccountService;
 import cj.netos.uc.service.ITenantRoleService;
 import cj.studio.ecm.annotation.CjService;
@@ -30,12 +31,17 @@ public class TenantRolePorts implements ITenantRolePort {
     }
 
     @Override
-    public List<TenantRole> pageRole(int currPage, int pageSize) throws CircuitException {
-        return tenantRoleService.pageRole(currPage, pageSize);
+    public List<TenantRole> pageRole(String tenantid,int currPage, int pageSize) throws CircuitException {
+        return tenantRoleService.pageRole(tenantid,currPage, pageSize);
     }
 
     @Override
-    public List<TenantRole> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
+    public List<TenantRole> listRoleOfUser(String uid) throws CircuitException {
+        return tenantRoleService.listRoleOfUser(uid);
+    }
+
+    @Override
+    public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
         return tenantRoleService.pageUserInRole(roleid, currPage, pageSize);
     }
 

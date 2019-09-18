@@ -315,4 +315,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where tenant_id = #{tenantId,jdbcType=VARCHAR}
   </update>
+  <select id="pageTenant" resultMap="BaseResultMap">
+    select tt.* from uc_tenant tt
+    limit #{currPage},#{pageSize}
+  </select>
 </mapper>
