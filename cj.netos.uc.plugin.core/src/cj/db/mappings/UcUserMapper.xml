@@ -315,4 +315,13 @@
       idcard = #{idcard,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+  <select id="pageUser" resultMap="BaseResultMap">
+    select u.* from uc_user u
+    limit #{currPage},#{pageSize}
+  </select>
+  <select id="pageRoleInUser" resultMap="BaseResultMap">
+  select r.* from uc_role r,uc_user u,ua_role_user ua
+  where ua.user_id=u.user_id and ua.role_id=r.role_id and u.user_id=#{uid}
+  limit #{currPage},#{pageSize}
+  </select>
 </mapper>

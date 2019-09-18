@@ -23,15 +23,9 @@ public interface IUcDeptPort extends IOpenportService {
     @CjOpenport(command = "get", usage = "获取部门")
     UcDept getDept(@CjOpenportParameter(name = "deptid", usage = "部门标识") String deptid) throws CircuitException;
 
-    @CjOpenport(command = "get", usage = "分页子部门")
+    @CjOpenport(command = "get", usage = "分页子部门", elementType = UcDept.class)
     List<UcDept> pageChildren(@CjOpenportParameter(name = "parentDeptid", usage = "父部门标识") String parentDeptid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "分页大小") int pageSize) throws CircuitException;
 
-    @CjOpenport(command = "get", usage = "移除子部门")
-    void removeChildren(@CjOpenportParameter(name = "deptid", usage = "部门标识") String deptid, @CjOpenportParameter(name = "parentDeptid", usage = "父部门标识") String parentDeptid) throws CircuitException;
-
-    @CjOpenport(command = "get", usage = "添加子部门")
-    void addChildren(@CjOpenportParameter(name = "deptid", usage = "部门标识") String deptid, @CjOpenportParameter(name = "parentDeptid", usage = "父部门标识") String parentDeptid) throws CircuitException;
-
-    @CjOpenport(command = "get", usage = "分页部门员工")
-    List<UcEmployee> pageEmployee(@CjOpenportParameter(name = "deptid", usage = "部门标识") String deptid) throws CircuitException;
+    @CjOpenport(command = "get", usage = "分页公司的部门", elementType = UcDept.class)
+    List<UcDept> pageDeptOfCompany(@CjOpenportParameter(name = "companyid", usage = "公司标识") String companyid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "分页大小") int pageSize) throws CircuitException;
 }

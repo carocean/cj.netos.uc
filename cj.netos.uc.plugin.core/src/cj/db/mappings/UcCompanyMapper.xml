@@ -440,4 +440,17 @@
       legal_tel = #{legalTel,jdbcType=VARCHAR}
     where company_id = #{companyId,jdbcType=VARCHAR}
   </update>
+  <select id="pageCompany" resultMap="BaseResultMap">
+    select c.* from uc_company c
+    limit #{currPage},#{pageSize}
+  </select>
+  <select id="pageCompany" resultMap="BaseResultMap">
+    select c.* from uc_company c
+    where c.parent_id=#{pid}
+    limit #{currPage},#{pageSize}
+  </select>
+  <delete id="emptyChildren">
+    delete from uc_company
+    where parent_id=#{pid}
+  </delete>
 </mapper>

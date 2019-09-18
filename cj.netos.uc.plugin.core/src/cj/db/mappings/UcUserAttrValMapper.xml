@@ -268,4 +268,12 @@
       value = #{value,jdbcType=VARCHAR}
     where value_id = #{valueId,jdbcType=VARCHAR}
   </update>
+  <select id="listAttributeValue" resultMap="BaseResultMap">
+    select val.* from uc_user_seg seg,uc_user_attr attr,uc_user_attr_val val
+    where seg.segment_id=attr.segment_id and val.attribute_id=attr.attribute_id and seg.segment_id=#{segmentid} and val.user_id=#{uid}
+  </select>
+  <delete id="emptyAttributeValues">
+    delete from uc_user_seg seg,uc_user_attr attr,uc_user_attr_val val
+    where seg.segment_id=attr.segment_id and val.attribute_id=attr.attribute_id and seg.segment_id=#{segmentid} and val.user_id=#{uid}
+  </delete>
 </mapper>

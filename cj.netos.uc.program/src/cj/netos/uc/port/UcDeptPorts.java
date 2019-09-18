@@ -35,17 +35,7 @@ public class UcDeptPorts implements IUcDeptPort {
     }
 
     @Override
-    public void removeChildren(String deptid, String parentDeptid) throws CircuitException {
-        ucDeptmentService.removeChildren(deptid, parentDeptid);
-    }
-
-    @Override
-    public void addChildren(String deptid, String parentDeptid) throws CircuitException {
-        ucDeptmentService.addChildren(deptid, parentDeptid);
-    }
-
-    @Override
-    public List<UcEmployee> pageEmployee(String deptid) throws CircuitException {
-        return ucDeptmentService.pageEmployee(deptid);
+    public List<UcDept> pageDeptOfCompany(String companyid, int currPage, int pageSize) throws CircuitException {
+        return ucDeptmentService.pageDeptOfCompany(companyid, currPage, pageSize);
     }
 }

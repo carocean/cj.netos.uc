@@ -3,6 +3,8 @@ package cj.netos.uc.plugin.dao;
 import cj.netos.uc.domain.UcRole;
 import cj.netos.uc.domain.UcRoleExample;
 import java.util.List;
+
+import cj.netos.uc.domain.UcUser;
 import org.apache.ibatis.annotations.Param;
 
 public interface UcRoleMapper {
@@ -72,4 +74,9 @@ public interface UcRoleMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:41 CST 2019
 	 */
 	int updateByPrimaryKey(UcRole record);
+
+	List<UcRole> pageRole(@Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
+
+	List<UcUser> pageUserInRole( @Param(value = "roleid") String roleid, @Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
+
 }

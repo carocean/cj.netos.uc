@@ -36,37 +36,17 @@ public class UcCompanyPorts implements IUcCompanyPort {
     }
 
     @Override
-    public void removeChildren(String companyid, String pid) {
-        ucCompanyService.removeChildren(companyid, pid);
+    public UcCompany getCompany(String companyid) {
+        return ucCompanyService.getCompany(companyid);
     }
 
     @Override
-    public void addChildren(String companyid, String pid) {
-        ucCompanyService.addChildren(companyid, pid);
+    public boolean existsCompany(String companyCode, String parentId) {
+        return ucCompanyService.existsCompany(companyCode, parentId);
     }
 
     @Override
     public void emptyChildren(String pid) throws CircuitException {
         ucCompanyService.emptyChildren(pid);
-    }
-
-    @Override
-    public List<UcDept> listTopDeptOfCompany(String companyid) throws CircuitException {
-        return ucCompanyService.listTopDeptOfCompany(companyid);
-    }
-
-    @Override
-    public void addTopDeptToCompany(String deptid, String companyid) throws CircuitException {
-        ucCompanyService.addTopDeptToCompany(deptid, companyid);
-    }
-
-    @Override
-    public void removeTopDeptFromCompany(String deptid, String companyid) throws CircuitException {
-        ucCompanyService.removeTopDeptFromCompany(deptid, companyid);
-    }
-
-    @Override
-    public List<UcEmployee> pageEmployee(String companyid) throws CircuitException {
-        return ucCompanyService.pageEmployee(companyid);
     }
 }

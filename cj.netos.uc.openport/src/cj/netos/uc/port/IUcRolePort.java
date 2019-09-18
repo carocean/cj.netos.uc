@@ -27,10 +27,4 @@ public interface IUcRolePort extends IOpenportService {
 
     @CjOpenport(usage = "分页角色的归属用户")
     List<UcUser> pageUserInRole(@CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "页大小") int pageSize) throws CircuitException;
-
-    @CjOpenport(usage = "添加用户到角色")
-    void addUserToRole(@CjOpenportParameter(name = "uid", usage = "统一用户标识") String uid, @CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid) throws CircuitException;
-
-    @CjOpenport(usage = "移除用户从角色")
-    void removeUserFromRole(@CjOpenportParameter(name = "uid", usage = "统一用户标识") String uid, @CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid) throws CircuitException;
 }

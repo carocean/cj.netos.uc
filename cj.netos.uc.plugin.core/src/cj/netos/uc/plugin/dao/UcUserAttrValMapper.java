@@ -72,4 +72,9 @@ public interface UcUserAttrValMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:40 CST 2019
 	 */
 	int updateByPrimaryKey(UcUserAttrVal record);
+
+	void emptyAttributeValues(@Param(value = "uid") String uid,@Param(value = "segmentid") String segmentid);
+
+	List<UcUserAttrVal> listAttributeValue(@Param(value = "uid")String uid, @Param(value = "segmentid")String segmentid);
+
 }

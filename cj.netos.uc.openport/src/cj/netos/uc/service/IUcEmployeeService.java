@@ -12,4 +12,9 @@ public interface IUcEmployeeService {
 
     UcEmployee getEmployee(String emplid) throws CircuitException;
 
+    List<UcEmployee> listMyEmployee(String uid) throws CircuitException;
+
+    List<UcEmployee> pageEmployeeOfCompany(String companyid) throws CircuitException;
+
+    List<UcEmployee> pageEmployeeOfDept(String companyid,String deptid) throws CircuitException;
 }

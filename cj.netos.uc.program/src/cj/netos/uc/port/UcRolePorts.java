@@ -40,13 +40,5 @@ public class UcRolePorts implements IUcRolePort {
                 currPage, pageSize);
     }
 
-    @Override
-    public void addUserToRole(String uid, String roleid) throws CircuitException {
-        ucRoleService.addUserToRole(uid, roleid);
-    }
 
-    @Override
-    public void removeUserFromRole(String uid, String roleid) throws CircuitException {
-        ucRoleService.removeUserFromRole(uid, roleid);
-    }
 }

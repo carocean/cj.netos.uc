@@ -8,19 +8,21 @@ import cj.studio.openport.annotations.CjOpenportParameter;
 import java.util.List;
 
 public interface IUcUserService {
+    List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException;
+
+    long getUserCount() throws CircuitException;
+
+    boolean existsUserName(String userName) throws CircuitException;
+
     UcUser registerByPassword(String tenant, String accountName, String password) throws CircuitException;
 
     UcUser registerByIphone(String tenant, String phone, String password) throws CircuitException;
 
     UcUser registerByEmail(String tenant, String email, String password) throws CircuitException;
 
-    UcUser addByIphone(String uid, String tenant, String phone, String password) throws CircuitException;
-
-    UcUser addByEmail(String uid, String tenant, String email, String password) throws CircuitException;
 
     UcUser getUserById(String uid);
 
-    UcUser getUser(String tenant, String accountName) throws CircuitException;
 
     void updateProfile(String uid, UcUser user) throws CircuitException;
 
@@ -30,7 +32,7 @@ public interface IUcUserService {
 
     UcUserAttrVal getAttributeValue(String uid, String attibuteid) throws CircuitException;
 
-    void emptyAttributes(String uid, String segmentid) throws CircuitException;
+    void emptyAttributeValues(String uid, String segmentid) throws CircuitException;
 
     void addSegment(String name) throws CircuitException;
 
@@ -40,9 +42,9 @@ public interface IUcUserService {
 
     void addAttribute(String segmentid, String name, String type, int sort) throws CircuitException;
 
-    UcUserAttr getAttibute(String attributeid) throws CircuitException;
+    UcUserAttr getAttribute(String attributeid) throws CircuitException;
 
-    List<UcUserAttr> listAttribue(String segmentid) throws CircuitException;
+    List<UcUserAttr> listAttribute(String segmentid) throws CircuitException;
 
     void removeAttribute(String attibuteid) throws CircuitException;
 

@@ -253,4 +253,12 @@
       is_Inheritable = #{isInheritable,jdbcType=BIT}
     where role_id = #{roleId,jdbcType=VARCHAR}
   </update>
+  <select id="pageRole" resultMap="BaseResultMap">
+    select r.* from uc_role r limit #{currPage},#{pageSize}
+  </select>
+  <select id="pageUserInRole" resultMap="BaseResultMap">
+    select u.* from uc_role r,uc_user u,ua_role_user ua
+    where ua.user_id=u.user_id and ua.role_id=r.role_id and r.role_id=#{roleid}
+    limit #{currPage},#{pageSize}
+  </select>
 </mapper>

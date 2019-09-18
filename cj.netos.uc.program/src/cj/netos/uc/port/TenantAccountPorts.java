@@ -1,6 +1,7 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.domain.TenantAccount;
+import cj.netos.uc.domain.UcUser;
 import cj.netos.uc.service.ITenantAccountService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -16,6 +17,21 @@ public class TenantAccountPorts implements ITenantAccountPort {
     @Override
     public String addAccount(TenantAccount account) throws CircuitException {
         return tenantAccountService.addAccount(account);
+    }
+
+    @Override
+    public void addByIphone(String uid, String tenant, String phone, String password) throws CircuitException {
+        tenantAccountService.addByIphone(uid, tenant, phone, password);
+    }
+
+    @Override
+    public void addByEmail(String uid, String tenant, String email, String password) throws CircuitException {
+        tenantAccountService.addByEmail(uid, tenant, email, password);
+    }
+
+    @Override
+    public UcUser getUser(String tenant, String accountName) throws CircuitException {
+        return tenantAccountService.getUser(tenant, accountName);
     }
 
     @Override
@@ -39,7 +55,7 @@ public class TenantAccountPorts implements ITenantAccountPort {
     }
 
     @Override
-    public void setAccountEnable(boolean enable) throws CircuitException {
-        tenantAccountService.setAccountEnable(enable);
+    public void setAccountEnable(String accountid,boolean enable) throws CircuitException {
+        tenantAccountService.setAccountEnable(accountid,enable);
     }
 }

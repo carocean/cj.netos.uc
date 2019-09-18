@@ -14,39 +14,41 @@ public class UcUserPorts implements IUcUserPort {
     IUcUserService ucUserService;
 
     @Override
+    public long getUserCount() throws CircuitException {
+        return ucUserService.getUserCount();
+    }
+
+    @Override
+    public List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException {
+        return ucUserService.pageUser(currPage,pageSize);
+    }
+
+    @Override
+    public boolean existsUserName(String userName) throws CircuitException {
+        return ucUserService.existsUserName(userName);
+    }
+
+    @Override
     public UcUser registerByPassword(String tenant, String accountName, String password) throws CircuitException {
         return ucUserService.registerByPassword(tenant, accountName, password);
     }
 
     @Override
-    public UcUser registerByIphone(String tenant, String phone,String password) throws CircuitException {
-        return ucUserService.registerByIphone(tenant, phone,password);
+    public UcUser registerByIphone(String tenant, String phone, String password) throws CircuitException {
+        return ucUserService.registerByIphone(tenant, phone, password);
     }
 
     @Override
-    public UcUser registerByEmail(String tenant, String email,String password) throws CircuitException {
-        return ucUserService.registerByEmail(tenant, email,password);
+    public UcUser registerByEmail(String tenant, String email, String password) throws CircuitException {
+        return ucUserService.registerByEmail(tenant, email, password);
     }
 
-    @Override
-    public UcUser addByIphone(String uid, String tenant, String phone, String password) throws CircuitException {
-        return ucUserService.addByIphone(uid,tenant,phone,password);
-    }
-
-    @Override
-    public UcUser addByEmail(String uid, String tenant, String email, String password) throws CircuitException {
-        return ucUserService.addByEmail(uid,tenant,email,password);
-    }
 
     @Override
     public UcUser getUserById(String uid) {
         return ucUserService.getUserById(uid);
     }
 
-    @Override
-    public UcUser getUser(String tenant, String accountName) throws CircuitException {
-        return ucUserService.getUser(tenant, accountName);
-    }
 
     @Override
     public void updateProfile(String uid, UcUser user) throws CircuitException {
@@ -70,7 +72,7 @@ public class UcUserPorts implements IUcUserPort {
 
     @Override
     public void emptyAttributes(String uid, String segmentid) throws CircuitException {
-        ucUserService.emptyAttributes(uid, segmentid);
+        ucUserService.emptyAttributeValues(uid, segmentid);
     }
 
     @Override
@@ -95,12 +97,12 @@ public class UcUserPorts implements IUcUserPort {
 
     @Override
     public UcUserAttr getAttibute(String attributeid) throws CircuitException {
-        return ucUserService.getAttibute(attributeid);
+        return ucUserService.getAttribute(attributeid);
     }
 
     @Override
     public List<UcUserAttr> listAttribue(String segmentid) throws CircuitException {
-        return ucUserService.listAttribue(segmentid);
+        return ucUserService.listAttribute(segmentid);
     }
 
     @Override

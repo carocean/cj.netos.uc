@@ -331,4 +331,15 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where account_id = #{accountId,jdbcType=VARCHAR}
   </update>
+  <update id="updateByPrimaryKey" parameterType="cj.netos.uc.domain.TenantAccount">
+    update tenant_account
+    set is_enable =${isenable,jdbcType=TINYINT}
+    where account_id=#{accountid,jdbcType=VARCHAR}
+  </update>
+  <select id="pageAccount" resultMap="BaseResultMap">
+    select ta.* from tenant_account ta
+    where ta.tenant_id=#{tenantid}
+    limit #{currPage},#{pageSize}
+  </select>
+
 </mapper>

@@ -72,4 +72,9 @@ public interface TenantAccountMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:41 CST 2019
 	 */
 	int updateByPrimaryKey(TenantAccount record);
+
+	void updateAccountEnable(@Param(value = "accountid") String accountid, @Param(value = "enable")boolean enable);
+
+	List<TenantAccount> pageAccount(@Param(value = "tenantid")String tenantid,@Param(value = "currPage") int currPage,@Param(value = "pageSize") int pageSize);
+
 }
