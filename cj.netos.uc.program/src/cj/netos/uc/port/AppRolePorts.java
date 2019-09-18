@@ -1,13 +1,11 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.domain.AppRole;
+import cj.netos.uc.domain.UcUser;
 import cj.netos.uc.service.IAppRoleService;
-import cj.netos.uc.service.ITenantAccountService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
-import cj.studio.openport.annotations.CjOpenport;
-import cj.studio.openport.annotations.CjOpenports;
 
 import java.util.List;
 
@@ -32,12 +30,12 @@ public class AppRolePorts implements IAppRolePort {
     }
 
     @Override
-    public List<AppRole> pageRole(int currPage, int pageSize) throws CircuitException {
-        return appRoleService.pageRole(currPage, pageSize);
+    public List<AppRole> pageRole(String appid, int currPage, int pageSize) throws CircuitException {
+        return appRoleService.pageRole(appid, currPage, pageSize);
     }
 
     @Override
-    public List<AppRole> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
+    public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
         return appRoleService.pageUserInRole(roleid, currPage, pageSize);
     }
 

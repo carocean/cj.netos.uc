@@ -25,6 +25,10 @@ public interface ITenantAccountService {
 
     void setAccountEnable(String accountid,boolean enable) throws CircuitException;
 
-    boolean existsAccount(String tenant, String userId, String accountName) throws CircuitException;
+    boolean existsAccount(String tenant, String accountName) throws CircuitException;
+
+    TenantAccount getAccountByName(String tenantid, String accountName);
+
+    void updatePwd(String accountId, String newpwd);
 
 }

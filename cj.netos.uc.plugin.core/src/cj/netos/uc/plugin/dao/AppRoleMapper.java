@@ -3,6 +3,8 @@ package cj.netos.uc.plugin.dao;
 import cj.netos.uc.domain.AppRole;
 import cj.netos.uc.domain.AppRoleExample;
 import java.util.List;
+
+import cj.netos.uc.domain.UcUser;
 import org.apache.ibatis.annotations.Param;
 
 public interface AppRoleMapper {
@@ -72,4 +74,9 @@ public interface AppRoleMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:41 CST 2019
 	 */
 	int updateByPrimaryKey(AppRole record);
+
+	List<AppRole> pageRole(@Param(value = "appid") String appid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+
+
+
 }

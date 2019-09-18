@@ -77,4 +77,5 @@ public interface TenantAccountMapper {
 
 	List<TenantAccount> pageAccount(@Param(value = "tenantid")String tenantid,@Param(value = "currPage") int currPage,@Param(value = "pageSize") int pageSize);
 
+	void updatePwd(@Param(value = "accountid") String accountid,@Param(value = "newpwd")  String newpwd);
 }

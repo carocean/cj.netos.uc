@@ -444,7 +444,7 @@
     select c.* from uc_company c
     limit #{currPage},#{pageSize}
   </select>
-  <select id="pageCompany" resultMap="BaseResultMap">
+  <select id="pageChildren" resultMap="BaseResultMap">
     select c.* from uc_company c
     where c.parent_id=#{pid}
     limit #{currPage},#{pageSize}

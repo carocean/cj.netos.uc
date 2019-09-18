@@ -72,4 +72,6 @@ public interface TenantAppMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:41 CST 2019
 	 */
 	int updateByPrimaryKey(TenantApp record);
+
+	List<TenantApp> pageApp(@Param(value = "tenantid") String tenantid, @Param(value = "currPage") int currPage,@Param(value = "pageSize")  int pageSize);
 }

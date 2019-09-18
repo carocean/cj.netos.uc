@@ -331,9 +331,14 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where account_id = #{accountId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cj.netos.uc.domain.TenantAccount">
+  <update id="updateAccountEnable" >
     update tenant_account
     set is_enable =${isenable,jdbcType=TINYINT}
+    where account_id=#{accountid,jdbcType=VARCHAR}
+  </update>
+  <update id="updatePwd" >
+    update tenant_account
+    set account_pwd =${newpwd,jdbcType=VARCHAR}
     where account_id=#{accountid,jdbcType=VARCHAR}
   </update>
   <select id="pageAccount" resultMap="BaseResultMap">

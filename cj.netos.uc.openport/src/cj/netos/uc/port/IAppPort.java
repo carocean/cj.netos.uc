@@ -17,20 +17,13 @@ public interface IAppPort extends IOpenportService {
     String addApp(@CjOpenportParameter(in = InRequest.content, usage = "app", name = "app") TenantApp app) throws CircuitException;
 
     @CjOpenport(usage = "移除app")
-    void removeApp(String appid) throws CircuitException;
+    void removeApp(@CjOpenportParameter(name = "appid", usage = "应用标识") String appid) throws CircuitException;
 
     @CjOpenport(usage = "获取app")
-    TenantApp getApp(String appid) throws CircuitException;
+    TenantApp getApp(@CjOpenportParameter(name = "appid", usage = "应用标识") String appid) throws CircuitException;
 
-    @CjOpenport(usage = "分页app的角色")
-    List<AppRole> pageRoleOfApp(String appid, int currPage, int pageSize) throws CircuitException;
+    @CjOpenport(usage = "分页app", elementType = TenantApp.class)
+    List<TenantApp> pageApp(@CjOpenportParameter(name = "tenantid", usage = "租户标识") String tenantid, @CjOpenportParameter(name = "currPage", usage = "当前页") int currPage, @CjOpenportParameter(name = "pageSize", usage = "页大小") int pageSize) throws CircuitException;
 
-    @CjOpenport(usage = "添加角色到app")
-    void addRoleToApp(String roleid, String appid) throws CircuitException;
 
-    @CjOpenport(usage = "移除角色从app")
-    void removeRoleFromApp(String roleid, String appid) throws CircuitException;
-
-    @CjOpenport(usage = "清空app的角色")
-    void emptyRoleOfApp(String appid) throws CircuitException;
 }

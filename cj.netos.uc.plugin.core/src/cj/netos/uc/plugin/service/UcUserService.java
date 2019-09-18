@@ -2,6 +2,7 @@ package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.*;
 import cj.netos.uc.plugin.dao.*;
+import cj.netos.uc.plugin.util.Encript;
 import cj.netos.uc.plugin.util.NumberGen;
 import cj.netos.uc.service.ITenantAccountService;
 import cj.netos.uc.service.IUcEmployeeService;
@@ -45,7 +46,7 @@ public class UcUserService implements IUcUserService {
         UcUserExample example = new UcUserExample();
         return userMapper.countByExample(example);
     }
-
+    @CjTransaction
     @Override
     public List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException {
         return userMapper.pageUser(currPage, pageSize);
@@ -65,13 +66,12 @@ public class UcUserService implements IUcUserService {
         if (existsUserName(accountName)) {
             throw new CircuitException("500", "已存在用户名：" + accountName);
         }
-
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
         user.setUserName(accountName);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-
+        password= Encript.md5(password);
         TenantAccount account = new TenantAccount();
         account.setAccountId(UUID.randomUUID().toString());
         account.setTenantId(tenant);
@@ -94,7 +94,7 @@ public class UcUserService implements IUcUserService {
         user.setUserName(phone);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-
+        password= Encript.md5(password);
         TenantAccount account = new TenantAccount();
         account.setAccountId(UUID.randomUUID().toString());
         account.setTenantId(tenant);
@@ -118,7 +118,7 @@ public class UcUserService implements IUcUserService {
         user.setUserName(email);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-
+        password= Encript.md5(password);
         TenantAccount account = new TenantAccount();
         account.setAccountId(UUID.randomUUID().toString());
         account.setTenantId(tenant);

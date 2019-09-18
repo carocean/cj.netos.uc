@@ -348,4 +348,9 @@
       home_url = #{homeUrl,jdbcType=VARCHAR}
     where app_id = #{appId,jdbcType=VARCHAR}
   </update>
+  <select id="pageApp" resultMap="BaseResultMap">
+    select app.* from tenant_app app
+    where app.tenant_id=#{tenantid}
+    limit #{currPage},#{pageSize}
+  </select>
 </mapper>

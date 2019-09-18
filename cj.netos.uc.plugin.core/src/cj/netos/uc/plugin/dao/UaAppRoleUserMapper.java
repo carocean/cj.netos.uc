@@ -1,8 +1,11 @@
 package cj.netos.uc.plugin.dao;
 
+import cj.netos.uc.domain.AppRole;
 import cj.netos.uc.domain.UaAppRoleUserExample;
 import cj.netos.uc.domain.UaAppRoleUserKey;
 import java.util.List;
+
+import cj.netos.uc.domain.UcUser;
 import org.apache.ibatis.annotations.Param;
 
 public interface UaAppRoleUserMapper {
@@ -55,4 +58,8 @@ public interface UaAppRoleUserMapper {
 	 * @mbg.generated  Wed Sep 18 02:11:41 CST 2019
 	 */
 	int updateByExample(@Param("record") UaAppRoleUserKey record, @Param("example") UaAppRoleUserExample example);
+
+	List<UcUser> pageUserInRole(@Param(value = "roleid") String roleid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+
+	List<AppRole> pageRoleInUser(@Param(value = "uid")String uid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 }
