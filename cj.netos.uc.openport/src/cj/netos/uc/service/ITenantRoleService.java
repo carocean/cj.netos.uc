@@ -17,10 +17,11 @@ public interface ITenantRoleService {
 
     List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException;
 
-    List<TenantRole> listRoleOfUser(String uid) throws CircuitException;
 
     void addUserToRole(String uid, String roleid) throws CircuitException;
 
     void removeUserFromRole(String uid, String roleid) throws CircuitException;
+
+    List<TenantRole> pageRoleOfUser(String uid, int currPage, int pageSize);
 
 }

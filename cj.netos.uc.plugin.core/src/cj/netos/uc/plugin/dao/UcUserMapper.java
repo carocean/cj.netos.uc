@@ -89,6 +89,5 @@ public interface UcUserMapper {
 
     List<UcUser> pageUser(@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
-    List<UcRole> pageRoleInUser(@Param(value = "uid")String uid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
 }

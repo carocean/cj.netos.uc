@@ -3,7 +3,7 @@ package cj.netos.uc.plugin.service;
 import cj.netos.uc.domain.UcCompany;
 import cj.netos.uc.domain.UcCompanyExample;
 import cj.netos.uc.plugin.dao.UcCompanyMapper;
-import cj.netos.uc.plugin.util.NumberGen;
+import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.IUcCompanyService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;

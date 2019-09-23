@@ -17,7 +17,7 @@ public interface IAppRoleService {
 
     List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException;
 
-    List<AppRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException;
+    List<AppRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException;
 
     void addUserToRole(String uid, String roleid) throws CircuitException;
 

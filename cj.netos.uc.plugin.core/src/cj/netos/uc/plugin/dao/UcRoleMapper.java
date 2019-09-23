@@ -78,5 +78,5 @@ public interface UcRoleMapper {
 	List<UcRole> pageRole(@Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
 
 	List<UcUser> pageUserInRole( @Param(value = "roleid") String roleid, @Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
-
+	List<UcRole> pageRoleOfUser(@Param(value = "uid")String uid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 }

@@ -1,7 +1,7 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.TenantAccount;
-import cj.netos.uc.plugin.util.Encript;
+import cj.netos.uc.util.Encript;
 import cj.netos.uc.service.IPasswordService;
 import cj.netos.uc.service.ITenantAccountService;
 import cj.studio.ecm.annotation.CjService;

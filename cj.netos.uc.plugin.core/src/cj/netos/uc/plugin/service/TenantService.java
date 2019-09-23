@@ -1,9 +1,8 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.*;
-import cj.netos.uc.plugin.dao.TenantAccountMapper;
 import cj.netos.uc.plugin.dao.UcTenantMapper;
-import cj.netos.uc.plugin.util.NumberGen;
+import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.ITenantService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;

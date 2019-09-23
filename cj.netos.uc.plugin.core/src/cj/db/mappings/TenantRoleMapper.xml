@@ -295,7 +295,7 @@
     where ru.user_id=u.user_id and ru.role_id=#{roleid}
     limit #{currPage},#{pageSize}
   </select>
-  <select id="listRoleOfUser" resultMap="BaseResultMap">
+  <select id="pageRoleOfUser" resultMap="BaseResultMap">
     select tr.* from ua_tenant_role_user ru,uc_user u,tenant_role tr
     where tr.role_id=ru.role_id and ru.user_id=u.user_id and ru.user_id=#{uid}
     limit #{currPage},#{pageSize}

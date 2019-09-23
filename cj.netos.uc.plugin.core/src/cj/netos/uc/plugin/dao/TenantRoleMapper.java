@@ -91,6 +91,6 @@ public interface TenantRoleMapper {
 
     List<UcUser> pageUserInRole(@Param(value = "roleid") String roleid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
-    List<TenantRole> listRoleOfUser(@Param(value = "uid") String uid);
+    List<TenantRole> pageRoleOfUser(@Param(value = "uid")String uid,@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
 }

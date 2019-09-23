@@ -48,11 +48,5 @@ public interface IUcUserService {
 
     void removeAttribute(String attibuteid) throws CircuitException;
 
-    List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException;
-
-    void addRoleToUser(String roleid, String uid) throws CircuitException;
-
-    void removeRoleFromUser(String roleid, String uid) throws CircuitException;
-
     boolean isEmployee(String uid) throws CircuitException;
 }

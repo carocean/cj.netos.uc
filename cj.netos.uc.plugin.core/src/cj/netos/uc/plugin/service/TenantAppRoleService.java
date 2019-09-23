@@ -4,9 +4,8 @@ import cj.netos.uc.domain.AppRole;
 import cj.netos.uc.domain.UaAppRoleUserKey;
 import cj.netos.uc.domain.UcUser;
 import cj.netos.uc.plugin.dao.AppRoleMapper;
-import cj.netos.uc.plugin.dao.TenantAppMapper;
 import cj.netos.uc.plugin.dao.UaAppRoleUserMapper;
-import cj.netos.uc.plugin.util.NumberGen;
+import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.IAppRoleService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
@@ -34,12 +33,21 @@ public class TenantAppRoleService implements IAppRoleService {
         if (StringUtil.isEmpty(role.getExtend())) {
             throw new CircuitException("404", "缺少继承角色");
         }
+        if (StringUtil.isEmpty(role.getRoleId())) {
+            throw new CircuitException("404", "缺少角色标识");
+        }
         if (StringUtil.isEmpty(role.getRoleName())) {
             throw new CircuitException("404", "角色名为空");
         }
-        role.setRoleId(NumberGen.gen());
+        if (existsRoleId(role.getRoleId())) {
+            throw new CircuitException("404", "已存在角色：" + role.getRoleId());
+        }
         appRoleMapper.insertSelective(role);
         return role.getRoleId();
+    }
+
+    private boolean existsRoleId(String roleId) throws CircuitException {
+        return  getRole(roleId)!=null;
     }
 
     @CjTransaction
@@ -68,7 +76,7 @@ public class TenantAppRoleService implements IAppRoleService {
 
     @CjTransaction
     @Override
-    public List<AppRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
+    public List<AppRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException {
         return uaAppRoleUserMapper.pageRoleInUser(uid, currPage, pageSize);
     }
 

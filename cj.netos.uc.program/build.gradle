@@ -20,13 +20,14 @@ sourceSets {
 dependencies {
 	compile group: 'cj.netos.openport', name: 'cj.studio.openport', version: ref_cj_studio_openport_version
 	implementation project(':cj.netos.uc.openport')
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	compile fileTree('../global/runtime')
 	//compile fileTree('src/cj/references')
 }
 
 task copyReferences(type: Copy) {
 	from configurations.compileClasspath.files {
-		include 'cj.studio.openport-*.jar'
+		include 'cj.studio.openport-*.jar','jjwt-*.jar','jackson-*.jar'
 	}
 	into 'src/cj/references'
 }

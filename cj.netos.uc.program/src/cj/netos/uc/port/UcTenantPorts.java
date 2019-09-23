@@ -1,15 +1,14 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.TenantAccount;
-import cj.netos.uc.domain.TenantApp;
-import cj.netos.uc.domain.TenantRole;
 import cj.netos.uc.domain.UcTenant;
 import cj.netos.uc.service.ITenantService;
+import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 
 import java.util.List;
 
+@CjService(name = "/tenant")
 public class UcTenantPorts implements ITenantPort {
     @CjServiceRef(refByName = "ucplugin.tenantService")
     ITenantService tenantService;

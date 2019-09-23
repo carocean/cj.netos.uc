@@ -2,7 +2,7 @@ package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.TenantApp;
 import cj.netos.uc.plugin.dao.TenantAppMapper;
-import cj.netos.uc.plugin.util.NumberGen;
+import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.IAppService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;

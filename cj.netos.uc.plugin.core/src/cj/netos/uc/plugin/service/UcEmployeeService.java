@@ -1,11 +1,9 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.UcCompany;
-import cj.netos.uc.domain.UcCompanyExample;
 import cj.netos.uc.domain.UcEmployee;
 import cj.netos.uc.domain.UcEmployeeExample;
 import cj.netos.uc.plugin.dao.UcEmployeeMapper;
-import cj.netos.uc.plugin.util.NumberGen;
+import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.IUcEmployeeService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;

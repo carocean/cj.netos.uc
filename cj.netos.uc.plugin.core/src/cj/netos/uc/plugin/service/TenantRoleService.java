@@ -1,7 +1,6 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.TenantRole;
-import cj.netos.uc.domain.TenantRoleExample;
 import cj.netos.uc.domain.UaTenantRoleUserKey;
 import cj.netos.uc.domain.UcUser;
 import cj.netos.uc.plugin.dao.TenantRoleMapper;
@@ -30,18 +29,23 @@ public class TenantRoleService implements ITenantRoleService {
         if (StringUtil.isEmpty(role.getTenantId())) {
             throw new CircuitException("404", "缺少租户标识");
         }
-        if (existsRoleName(role.getRoleName())) {
-            throw new CircuitException("404", "已存在同名角色：" + role.getRoleName());
+        if (StringUtil.isEmpty(role.getExtend())) {
+            throw new CircuitException("404", "缺少继承角色");
+        }
+        if (StringUtil.isEmpty(role.getRoleId())) {
+            throw new CircuitException("404", "缺少角色标识");
+        }
+        if (existsRoleId(role.getRoleId())) {
+            throw new CircuitException("404", "已存在角色：" + role.getRoleId());
         }
         roleMapper.insert(role);
         return role.getRoleId();
     }
 
-    private boolean existsRoleName(String roleName) {
-        TenantRoleExample example = new TenantRoleExample();
-        example.createCriteria().andRoleNameEqualTo(roleName);
-        return roleMapper.countByExample(example) > 0;
+    private boolean existsRoleId(String roleId) {
+        return roleMapper.selectByPrimaryKey(roleId) != null;
     }
+
 
     @CjTransaction
     @Override
@@ -69,9 +73,10 @@ public class TenantRoleService implements ITenantRoleService {
 
     @CjTransaction
     @Override
-    public List<TenantRole> listRoleOfUser(String uid) throws CircuitException {
-        return roleMapper.listRoleOfUser(uid);
+    public List<TenantRole> pageRoleOfUser(String uid, int currPage, int pageSize) {
+        return roleMapper.pageRoleOfUser(uid, currPage, pageSize);
     }
+
 
     @CjTransaction
     @Override

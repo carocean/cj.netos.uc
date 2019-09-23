@@ -28,20 +28,6 @@ public class UcUserPorts implements IUcUserPort {
         return ucUserService.existsUserName(userName);
     }
 
-    @Override
-    public UcUser registerByPassword(String tenant, String accountName, String password) throws CircuitException {
-        return ucUserService.registerByPassword(tenant, accountName, password);
-    }
-
-    @Override
-    public UcUser registerByIphone(String tenant, String phone, String password) throws CircuitException {
-        return ucUserService.registerByIphone(tenant, phone, password);
-    }
-
-    @Override
-    public UcUser registerByEmail(String tenant, String email, String password) throws CircuitException {
-        return ucUserService.registerByEmail(tenant, email, password);
-    }
 
 
     @Override
@@ -110,20 +96,7 @@ public class UcUserPorts implements IUcUserPort {
         ucUserService.removeAttribute(attibuteid);
     }
 
-    @Override
-    public List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return ucUserService.pageRoleInUser(uid, currPage, pageSize);
-    }
 
-    @Override
-    public void addRoleToUser(String roleid, String uid) throws CircuitException {
-        ucUserService.addRoleToUser(roleid, uid);
-    }
-
-    @Override
-    public void removeRoleFromUser(String roleid, String uid) throws CircuitException {
-        ucUserService.removeRoleFromUser(roleid, uid);
-    }
 
     @Override
     public boolean isEmployee(String uid) throws CircuitException {

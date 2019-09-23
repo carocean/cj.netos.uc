@@ -17,6 +17,12 @@
 			}
 		],		
 		activators : [
+			{
+				name: '开放口服务活动器',
+				class: 'cj.netos.uc.plugin.InitEntryPointActivator',
+				parameters: {
+				}
+			}
 		]
 	},
 	assemblyInfo : {

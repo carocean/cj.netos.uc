@@ -7,7 +7,7 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface IUcRoleService {
-    String addRole(String name, boolean isInheritable) throws CircuitException;
+    String addRole(String roleid,String name, boolean isInheritable) throws CircuitException;
 
     void removeRole(String roleid) throws CircuitException;
 
@@ -16,5 +16,13 @@ public interface IUcRoleService {
     List<UcRole> pageRole(int currPage, int pageSize) throws CircuitException;
 
     List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException;
+
+    List<UcRole> pageRoleOfUser(String userId, int i, int maxValue);
+
+    List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException;
+
+    void addRoleToUser(String roleid, String uid) throws CircuitException;
+
+    void removeRoleFromUser(String roleid, String uid) throws CircuitException;
 
 }

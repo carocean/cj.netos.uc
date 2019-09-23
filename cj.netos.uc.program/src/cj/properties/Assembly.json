@@ -10,7 +10,7 @@
 				parameters: {
 					"publicAPIPath": '/portsapi',
 					accessControlStrategy: '',
-					checkTokenStrategy: ''
+					checkTokenStrategy: 'cj.netos.uc.CheckTokenStrategy'
 				}
 			}
 		]

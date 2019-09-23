@@ -2,8 +2,8 @@ package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.*;
 import cj.netos.uc.plugin.dao.*;
-import cj.netos.uc.plugin.util.Encript;
-import cj.netos.uc.plugin.util.NumberGen;
+import cj.netos.uc.util.Encript;
+import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.ITenantAccountService;
 import cj.netos.uc.service.IUcEmployeeService;
 import cj.netos.uc.service.IUcRoleService;
@@ -30,13 +30,11 @@ public class UcUserService implements IUcUserService {
     UcUserAttrMapper userAttrMapper;
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserAttrValMapper")
     UcUserAttrValMapper userAttrValMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UaRoleUserMapper")
-    UaRoleUserMapper roleUserMapper;
+
     @CjServiceInvertInjection
     @CjServiceRef(refByName = "tenantAccountService")
     ITenantAccountService tenantAccountService;
-    @CjServiceRef
-    IUcRoleService ucRoleService;
+
     @CjServiceRef
     IUcEmployeeService ucEmployeeService;
 
@@ -46,6 +44,7 @@ public class UcUserService implements IUcUserService {
         UcUserExample example = new UcUserExample();
         return userMapper.countByExample(example);
     }
+
     @CjTransaction
     @Override
     public List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException {
@@ -71,7 +70,7 @@ public class UcUserService implements IUcUserService {
         user.setUserName(accountName);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-        password= Encript.md5(password);
+        password = Encript.md5(password);
         TenantAccount account = new TenantAccount();
         account.setAccountId(UUID.randomUUID().toString());
         account.setTenantId(tenant);
@@ -94,7 +93,7 @@ public class UcUserService implements IUcUserService {
         user.setUserName(phone);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-        password= Encript.md5(password);
+        password = Encript.md5(password);
         TenantAccount account = new TenantAccount();
         account.setAccountId(UUID.randomUUID().toString());
         account.setTenantId(tenant);
@@ -118,7 +117,7 @@ public class UcUserService implements IUcUserService {
         user.setUserName(email);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-        password= Encript.md5(password);
+        password = Encript.md5(password);
         TenantAccount account = new TenantAccount();
         account.setAccountId(UUID.randomUUID().toString());
         account.setTenantId(tenant);
@@ -265,35 +264,6 @@ public class UcUserService implements IUcUserService {
         userAttrMapper.deleteByPrimaryKey(attibuteid);
     }
 
-    @CjTransaction
-    @Override
-    public List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return userMapper.pageRoleInUser(uid, currPage, pageSize);
-    }
-
-    @CjTransaction
-    @Override
-    public void addRoleToUser(String roleid, String uid) throws CircuitException {
-        if (getUserById(uid) == null) {
-            throw new CircuitException("404", "不存在用户标识:" + uid);
-        }
-        if (ucRoleService.getRole(roleid) == null) {
-            throw new CircuitException("404", "不存在角色标识:" + uid);
-        }
-        UaRoleUserKey key = new UaRoleUserKey();
-        key.setRoleId(roleid);
-        key.setUserId(uid);
-        roleUserMapper.insertSelective(key);
-    }
-
-    @CjTransaction
-    @Override
-    public void removeRoleFromUser(String roleid, String uid) throws CircuitException {
-        UaRoleUserKey key = new UaRoleUserKey();
-        key.setRoleId(roleid);
-        key.setUserId(uid);
-        roleUserMapper.deleteByPrimaryKey(key);
-    }
 
     @CjTransaction
     @Override
