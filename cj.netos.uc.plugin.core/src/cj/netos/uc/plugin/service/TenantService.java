@@ -22,6 +22,9 @@ public class TenantService implements ITenantService {
     @CjTransaction
     @Override
     public String addTenant(String name, String website, String creator, String secret_key) throws CircuitException {
+        if (existsTenantName(name, creator)) {
+            throw new CircuitException("500", String.format("创建者%s名下已存同名租户:%s", creator, name));
+        }
         UcTenant tenant = new UcTenant();
         tenant.setCreateTime(new Date());
         tenant.setIsEnable((byte) 1);
@@ -32,6 +35,12 @@ public class TenantService implements ITenantService {
         tenant.setWebsite(website);
         tenantMapper.insertSelective(tenant);
         return tenant.getTenantId();
+    }
+
+    private boolean existsTenantName(String name, String uid) {
+        UcTenantExample example = new UcTenantExample();
+        example.createCriteria().andTenantNameEqualTo(name).andUserIdEqualTo(uid);
+        return tenantMapper.countByExample(example) > 0;
     }
 
     @CjTransaction
