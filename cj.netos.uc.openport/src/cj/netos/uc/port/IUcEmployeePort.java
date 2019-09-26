@@ -13,7 +13,7 @@ import java.util.List;
 @CjOpenports(usage = "员工")
 public interface IUcEmployeePort extends IOpenportService {
     @CjOpenport(command = "post", usage = "添加员工", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    String addEmployee(@CjOpenportParameter(usage = "员工", name = "employee", in = InRequest.content) UcEmployee employee) throws CircuitException;
+    String addEmployee(@CjOpenportParameter(usage = "员工", name = "employee", in = InRequest.content,simpleModelFile = "/models/employee.json") UcEmployee employee) throws CircuitException;
 
     @CjOpenport(usage = "移除员工", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void removeEmployee(@CjOpenportParameter(name = "emplid", usage = "员工标识") String emplid) throws CircuitException;

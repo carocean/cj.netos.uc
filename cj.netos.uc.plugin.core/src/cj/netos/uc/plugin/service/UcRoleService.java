@@ -87,12 +87,6 @@ public class UcRoleService implements IUcRoleService {
 
     @CjTransaction
     @Override
-    public List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return roleMapper.pageRoleOfUser(uid, currPage, pageSize);
-    }
-
-    @CjTransaction
-    @Override
     public void addRoleToUser(String roleid, String uid) throws CircuitException {
         if (userMapper.selectByPrimaryKey(uid) == null) {
             throw new CircuitException("404", "不存在用户标识:" + uid);

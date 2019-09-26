@@ -17,7 +17,7 @@ import java.util.Map;
 @CjService(name = "authService")
 public class AuthService implements IAuthService {
     @CjServiceRef
-    ITenantAccountService tenantAccountService;
+    IAppAccountService appAccountService;
     @CjServiceRef
     IUcRoleService ucRoleService;
     @CjServiceRef
@@ -29,7 +29,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public IdentityInfo auth(String tenantid, String accountName, String password) throws CircuitException {
-        TenantAccount account = tenantAccountService.getAccountByName(tenantid, accountName);
+        AppAccount account = appAccountService.getAccountByName(tenantid, accountName);
         if (account == null) {
             throw new CircuitException("404", "用户不存在:" + accountName);
         }
@@ -41,7 +41,7 @@ public class AuthService implements IAuthService {
         IdentityInfo identityInfo = new IdentityInfo();
         identityInfo.setAccountid(account.getAccountId());
         identityInfo.setAccountName(account.getAccountName());
-        identityInfo.setTenantid(account.getTenantId());
+        identityInfo.setAppid(account.getAppId());
         identityInfo.setUid(account.getUserId());
 
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(account.getUserId(), 0, Integer.MAX_VALUE);
@@ -57,7 +57,7 @@ public class AuthService implements IAuthService {
         claims.put("app-roles", approles);
         claims.put("accountid", account.getAccountId());
         claims.put("accountName", account.getAccountName());
-        claims.put("tenantid", account.getTenantId());
+        claims.put("appid", account.getAppId());
         String key = serviceSite.getProperty("uc.auth.key");
         String ttlMillis = serviceSite.getProperty("uc.auth.ttlMillis");
 

@@ -4,9 +4,8 @@ import cj.netos.uc.domain.*;
 import cj.netos.uc.plugin.dao.*;
 import cj.netos.uc.util.Encript;
 import cj.netos.uc.util.NumberGen;
-import cj.netos.uc.service.ITenantAccountService;
+import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IUcEmployeeService;
-import cj.netos.uc.service.IUcRoleService;
 import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
@@ -32,8 +31,8 @@ public class UcUserService implements IUcUserService {
     UcUserAttrValMapper userAttrValMapper;
 
     @CjServiceInvertInjection
-    @CjServiceRef(refByName = "tenantAccountService")
-    ITenantAccountService tenantAccountService;
+    @CjServiceRef(refByName = "appAccountService")
+    IAppAccountService appAccountService;
 
     @CjServiceRef
     IUcEmployeeService ucEmployeeService;
@@ -61,7 +60,7 @@ public class UcUserService implements IUcUserService {
 
     @CjTransaction
     @Override
-    public UcUser registerByPassword(String tenant, String accountName, String password) throws CircuitException {
+    public UcUser registerByPassword(String appid, String accountName, String password) throws CircuitException {
         if (existsUserName(accountName)) {
             throw new CircuitException("500", "已存在用户名：" + accountName);
         }
@@ -71,20 +70,20 @@ public class UcUserService implements IUcUserService {
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
         password = Encript.md5(password);
-        TenantAccount account = new TenantAccount();
+        AppAccount account = new AppAccount();
         account.setAccountId(UUID.randomUUID().toString());
-        account.setTenantId(tenant);
+        account.setAppId(appid);
         account.setUserId(user.getUserId());
         account.setAccountName(accountName);
         account.setAccountPwd(password);
         account.setCreateTime(new Date());
-        this.tenantAccountService.addAccount(account);
+        this.appAccountService.addAccount(account);
         return user;
     }
 
     @CjTransaction
     @Override
-    public UcUser registerByIphone(String tenant, String phone, String password) throws CircuitException {
+    public UcUser registerByIphone(String appid, String phone, String password) throws CircuitException {
         if (existsUserName(phone)) {
             throw new CircuitException("500", "已存在用户名：" + phone);
         }
@@ -94,21 +93,21 @@ public class UcUserService implements IUcUserService {
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
         password = Encript.md5(password);
-        TenantAccount account = new TenantAccount();
+        AppAccount account = new AppAccount();
         account.setAccountId(UUID.randomUUID().toString());
-        account.setTenantId(tenant);
+        account.setAppId(appid);
         account.setUserId(user.getUserId());
         account.setAccountName(phone);
         account.setNameKind((byte) 1);
         account.setAccountPwd(password);
         account.setCreateTime(new Date());
-        this.tenantAccountService.addAccount(account);
+        this.appAccountService.addAccount(account);
         return user;
     }
 
     @CjTransaction
     @Override
-    public UcUser registerByEmail(String tenant, String email, String password) throws CircuitException {
+    public UcUser registerByEmail(String appid, String email, String password) throws CircuitException {
         if (existsUserName(email)) {
             throw new CircuitException("500", "已存在用户名：" + email);
         }
@@ -118,15 +117,15 @@ public class UcUserService implements IUcUserService {
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
         password = Encript.md5(password);
-        TenantAccount account = new TenantAccount();
+        AppAccount account = new AppAccount();
         account.setAccountId(UUID.randomUUID().toString());
-        account.setTenantId(tenant);
+        account.setAppId(appid);
         account.setUserId(user.getUserId());
         account.setAccountName(email);
         account.setAccountPwd(password);
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
-        this.tenantAccountService.addAccount(account);
+        this.appAccountService.addAccount(account);
         return user;
     }
 

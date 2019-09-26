@@ -7,7 +7,7 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface ITenantRoleService {
-    String addRole(TenantRole role) throws CircuitException;
+    String addRole(String roleid,String extend,String tenantId,String roleName ,boolean isInheritable) throws CircuitException;
 
     void removeRole(String roleid) throws CircuitException;
 

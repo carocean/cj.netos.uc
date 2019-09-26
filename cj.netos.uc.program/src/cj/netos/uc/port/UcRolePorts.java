@@ -15,8 +15,8 @@ public class UcRolePorts implements IUcRolePort {
     IUcRoleService ucRoleService;
 
     @Override
-    public String addRole(String roleid,String name, boolean isInheritable) throws CircuitException {
-        return ucRoleService.addRole(roleid,name, isInheritable);
+    public String addRole(String roleid, String name, boolean isInheritable) throws CircuitException {
+        return ucRoleService.addRole(roleid, name, isInheritable);
     }
 
     @Override
@@ -39,9 +39,10 @@ public class UcRolePorts implements IUcRolePort {
         return ucRoleService.pageUserInRole(roleid,
                 currPage, pageSize);
     }
+
     @Override
-    public List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return ucRoleService.pageRoleInUser(uid, currPage, pageSize);
+    public List<UcRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException {
+        return ucRoleService.pageRoleOfUser(uid, currPage, pageSize);
     }
 
     @Override

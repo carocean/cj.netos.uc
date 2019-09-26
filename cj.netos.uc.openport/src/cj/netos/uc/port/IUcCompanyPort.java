@@ -16,7 +16,7 @@ import java.util.List;
 @CjOpenports(usage = "平台所属的集团及其子公司的组织架构")
 public interface IUcCompanyPort extends IOpenportService {
     @CjOpenport(usage = "添加公司", command = "post", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    String addCompany(@CjOpenportParameter(usage = "公司", name = "company", in = InRequest.content) UcCompany company) throws CircuitException;
+    String addCompany(@CjOpenportParameter(usage = "公司", name = "company", in = InRequest.content,simpleModelFile = "/models/company.json") UcCompany company) throws CircuitException;
 
     @CjOpenport(usage = "移除公司", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void removeCompany(@CjOpenportParameter(usage = "公司标识", name = "companyid") String companyid) throws CircuitException;

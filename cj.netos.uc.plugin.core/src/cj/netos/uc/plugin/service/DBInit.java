@@ -1,9 +1,8 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.UcRole;
 import cj.netos.uc.domain.UcUser;
 import cj.netos.uc.service.IDBInit;
-import cj.netos.uc.service.ITenantAccountService;
+import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IUcRoleService;
 import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.CJSystem;
@@ -20,14 +19,14 @@ public class DBInit implements IDBInit {
     @CjServiceRef
     IUcRoleService ucRoleService;
     @CjServiceRef
-    ITenantAccountService tenantAccountService;
+    IAppAccountService appAccountService;
 
     @Override
     public void init(IServiceSite site, IElement args) throws CircuitException {//添加超级管理员，及管理员角色，并为将管理角授予超级管理员
         String supertenant_admin = site.getProperty("uc.supertenant.admin");
         String supertenant_password = site.getProperty("uc.supertenant.password");
         String supertenant_id = site.getProperty("uc.supertenant.id");
-        UcUser user = tenantAccountService.getUser(supertenant_id, supertenant_admin);
+        UcUser user = appAccountService.getUser(supertenant_id, supertenant_admin);
         if (user == null) {
             user = ucUserService.registerByPassword(supertenant_id, supertenant_admin, supertenant_password);
         }

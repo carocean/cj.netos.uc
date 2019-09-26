@@ -17,9 +17,8 @@ public interface IUcRoleService {
 
     List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException;
 
-    List<UcRole> pageRoleOfUser(String userId, int i, int maxValue);
+    List<UcRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException;
 
-    List<UcRole> pageRoleInUser(String uid, int currPage, int pageSize) throws CircuitException;
 
     void addRoleToUser(String roleid, String uid) throws CircuitException;
 

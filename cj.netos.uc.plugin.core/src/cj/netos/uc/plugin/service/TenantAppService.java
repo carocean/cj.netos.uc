@@ -1,6 +1,7 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.TenantApp;
+import cj.netos.uc.domain.TenantAppExample;
 import cj.netos.uc.plugin.dao.TenantAppMapper;
 import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.IAppService;
@@ -28,9 +29,18 @@ public class TenantAppService implements IAppService {
         if (StringUtil.isEmpty(app.getAppName())) {
             throw new CircuitException("404", "应用名为空");
         }
+        if (existsAppName(app.getAppName(), app.getTenantId())) {
+            throw new CircuitException("500", String.format("租户%s下已存在应用:%s", app.getTenantId(), app.getAppName()));
+        }
         app.setAppId(NumberGen.gen());
         tenantAppMapper.insertSelective(app);
         return app.getAppId();
+    }
+
+    private boolean existsAppName(String appName, String tenantId) {
+        TenantAppExample example = new TenantAppExample();
+        example.createCriteria().andTenantIdEqualTo(tenantId).andAppNameEqualTo(appName);
+        return tenantAppMapper.countByExample(example) > 0;
     }
 
     @CjTransaction

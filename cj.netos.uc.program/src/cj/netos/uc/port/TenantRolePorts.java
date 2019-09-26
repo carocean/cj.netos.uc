@@ -15,8 +15,8 @@ public class TenantRolePorts implements ITenantRolePort {
     ITenantRoleService tenantRoleService;
 
     @Override
-    public String addRole(TenantRole role) throws CircuitException {
-        return tenantRoleService.addRole(role);
+    public String addRole(String roleid, String extend, String tenantId, String roleName, boolean isInheritable) throws CircuitException {
+        return tenantRoleService.addRole(roleid,extend,tenantId,roleName,isInheritable);
     }
 
     @Override

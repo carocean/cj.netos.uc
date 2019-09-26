@@ -50,8 +50,8 @@
 			tableName="tenant_role" />
 		<table schema="netos.uc2" domainObjectName="TenantApp"
 			tableName="tenant_app" />
-		<table schema="netos.uc2" domainObjectName="TenantAccount"
-			tableName="tenant_account" />
+		<table schema="netos.uc2" domainObjectName="AppAccount"
+			tableName="app_account" />
 		<table schema="netos.uc2" domainObjectName="AppRole"
 			tableName="app_role" />
 		<table schema="netos.uc2" domainObjectName="UaAppRoleUser"

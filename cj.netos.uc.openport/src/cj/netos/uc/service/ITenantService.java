@@ -1,8 +1,5 @@
 package cj.netos.uc.service;
 
-import cj.netos.uc.domain.TenantAccount;
-import cj.netos.uc.domain.TenantApp;
-import cj.netos.uc.domain.TenantRole;
 import cj.netos.uc.domain.UcTenant;
 import cj.studio.ecm.net.CircuitException;
 

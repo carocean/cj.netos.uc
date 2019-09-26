@@ -29,7 +29,7 @@ public interface IUcRolePort extends IOpenportService {
     List<UcUser> pageUserInRole(@CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "页大小") int pageSize) throws CircuitException;
 
     @CjOpenport(usage = "列出一页用户的角色", elementType = UcRole.class, acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    List<UcRole> pageRoleInUser(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "页大小") int pageSize) throws CircuitException;
+    List<UcRole> pageRoleOfUser(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "currPage", usage = "当前页号") int currPage, @CjOpenportParameter(name = "pageSize", usage = "页大小") int pageSize) throws CircuitException;
 
     @CjOpenport(usage = "添加角色到用户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void addRoleToUser(@CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid, @CjOpenportParameter(name = "uid", usage = "用户标识") String uid) throws CircuitException;

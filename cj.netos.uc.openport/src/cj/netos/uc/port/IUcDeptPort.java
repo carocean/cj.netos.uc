@@ -15,7 +15,7 @@ import java.util.List;
 @CjOpenports(usage = "部门管理")
 public interface IUcDeptPort extends IOpenportService {
     @CjOpenport(command = "post", usage = "添加部门", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    String addDept(@CjOpenportParameter(usage = "部门", name = "dept", in = InRequest.content) UcDept dept) throws CircuitException;
+    String addDept(@CjOpenportParameter(usage = "部门", name = "dept", in = InRequest.content,simpleModelFile = "/models/dept.json") UcDept dept) throws CircuitException;
 
     @CjOpenport(usage = "移除部门", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void removeDept(@CjOpenportParameter(name = "deptid", usage = "部门标识") String deptid) throws CircuitException;

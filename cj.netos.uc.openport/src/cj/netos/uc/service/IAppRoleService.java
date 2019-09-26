@@ -7,7 +7,7 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface IAppRoleService {
-    String addRole(AppRole role) throws CircuitException;
+    String addRole(String roleId,String extend,String appId,String roleName ) throws CircuitException;
 
     void removeRole(String roleid) throws CircuitException;
 

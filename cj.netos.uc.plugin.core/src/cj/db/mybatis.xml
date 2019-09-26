@@ -28,7 +28,7 @@
     </environments>
     <mappers>
         <mapper resource="cj/db/mappings/AppRoleMapper.xml"/>
-        <mapper resource="cj/db/mappings/TenantAccountMapper.xml"/>
+        <mapper resource="cj/db/mappings/AppAccountMapper.xml"/>
         <mapper resource="cj/db/mappings/TenantAppMapper.xml"/>
         <mapper resource="cj/db/mappings/TenantRoleMapper.xml"/>
         <mapper resource="cj/db/mappings/UaAppRoleUserMapper.xml"/>
@@ -40,7 +40,7 @@
         <mapper resource="cj/db/mappings/UcEmployeeMapper.xml"/>
         <mapper resource="cj/db/mappings/UcRoleMapper.xml"/>
 		<mapper resource="cj/db/mappings/UcTenantMapper.xml"/>
-		<mapper resource="cj/db/mappings/ucUserAttrMapper.xml"/>
+		<mapper resource="cj/db/mappings/UcUserAttrMapper.xml"/>
 		<mapper resource="cj/db/mappings/UcUserAttrValMapper.xml"/>
 		<mapper resource="cj/db/mappings/UcUserMapper.xml"/>
 		<mapper resource="cj/db/mappings/UcUserSegmentMapper.xml"/>

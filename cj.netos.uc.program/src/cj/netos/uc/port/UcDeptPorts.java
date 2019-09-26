@@ -11,7 +11,7 @@ import java.util.List;
 
 @CjService(name = "/dept")
 public class UcDeptPorts implements IUcDeptPort {
-    @CjServiceRef(refByName = "ucplugin.ucDeptmentService")
+    @CjServiceRef(refByName = "ucplugin.ucDeptService")
     IUcDeptmentService ucDeptmentService;
 
     @Override

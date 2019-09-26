@@ -7,7 +7,7 @@ public class IdentityInfo {
     String uid;
     String accountid;
     String accountName;
-    String tenantid;
+    String appid;
     String accessToken;
     List<UcRole> ucRoles;
     List<TenantRole> tenantRoles;
@@ -69,12 +69,11 @@ public class IdentityInfo {
         this.accountName = accountName;
     }
 
-    public String getTenantid() {
-        return tenantid;
+    public String getAppid() {
+        return appid;
     }
 
-    public void setTenantid(String tenantid) {
-        this.tenantid = tenantid;
+    public void setAppid(String appid) {
+        this.appid = appid;
     }
-
 }

@@ -1,8 +1,6 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.AppRole;
-import cj.netos.uc.domain.UaAppRoleUserKey;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.domain.*;
 import cj.netos.uc.plugin.dao.AppRoleMapper;
 import cj.netos.uc.plugin.dao.UaAppRoleUserMapper;
 import cj.netos.uc.util.NumberGen;
@@ -26,24 +24,38 @@ public class TenantAppRoleService implements IAppRoleService {
 
     @CjTransaction
     @Override
-    public String addRole(AppRole role) throws CircuitException {
-        if (StringUtil.isEmpty(role.getAppId())) {
+    public String addRole(String roleId,String extend,String appId,String roleName ) throws CircuitException {
+        if (StringUtil.isEmpty(appId)) {
             throw new CircuitException("404", "应用标识为空");
         }
-        if (StringUtil.isEmpty(role.getExtend())) {
+        if (StringUtil.isEmpty(extend)) {
             throw new CircuitException("404", "缺少继承角色");
         }
-        if (StringUtil.isEmpty(role.getRoleId())) {
+        if (StringUtil.isEmpty(roleId)) {
             throw new CircuitException("404", "缺少角色标识");
         }
-        if (StringUtil.isEmpty(role.getRoleName())) {
+        if (StringUtil.isEmpty(roleName)) {
             throw new CircuitException("404", "角色名为空");
         }
-        if (existsRoleId(role.getRoleId())) {
-            throw new CircuitException("404", "已存在角色：" + role.getRoleId());
+        if (existsRoleId(roleId)) {
+            throw new CircuitException("404", "已存在角色：" + roleId);
         }
+        if (existsRoleName(roleName, appId)) {
+            throw new CircuitException("500", String.format("在应用%s下存在同名角色：%s", appId, roleName));
+        }
+        AppRole role = new AppRole();
+        role.setExtend(extend);
+        role.setRoleId(roleId);
+        role.setRoleName(roleName);
+        role.setAppId(appId);
         appRoleMapper.insertSelective(role);
         return role.getRoleId();
+    }
+
+    private boolean existsRoleName(String roleName, String appId) {
+        AppRoleExample example=new AppRoleExample();
+        example.createCriteria().andAppIdEqualTo(appId).andRoleNameEqualTo(roleName);
+        return appRoleMapper.countByExample(example)>0;
     }
 
     private boolean existsRoleId(String roleId) throws CircuitException {
@@ -86,7 +98,7 @@ public class TenantAppRoleService implements IAppRoleService {
         UaAppRoleUserKey key = new UaAppRoleUserKey();
         key.setRoleId(roleid);
         key.setUserId(uid);
-        uaAppRoleUserMapper.deleteByPrimaryKey(key);
+        uaAppRoleUserMapper.insert(key);
     }
 
     @CjTransaction

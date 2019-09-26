@@ -21,9 +21,6 @@ public class UcCompanyService implements IUcCompanyService {
     @CjTransaction
     @Override
     public String addCompany(UcCompany company) throws CircuitException {
-        if (getCompany(company.getParentId()) == null) {
-            throw new CircuitException("404", "父公司不存在：" + company.getParentId());
-        }
         if (existsCompany(company.getCompanyCode(), company.getParentId())) {
             throw new CircuitException("500", String.format("在公司%s下已存在子公司：%s", company.getParentId(), company.getCompanyCode()));
         }

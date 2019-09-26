@@ -1,28 +1,29 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.TenantAccount;
-import cj.netos.uc.domain.TenantAccountExample;
+import cj.netos.uc.domain.AppAccount;
+import cj.netos.uc.domain.AppAccountExample;
 import cj.netos.uc.domain.UcUser;
-import cj.netos.uc.plugin.dao.TenantAccountMapper;
+import cj.netos.uc.plugin.dao.AppAccountMapper;
+import cj.netos.uc.service.IAppAccountService;
+import cj.netos.uc.service.IUcUserService;
 import cj.netos.uc.util.Encript;
 import cj.netos.uc.util.NumberGen;
-import cj.netos.uc.service.ITenantAccountService;
-import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.IServiceSetter;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
+import cj.ultimate.util.StringUtil;
 
 import java.util.Date;
 import java.util.List;
 
 @CjBridge(aspects = "@transaction")
-@CjService(name = "tenantAccountService")
-public class TenantAccountService implements ITenantAccountService, IServiceSetter {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.TenantAccountMapper")
-    TenantAccountMapper accountMapper;
+@CjService(name = "appAccountService")
+public class AppAccountService implements IAppAccountService, IServiceSetter {
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.AppAccountMapper")
+    AppAccountMapper accountMapper;
     IUcUserService ucUserService;
 
     @Override
@@ -32,20 +33,26 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
 
     @CjTransaction
     @Override
-    public UcUser getUser(String tenant, String accountName) {
-        TenantAccountExample example = new TenantAccountExample();
-        example.createCriteria().andTenantIdEqualTo(tenant).andAccountNameEqualTo(accountName);
-        List<TenantAccount> list = accountMapper.selectByExample(example);
+    public UcUser getUser(String appid, String accountName) {
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
+        List<AppAccount> list = accountMapper.selectByExample(example);
         if (list.isEmpty()) return null;
-        TenantAccount account = list.get(0);
+        AppAccount account = list.get(0);
         return ucUserService.getUserById(account.getUserId());
     }
 
     @CjTransaction
     @Override
-    public String addAccount(TenantAccount account) throws CircuitException {
-        if (existsAccount(account.getTenantId(), account.getAccountName())) {
-            throw new CircuitException("500", String.format("用户%s在租户%s下已存在账户名：%s", account.getUserId(), account.getTenantId(), account.getAccountName()));
+    public String addAccount(AppAccount account) throws CircuitException {
+        if (StringUtil.isEmpty(account.getAccountName())) {
+            throw new CircuitException("404", "缺少账户名");
+        }
+        if (StringUtil.isEmpty(account.getAccountName())) {
+            throw new CircuitException("404", "缺少账户名");
+        }
+        if (existsAccount(account.getAppId(), account.getAccountName())) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", account.getUserId(), account.getAppId(), account.getAccountName()));
         }
         accountMapper.insertSelective(account);
         return null;
@@ -53,7 +60,7 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
 
     @CjTransaction
     @Override
-    public void addByIphone(String uid, String tenant, String phone, String password) throws CircuitException {
+    public void addByIphone(String uid, String appid, String phone, String password) throws CircuitException {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
@@ -61,9 +68,9 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
             throw new CircuitException("500", "已存在用户名：" + phone);
         }
         password = Encript.md5(password);
-        TenantAccount account = new TenantAccount();
+        AppAccount account = new AppAccount();
         account.setAccountId(NumberGen.gen());
-        account.setTenantId(tenant);
+        account.setAppId(appid);
         account.setUserId(uid);
         account.setAccountName(phone);
         account.setAccountPwd(password);
@@ -74,7 +81,7 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
 
     @CjTransaction
     @Override
-    public void addByEmail(String uid, String tenant, String email, String password) throws CircuitException {
+    public void addByEmail(String uid, String appid, String email, String password) throws CircuitException {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
@@ -82,9 +89,9 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
             throw new CircuitException("500", "已存在用户名：" + email);
         }
         password = Encript.md5(password);
-        TenantAccount account = new TenantAccount();
+        AppAccount account = new AppAccount();
         account.setAccountId(NumberGen.gen());
-        account.setTenantId(tenant);
+        account.setAppId(appid);
         account.setUserId(uid);
         account.setAccountName(email);
         account.setAccountPwd(password);
@@ -101,14 +108,14 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
 
     @CjTransaction
     @Override
-    public List<TenantAccount> pageAccount(String tenantid, int currPage, int pageSize) throws CircuitException {
-        return accountMapper.pageAccount(tenantid, currPage, pageSize);
+    public List<AppAccount> pageAccount(String appid, int currPage, int pageSize) throws CircuitException {
+        return accountMapper.pageAccount(appid, currPage, pageSize);
     }
 
     @CjTransaction
     @Override
-    public List<TenantAccount> listAccount(String uid) throws CircuitException {
-        TenantAccountExample example = new TenantAccountExample();
+    public List<AppAccount> listAccount(String uid) throws CircuitException {
+        AppAccountExample example = new AppAccountExample();
         example.createCriteria().andUserIdEqualTo(uid);
         return accountMapper.selectByExample(example);
     }
@@ -116,7 +123,7 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
 
     @CjTransaction
     @Override
-    public TenantAccount getAccount(String accountid) throws CircuitException {
+    public AppAccount getAccount(String accountid) throws CircuitException {
         return accountMapper.selectByPrimaryKey(accountid);
     }
 
@@ -128,19 +135,19 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
 
     @CjTransaction
     @Override
-    public boolean existsAccount(String tenant, String accountName) throws CircuitException {
-        TenantAccountExample example = new TenantAccountExample();
-        example.createCriteria().andTenantIdEqualTo(tenant).andAccountNameEqualTo(accountName);
+    public boolean existsAccount(String appid, String accountName) throws CircuitException {
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
         return this.accountMapper.countByExample(example) > 0;
     }
 
     @CjTransaction
     @Override
-    public TenantAccount getAccountByName(String tenantid, String accountName) {
-        TenantAccountExample example = new TenantAccountExample();
-        example.createCriteria().andTenantIdEqualTo(tenantid).andAccountNameEqualTo(accountName);
+    public AppAccount getAccountByName(String appid, String accountName) {
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
 
-        List<TenantAccount> list = accountMapper.selectByExample(example);
+        List<AppAccount> list = accountMapper.selectByExample(example);
         if (list.isEmpty()) return null;
         return list.get(0);
     }
@@ -148,6 +155,6 @@ public class TenantAccountService implements ITenantAccountService, IServiceSett
     @CjTransaction
     @Override
     public void updatePwd(String accountId, String newpwd) {
-        accountMapper.updatePwd(accountId,newpwd);
+        accountMapper.updatePwd(accountId, newpwd);
     }
 }

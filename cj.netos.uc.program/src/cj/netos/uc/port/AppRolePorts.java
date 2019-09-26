@@ -11,12 +11,12 @@ import java.util.List;
 
 @CjService(name = "/app/role")
 public class AppRolePorts implements IAppRolePort {
-    @CjServiceRef(refByName = "ucplugin.appRoleService")
+    @CjServiceRef(refByName = "ucplugin.tenantAppRoleService")
     IAppRoleService appRoleService;
 
     @Override
-    public String addRole(AppRole role) throws CircuitException {
-        return appRoleService.addRole(role);
+    public String addRole(String roleId, String extend, String appId, String roleName) throws CircuitException {
+        return appRoleService.addRole(roleId, extend, appId, roleName);
     }
 
     @Override
@@ -37,6 +37,11 @@ public class AppRolePorts implements IAppRolePort {
     @Override
     public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
         return appRoleService.pageUserInRole(roleid, currPage, pageSize);
+    }
+
+    @Override
+    public List<AppRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException {
+        return appRoleService.pageRoleOfUser(uid,currPage,pageSize);
     }
 
     @Override
