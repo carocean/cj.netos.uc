@@ -29,6 +29,8 @@ public class AuthService implements IAuthService {
     IAppRoleService appRoleService;
     @CjServiceRef(refByName = "tenantAppService")
     IAppService appService;
+    @CjServiceRef
+    IUcUserService ucUserService;
     @CjServiceSite
     IServiceSite site;
 
@@ -36,11 +38,27 @@ public class AuthService implements IAuthService {
     public IdentityInfo auth(String appid, String accountName, String password) throws CircuitException {
         AppAccount account = appAccountService.getAccountByName(appid, accountName);
         if (account == null) {
-            throw new CircuitException("404", "账户不存在:" + accountName);
-        }
-
-        if (!account.getAccountPwd().equals(Encript.md5(password))) {
-            throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
+            UcUser user = ucUserService.getUserById(accountName);//accountName可能是用户编号
+            if (user == null) {
+                throw new CircuitException("404", "账户不存在:" + accountName);
+            }
+            List<AppAccount> list = appAccountService.listAccountByAppidAndUid(appid, user.getUserId());
+            for (AppAccount appAccount : list) {
+                if (appAccount.getAccountPwd().equals(Encript.md5(password))) {
+                    account = appAccount;
+                    break;
+                }
+            }
+            if(account==null){
+                throw new CircuitException("404", "账户不存在:" + accountName);
+            }
+            if (!account.getAccountPwd().equals(Encript.md5(password))) {
+                throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
+            }
+        }else{
+            if (!account.getAccountPwd().equals(Encript.md5(password))) {
+                throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
+            }
         }
 
         IdentityInfo identityInfo = new IdentityInfo();

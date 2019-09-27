@@ -153,6 +153,13 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         return accountMapper.selectByExample(example);
     }
 
+    @CjTransaction
+    @Override
+    public List<AppAccount> listAccountByAppidAndUid(String appid, String userId) {
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andUserIdEqualTo(userId).andAppIdEqualTo(appid);
+        return accountMapper.selectByExample(example);
+    }
 
     @CjTransaction
     @Override
@@ -183,6 +190,14 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         List<AppAccount> list = accountMapper.selectByExample(example);
         if (list.isEmpty()) return null;
         return list.get(0);
+    }
+
+    @CjTransaction
+    @Override
+    public void removeAccount(String accountName, String appid) {
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
+        accountMapper.deleteByExample(example);
     }
 
     @CjTransaction

@@ -16,12 +16,22 @@ public class AppAccountPorts implements IAppAccountPort {
 
     @Override
     public String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd) throws CircuitException {
-        return appAccountService.addAccount(accountName,nameKind,userId,appId,accountPwd);
+        return appAccountService.addAccount(accountName, nameKind, userId, appId, accountPwd);
+    }
+
+    @Override
+    public void removeAccountById(String accountid) throws CircuitException {
+        appAccountService.removeAccount(accountid);
+    }
+
+    @Override
+    public void removeAccountByName(String accountName, String appid) {
+        appAccountService.removeAccount(accountName, appid);
     }
 
     @Override
     public void addByPassword(String uid, String appid, String accountName, String password) throws CircuitException {
-        appAccountService.addByPassword(uid,appid,accountName,password);
+        appAccountService.addByPassword(uid, appid, accountName, password);
     }
 
     @Override
@@ -39,10 +49,6 @@ public class AppAccountPorts implements IAppAccountPort {
         return appAccountService.getUser(appid, accountName);
     }
 
-    @Override
-    public void removeAccount(String accountid) throws CircuitException {
-        appAccountService.removeAccount(accountid);
-    }
 
     @Override
     public List<AppAccount> pageAccount(String appid, int currPage, int pageSize) throws CircuitException {
@@ -60,7 +66,7 @@ public class AppAccountPorts implements IAppAccountPort {
     }
 
     @Override
-    public void setAccountEnable(String accountid,boolean enable) throws CircuitException {
-        appAccountService.setAccountEnable(accountid,enable);
+    public void setAccountEnable(String accountid, boolean enable) throws CircuitException {
+        appAccountService.setAccountEnable(accountid, enable);
     }
 }

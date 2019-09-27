@@ -33,4 +33,8 @@ public interface IAppAccountService {
 
     void updatePwd(String accountId, String newpwd);
 
+    List<AppAccount> listAccountByAppidAndUid(String appid, String userId);
+
+    void removeAccount(String accountName, String appid);
+
 }

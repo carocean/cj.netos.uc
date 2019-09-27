@@ -29,10 +29,10 @@ public interface IAppAccountPort extends IOpenportService {
     void addByEmail(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "appid", usage = "租户标识") String appid, @CjOpenportParameter(name = "email", usage = "电话号码") String email, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
 
     @CjOpenport(usage = "获取统一用户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    UcUser getUser(@CjOpenportParameter(name = "appid", usage = "租户标识") String appid, @CjOpenportParameter(name = "accountName", usage = "帐号名") String accountName) throws CircuitException;
+    UcUser getUser(@CjOpenportParameter(name = "appid", usage = "应用标识") String appid, @CjOpenportParameter(name = "accountName", usage = "帐号名") String accountName) throws CircuitException;
 
     @CjOpenport(usage = "移除账户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    void removeAccount(@CjOpenportParameter(usage = "账户标识", name = "accountid") String accountid) throws CircuitException;
+    void removeAccountById(@CjOpenportParameter(usage = "账户标识", name = "accountid") String accountid) throws CircuitException;
 
     @CjOpenport(usage = "分页租户下的账户", elementType = AppAccount.class, acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     List<AppAccount> pageAccount(@CjOpenportParameter(usage = "租户标识", name = "appid") String appid, @CjOpenportParameter(usage = "当前页", name = "currPage") int currPage, @CjOpenportParameter(usage = "页大小", name = "pageSize") int pageSize) throws CircuitException;
@@ -45,4 +45,7 @@ public interface IAppAccountPort extends IOpenportService {
 
     @CjOpenport(usage = "使活账户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void setAccountEnable(@CjOpenportParameter(usage = "账户标识", name = "accountid") String accountid, @CjOpenportParameter(usage = "true是使活，false是停用账户", name = "enable") boolean enable) throws CircuitException;
+    @CjOpenport(usage = "移除账户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
+    void removeAccountByName(@CjOpenportParameter(name = "accountName", usage = "账号名") String accountName,
+                       @CjOpenportParameter(name = "appid", usage = "应用标识") String appid);
 }
