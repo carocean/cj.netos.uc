@@ -26,7 +26,8 @@ public class AuthService implements IAuthService {
     IAppRoleService appRoleService;
     @CjServiceRef(refByName = "tenantAppService")
     IAppService appService;
-
+    @CjServiceSite
+    IServiceSite site;
     @Override
     public IdentityInfo auth(String appid, String accountName, String password) throws CircuitException {
         AppAccount account = appAccountService.getAccountByName(appid, accountName);
@@ -60,11 +61,8 @@ public class AuthService implements IAuthService {
         claims.put("appid", account.getAppId());
 
         TenantApp app = appService.getApp(account.getAppId());
-        String key = app.getSecretKey();
-        long ttlMillis = app.getTokenExpire();
-
-        String accessToken = JwtUtil.createJWT(key, account.getUserId(), ttlMillis, claims);
-        identityInfo.setAccessToken(accessToken);
+        String appaccessToken = JwtUtil.createJWT(app.getSecretKey(), account.getUserId(), app.getTokenExpire(), claims);
+        identityInfo.setAccessToken(appaccessToken);
         return identityInfo;
     }
 }

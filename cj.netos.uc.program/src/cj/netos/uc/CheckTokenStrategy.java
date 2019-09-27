@@ -4,6 +4,7 @@ import cj.netos.uc.domain.UcRole;
 import cj.netos.uc.service.IKeyStore;
 import cj.netos.uc.util.JwtUtil;
 import cj.studio.ecm.IServiceSite;
+import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.CheckTokenException;
 import cj.studio.openport.ICheckTokenStrategy;
 import cj.studio.openport.TokenInfo;
@@ -24,7 +25,12 @@ public class CheckTokenStrategy implements ICheckTokenStrategy {
 
     @Override
     public TokenInfo checkToken(String portsurl, String methodName, CjOpenport openport, String token) throws CheckTokenException {
-        Claims claims =JwtUtil.parseJWT(token,keyStore.getKey());
+        Claims claims = null;
+        try {
+            claims = JwtUtil.parseJWT(token,keyStore.getKey());
+        } catch (CircuitException e) {
+            throw new CheckTokenException(e.getStatus(),e.getMessage());
+        }
         TokenInfo tokenInfo=new TokenInfo();
         tokenInfo.setUser(claims.getSubject());
         tokenInfo.getProps().putAll(claims);

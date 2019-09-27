@@ -44,6 +44,7 @@ public class UCInit implements IDBInit {
             tenantService.addTenant(tenantid, tenantName, tenantwebsite, uid);
         }
         String appid = ((IProperty) args.getNode("appid")).getValue().getName();
+        site.addService("#.app.id",appid);
         if (appService.getApp(appid) == null) {
             String appName = ((IProperty) args.getNode("appName")).getValue().getName();
             String tokenExpire = ((IProperty) args.getNode("tokenExpire")).getValue().getName();
