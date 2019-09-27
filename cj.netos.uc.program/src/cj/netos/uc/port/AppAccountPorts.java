@@ -20,6 +20,11 @@ public class AppAccountPorts implements IAppAccountPort {
     }
 
     @Override
+    public void addByPassword(String uid, String appid, String accountName, String password) throws CircuitException {
+        appAccountService.addByPassword(uid,appid,accountName,password);
+    }
+
+    @Override
     public void addByIphone(String uid, String appid, String phone, String password) throws CircuitException {
         appAccountService.addByIphone(uid, appid, phone, password);
     }

@@ -16,11 +16,11 @@
 		]
 	},
 	assemblyInfo : {
-		assemblyTitle : "usercenter",
+		assemblyTitle : "uc",
 		assemblyResource:"site=/site;http.root=$(site)/web;http.jss=$(site)/jss/http;ws.jss=$(site)/jss/ws",
-		assemblyDescription : "cj工作室出品，lns平台制造",
+		assemblyDescription : "用户中心",
 		assemblyConfiguration : "",
-		assemblyCompany : "cj工作室",
+		assemblyCompany : "cj工作室出品，lns平台制造",
 		assemblyProduct : "cj.netos.uc.program",
 		assemblyCopyright : "Copyright   2011",
 		assemblyTrademark : "",
