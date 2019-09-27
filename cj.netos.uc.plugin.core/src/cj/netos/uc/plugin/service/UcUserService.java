@@ -13,6 +13,7 @@ import cj.studio.ecm.annotation.CjServiceInvertInjection;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
+import cj.ultimate.util.StringUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -39,6 +40,24 @@ public class UcUserService implements IUcUserService {
 
     @CjTransaction
     @Override
+    public String addUser(String uid, String userName, byte sex, String email, String mobile, String idcard) throws CircuitException {
+        if (StringUtil.isEmpty(userName)) {
+            throw new CircuitException("404", "用户名为空");
+        }
+        UcUser ucUser = new UcUser();
+        ucUser.setUserId(StringUtil.isEmpty(uid) ? NumberGen.gen() : uid);
+        ucUser.setCreateTime(new Date());
+        ucUser.setUserName(userName);
+        ucUser.setEmail(email);
+        ucUser.setIdcard(idcard);
+        ucUser.setMobile(mobile);
+        ucUser.setSex(sex);
+        userMapper.insertSelective(ucUser);
+        return ucUser.getUserId();
+    }
+
+    @CjTransaction
+    @Override
     public long getUserCount() throws CircuitException {
         UcUserExample example = new UcUserExample();
         return userMapper.countByExample(example);
@@ -52,80 +71,73 @@ public class UcUserService implements IUcUserService {
 
     @CjTransaction
     @Override
-    public boolean existsUserName(String userName) throws CircuitException {
-        UcUserExample example = new UcUserExample();
-        example.createCriteria().andUserNameEqualTo(userName);
-        return userMapper.countByExample(example) > 0;
-    }
-
-    @CjTransaction
-    @Override
     public UcUser registerByPassword(String appid, String accountName, String password) throws CircuitException {
-        if (existsUserName(accountName)) {
-            throw new CircuitException("500", "已存在用户名：" + accountName);
+        if (StringUtil.isEmpty(appid)) {
+            throw new CircuitException("404", "应用编号为空");
         }
+        if (StringUtil.isEmpty(accountName)) {
+            throw new CircuitException("404", "账户名为空");
+        }
+        if (StringUtil.isEmpty(password)) {
+            throw new CircuitException("404", "密码为空");
+        }
+
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
         user.setUserName(accountName);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
         password = Encript.md5(password);
-        AppAccount account = new AppAccount();
-        account.setAccountId(UUID.randomUUID().toString());
-        account.setAppId(appid);
-        account.setUserId(user.getUserId());
-        account.setAccountName(accountName);
-        account.setAccountPwd(password);
-        account.setCreateTime(new Date());
-        this.appAccountService.addAccount(account);
+
+        this.appAccountService.addAccount(accountName, (byte) 0, user.getUserId(), appid, password);
         return user;
     }
 
     @CjTransaction
     @Override
     public UcUser registerByIphone(String appid, String phone, String password) throws CircuitException {
-        if (existsUserName(phone)) {
-            throw new CircuitException("500", "已存在用户名：" + phone);
+        if (StringUtil.isEmpty(appid)) {
+            throw new CircuitException("404", "应用编号为空");
         }
+        if (StringUtil.isEmpty(phone)) {
+            throw new CircuitException("404", "手机号为空");
+        }
+        if (StringUtil.isEmpty(password)) {
+            throw new CircuitException("404", "密码为空");
+        }
+
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
         user.setUserName(phone);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
         password = Encript.md5(password);
-        AppAccount account = new AppAccount();
-        account.setAccountId(UUID.randomUUID().toString());
-        account.setAppId(appid);
-        account.setUserId(user.getUserId());
-        account.setAccountName(phone);
-        account.setNameKind((byte) 1);
-        account.setAccountPwd(password);
-        account.setCreateTime(new Date());
-        this.appAccountService.addAccount(account);
+
+        this.appAccountService.addAccount(phone, (byte) 1, user.getUserId(), appid, password);
         return user;
     }
 
     @CjTransaction
     @Override
     public UcUser registerByEmail(String appid, String email, String password) throws CircuitException {
-        if (existsUserName(email)) {
-            throw new CircuitException("500", "已存在用户名：" + email);
+        if (StringUtil.isEmpty(appid)) {
+            throw new CircuitException("404", "应用编号为空");
         }
+        if (StringUtil.isEmpty(email)) {
+            throw new CircuitException("404", "邮箱为空");
+        }
+        if (StringUtil.isEmpty(password)) {
+            throw new CircuitException("404", "密码为空");
+        }
+
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
         user.setUserName(email);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
         password = Encript.md5(password);
-        AppAccount account = new AppAccount();
-        account.setAccountId(UUID.randomUUID().toString());
-        account.setAppId(appid);
-        account.setUserId(user.getUserId());
-        account.setAccountName(email);
-        account.setAccountPwd(password);
-        account.setCreateTime(new Date());
-        account.setNameKind((byte) 2);
-        this.appAccountService.addAccount(account);
+
+        this.appAccountService.addAccount(email, (byte) 2, user.getUserId(), appid, password);
         return user;
     }
 

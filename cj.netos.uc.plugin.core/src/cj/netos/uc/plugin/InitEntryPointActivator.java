@@ -11,7 +11,7 @@ public class InitEntryPointActivator implements IEntryPointActivator {
 
     @Override
     public void activate(IServiceSite site, IElement args) {
-        IDBInit init = (IDBInit) site.getService("dbInit");
+        IDBInit init = (IDBInit) site.getService("ucInit");
         try {
             init.init(site,args);
         } catch (CircuitException e) {

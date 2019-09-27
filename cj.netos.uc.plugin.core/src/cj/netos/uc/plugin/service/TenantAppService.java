@@ -22,25 +22,50 @@ public class TenantAppService implements IAppService {
 
     @CjTransaction
     @Override
-    public String addApp(TenantApp app) throws CircuitException {
-        if (StringUtil.isEmpty(app.getTenantId())) {
+    public String addApp(String appid, String appName, String tenantId, long tokenExpire, String appLogo, String callbackUrl, String logoutUrl, String homeUrl) throws CircuitException {
+        if (StringUtil.isEmpty(tenantId)) {
             throw new CircuitException("404", "租户标识为空");
         }
-        if (StringUtil.isEmpty(app.getAppName())) {
+        if (StringUtil.isEmpty(appName)) {
             throw new CircuitException("404", "应用名为空");
         }
-        if (existsAppName(app.getAppName(), app.getTenantId())) {
-            throw new CircuitException("500", String.format("租户%s下已存在应用:%s", app.getTenantId(), app.getAppName()));
+        if (existsAppName(appName, tenantId)) {
+            throw new CircuitException("500", String.format("租户%s下已存在应用:%s", tenantId, appName));
         }
-        app.setAppId(NumberGen.gen());
+        if (tokenExpire < 1) {
+            tokenExpire = 24 * 60 * 60 * 1000L;
+        }
+        TenantApp app = new TenantApp();
+        app.setAppId(StringUtil.isEmpty(appid) ? NumberGen.gen() : appid);
+        app.setAppName(appName);
+        app.setTenantId(tenantId);
+        app.setSecretKey(NumberGen.gen());
+        app.setTokenExpire(tokenExpire);
+        app.setAppLogo(appLogo);
+        app.setCallbackUrl(callbackUrl);
+        app.setHomeUrl(homeUrl);
+        app.setLogoutUrl(logoutUrl);
+
         tenantAppMapper.insertSelective(app);
         return app.getAppId();
     }
 
-    private boolean existsAppName(String appName, String tenantId) {
+    @CjTransaction
+    @Override
+    public boolean existsAppName(String appName, String tenantId) {
         TenantAppExample example = new TenantAppExample();
         example.createCriteria().andTenantIdEqualTo(tenantId).andAppNameEqualTo(appName);
         return tenantAppMapper.countByExample(example) > 0;
+    }
+
+    @CjTransaction
+    @Override
+    public TenantApp getAppByName(String tenantid, String appName) {
+        TenantAppExample example = new TenantAppExample();
+        example.createCriteria().andTenantIdEqualTo(tenantid).andAppNameEqualTo(appName);
+        List<TenantApp> list = tenantAppMapper.selectByExample(example);
+        if (list.isEmpty()) return null;
+        return list.get(0);
     }
 
     @CjTransaction

@@ -21,6 +21,23 @@
 				name: '开放口服务活动器',
 				class: 'cj.netos.uc.plugin.InitEntryPointActivator',
 				parameters: {
+					"uid": "0019092715174260",
+					"userName": "superadmin",
+					"email": "carocean.jofers@outlook.com",
+					"mobile": "18023457655",
+					"idcard": "",
+					"tenantid": "0019092714383309",
+					"tenantName": "supertenant",
+					"tenantWebsite": "https://iscjcj.com/supertenant",
+					"appid": "0019092714383309",
+					"appName": "超管系统",
+					"tokenExpire": "86400000",
+					"appLogo": "",
+					"logoutUrl": "",
+					"callbackUrl": "",
+					"homeUrl": "",
+					"accountName": "superadmin",
+					"password": "11"
 				}
 			}
 		]

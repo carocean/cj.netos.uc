@@ -1,9 +1,6 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.UaRoleUserKey;
-import cj.netos.uc.domain.UcRole;
-import cj.netos.uc.domain.UcRoleExample;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.domain.*;
 import cj.netos.uc.plugin.dao.UaRoleUserMapper;
 import cj.netos.uc.plugin.dao.UcRoleMapper;
 import cj.netos.uc.plugin.dao.UcUserMapper;
@@ -27,6 +24,7 @@ public class UcRoleService implements IUcRoleService {
 
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserMapper")
     UcUserMapper userMapper;
+
 
     @CjTransaction
     @Override
@@ -83,6 +81,14 @@ public class UcRoleService implements IUcRoleService {
     @Override
     public List<UcRole> pageRoleOfUser(String uid, int currPage, int pageSize) {
         return roleMapper.pageRoleOfUser(uid, currPage, pageSize);
+    }
+
+    @CjTransaction
+    @Override
+    public boolean hasRoleOfUser(String roleid, String uid) {
+        UaRoleUserExample example = new UaRoleUserExample();
+        example.createCriteria().andRoleIdEqualTo(roleid).andUserIdEqualTo(uid);
+        return roleUserMapper.countByExample(example) > 0;
     }
 
     @CjTransaction

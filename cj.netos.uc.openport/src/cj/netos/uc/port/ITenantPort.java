@@ -12,7 +12,8 @@ import java.util.List;
 @CjOpenports(usage = "租户")
 public interface ITenantPort extends IOpenportService {
     @CjOpenport(usage = "添加租户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    String addTenant(@CjOpenportParameter(usage = "租户名", name = "name") String name, @CjOpenportParameter(usage = "租户官方网站", name = "website") String website, @CjOpenportParameter(usage = "租户创建者", name = "creator") String creator, @CjOpenportParameter(usage = "租户通用密钥，可以为空", name = "secret_key") String secret_key) throws CircuitException;
+    String addTenant(@CjOpenportParameter(usage = "租户标识,如果为空则自动编号", name = "tenantid") String tenantid,
+                     @CjOpenportParameter(usage = "租户名", name = "name") String name, @CjOpenportParameter(usage = "租户官方网站", name = "website") String website, @CjOpenportParameter(usage = "租户创建者", name = "creator") String creator) throws CircuitException;
 
     @CjOpenport(usage = "移除租户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void removeTenant(@CjOpenportParameter(usage = "租户标识", name = "tenantid") String tenantid) throws CircuitException;

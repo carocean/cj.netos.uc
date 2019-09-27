@@ -8,17 +8,18 @@ import cj.studio.openport.annotations.CjOpenportParameter;
 import java.util.List;
 
 public interface IUcUserService {
+    String addUser(String uid,String userName, byte sex, String email, String mobile, String idcard) throws CircuitException;
+
     List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException;
 
     long getUserCount() throws CircuitException;
 
-    boolean existsUserName(String userName) throws CircuitException;
 
-    UcUser registerByPassword(String tenant, String accountName, String password) throws CircuitException;
+    UcUser registerByPassword(String appid, String accountName, String password) throws CircuitException;
 
-    UcUser registerByIphone(String tenant, String phone, String password) throws CircuitException;
+    UcUser registerByIphone(String appid, String phone, String password) throws CircuitException;
 
-    UcUser registerByEmail(String tenant, String email, String password) throws CircuitException;
+    UcUser registerByEmail(String appid, String email, String password) throws CircuitException;
 
 
     UcUser getUserById(String uid);

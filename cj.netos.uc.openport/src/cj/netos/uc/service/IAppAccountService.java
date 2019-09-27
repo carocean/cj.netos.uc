@@ -7,7 +7,9 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface IAppAccountService {
-    String addAccount(AppAccount account) throws CircuitException;
+    String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd) throws CircuitException;
+
+    void addByPassword(String uid, String appid, String accountName, String password) throws CircuitException;
 
     void addByIphone(String uid, String appid, String phone, String password) throws CircuitException;
 

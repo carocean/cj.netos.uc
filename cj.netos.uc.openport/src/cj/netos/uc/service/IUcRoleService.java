@@ -24,4 +24,6 @@ public interface IUcRoleService {
 
     void removeRoleFromUser(String roleid, String uid) throws CircuitException;
 
+    boolean hasRoleOfUser(String tenantAdministrators, String uid);
+
 }

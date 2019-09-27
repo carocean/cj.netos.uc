@@ -14,8 +14,6 @@ public interface IUcUserPort extends IOpenportService {
     @CjOpenport(usage = "用户数")
     long getUserCount() throws CircuitException;
 
-    @CjOpenport(usage = "是否存在用户名")
-    boolean existsUserName(@CjOpenportParameter(name = "userName", usage = "用户名") String userName) throws CircuitException;
 
 
     @CjOpenport(usage = "获取统一用户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})

@@ -9,6 +9,7 @@ import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
+import cj.ultimate.util.StringUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -21,15 +22,23 @@ public class TenantService implements ITenantService {
 
     @CjTransaction
     @Override
-    public String addTenant(String name, String website, String creator, String secret_key) throws CircuitException {
+    public String addTenant(String tenantid,String name, String website, String creator) throws CircuitException {
+        if(StringUtil.isEmpty(tenantid)){
+            tenantid=NumberGen.gen();
+        }
+        if(StringUtil.isEmpty(name)){
+            throw new CircuitException("404","缺少租户名");
+        }
+        if(StringUtil.isEmpty(creator)){
+            throw new CircuitException("404","缺少租户创建人");
+        }
         if (existsTenantName(name, creator)) {
             throw new CircuitException("500", String.format("创建者%s名下已存同名租户:%s", creator, name));
         }
         UcTenant tenant = new UcTenant();
         tenant.setCreateTime(new Date());
         tenant.setIsEnable((byte) 1);
-        tenant.setSecretKey(secret_key);
-        tenant.setTenantId(NumberGen.gen());
+        tenant.setTenantId(tenantid);
         tenant.setUserId(creator);
         tenant.setTenantName(name);
         tenant.setWebsite(website);

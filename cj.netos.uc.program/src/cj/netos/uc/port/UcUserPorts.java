@@ -20,14 +20,8 @@ public class UcUserPorts implements IUcUserPort {
 
     @Override
     public List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException {
-        return ucUserService.pageUser(currPage,pageSize);
+        return ucUserService.pageUser(currPage, pageSize);
     }
-
-    @Override
-    public boolean existsUserName(String userName) throws CircuitException {
-        return ucUserService.existsUserName(userName);
-    }
-
 
 
     @Override
@@ -95,7 +89,6 @@ public class UcUserPorts implements IUcUserPort {
     public void removeAttribute(String attibuteid) throws CircuitException {
         ucUserService.removeAttribute(attibuteid);
     }
-
 
 
     @Override

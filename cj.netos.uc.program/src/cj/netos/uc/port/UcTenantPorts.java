@@ -14,8 +14,8 @@ public class UcTenantPorts implements ITenantPort {
     ITenantService tenantService;
 
     @Override
-    public String addTenant(String name, String website, String creator, String secret_key) throws CircuitException {
-        return tenantService.addTenant(name, website, creator, secret_key);
+    public String addTenant(String tenantid,String name, String website, String creator) throws CircuitException {
+        return tenantService.addTenant(tenantid,name, website, creator);
     }
 
     @Override

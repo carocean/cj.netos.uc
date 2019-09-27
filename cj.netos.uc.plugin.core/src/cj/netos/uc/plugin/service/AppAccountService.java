@@ -44,18 +44,51 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public String addAccount(AppAccount account) throws CircuitException {
-        if (StringUtil.isEmpty(account.getAccountName())) {
+    public String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd) throws CircuitException {
+        if (StringUtil.isEmpty(accountName)) {
             throw new CircuitException("404", "缺少账户名");
         }
-        if (StringUtil.isEmpty(account.getAccountName())) {
-            throw new CircuitException("404", "缺少账户名");
+        if (StringUtil.isEmpty(appId)) {
+            throw new CircuitException("404", "缺少应用编号");
         }
-        if (existsAccount(account.getAppId(), account.getAccountName())) {
-            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", account.getUserId(), account.getAppId(), account.getAccountName()));
+        if (StringUtil.isEmpty(userId)) {
+            throw new CircuitException("404", "缺少用户编号");
         }
+        if (existsAccount(appId, accountName)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", userId, appId, accountName));
+        }
+        AppAccount appAccount = new AppAccount();
+        appAccount.setAppId(appId);
+        appAccount.setAccountId(NumberGen.gen());
+        appAccount.setAccountName(accountName);
+        appAccount.setAccountPwd(Encript.md5(accountPwd));
+        appAccount.setCreateTime(new Date());
+        appAccount.setIsEnable((byte) 1);
+        appAccount.setNameKind(nameKind);
+        appAccount.setUserId(userId);
+        accountMapper.insertSelective(appAccount);
+        return appAccount.getAccountId();
+    }
+
+    @CjTransaction
+    @Override
+    public void addByPassword(String uid, String appid, String accountName, String password) throws CircuitException {
+        if (ucUserService.getUserCount() < 1) {
+            throw new CircuitException("404", "用户不存在");
+        }
+        if (existsAccount(appid, accountName)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, accountName));
+        }
+        password = Encript.md5(password);
+        AppAccount account = new AppAccount();
+        account.setAccountId(NumberGen.gen());
+        account.setAppId(appid);
+        account.setUserId(uid);
+        account.setAccountName(accountName);
+        account.setAccountPwd(password);
+        account.setCreateTime(new Date());
+        account.setNameKind((byte) 2);
         accountMapper.insertSelective(account);
-        return null;
     }
 
     @CjTransaction
@@ -64,8 +97,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
-        if (ucUserService.existsUserName(phone)) {
-            throw new CircuitException("500", "已存在用户名：" + phone);
+        if (existsAccount(appid, phone)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, phone));
         }
         password = Encript.md5(password);
         AppAccount account = new AppAccount();
@@ -85,8 +118,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
-        if (ucUserService.existsUserName(email)) {
-            throw new CircuitException("500", "已存在用户名：" + email);
+        if (existsAccount(appid, email)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, email));
         }
         password = Encript.md5(password);
         AppAccount account = new AppAccount();

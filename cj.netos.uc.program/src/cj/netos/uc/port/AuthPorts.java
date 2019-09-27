@@ -12,7 +12,7 @@ public class AuthPorts implements IAuthPort {
     IAuthService authService;
 
     @Override
-    public IdentityInfo auth(String tenantid, String accountName, String password) throws CircuitException {
-        return authService.auth(tenantid, accountName, password);
+    public IdentityInfo auth(String appid, String accountName, String password) throws CircuitException {
+        return authService.auth(appid, accountName, password);
     }
 }

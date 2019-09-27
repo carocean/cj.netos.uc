@@ -24,18 +24,18 @@ public class AuthService implements IAuthService {
     ITenantRoleService tenantRoleService;
     @CjServiceRef(refByName = "tenantAppRoleService")
     IAppRoleService appRoleService;
-    @CjServiceSite
-    IServiceSite serviceSite;
+    @CjServiceRef(refByName = "tenantAppService")
+    IAppService appService;
 
     @Override
-    public IdentityInfo auth(String tenantid, String accountName, String password) throws CircuitException {
-        AppAccount account = appAccountService.getAccountByName(tenantid, accountName);
+    public IdentityInfo auth(String appid, String accountName, String password) throws CircuitException {
+        AppAccount account = appAccountService.getAccountByName(appid, accountName);
         if (account == null) {
-            throw new CircuitException("404", "用户不存在:" + accountName);
+            throw new CircuitException("404", "账户不存在:" + accountName);
         }
 
         if (!account.getAccountPwd().equals(Encript.md5(password))) {
-            throw new CircuitException("404", String.format("用户:%s 密码不正确.", account));
+            throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
         }
 
         IdentityInfo identityInfo = new IdentityInfo();
@@ -58,10 +58,12 @@ public class AuthService implements IAuthService {
         claims.put("accountid", account.getAccountId());
         claims.put("accountName", account.getAccountName());
         claims.put("appid", account.getAppId());
-        String key = serviceSite.getProperty("uc.auth.key");
-        String ttlMillis = serviceSite.getProperty("uc.auth.ttlMillis");
 
-        String accessToken = JwtUtil.createJWT(key, account.getUserId(), Long.valueOf(ttlMillis), claims);
+        TenantApp app = appService.getApp(account.getAppId());
+        String key = app.getSecretKey();
+        long ttlMillis = app.getTokenExpire();
+
+        String accessToken = JwtUtil.createJWT(key, account.getUserId(), ttlMillis, claims);
         identityInfo.setAccessToken(accessToken);
         return identityInfo;
     }

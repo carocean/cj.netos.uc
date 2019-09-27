@@ -15,8 +15,8 @@ public class AppAccountPorts implements IAppAccountPort {
     IAppAccountService appAccountService;
 
     @Override
-    public String addAccount(AppAccount account) throws CircuitException {
-        return appAccountService.addAccount(account);
+    public String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd) throws CircuitException {
+        return appAccountService.addAccount(accountName,nameKind,userId,appId,accountPwd);
     }
 
     @Override

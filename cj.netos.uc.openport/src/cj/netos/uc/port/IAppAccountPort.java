@@ -13,8 +13,12 @@ import java.util.List;
 
 @CjOpenports(usage = "账户")
 public interface IAppAccountPort extends IOpenportService {
-    @CjOpenport(usage = "添加账户", command = "post", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    String addAccount(@CjOpenportParameter(in = InRequest.content, name = "account", usage = "账户") AppAccount account) throws CircuitException;
+    @CjOpenport(usage = "添加账户", command = "post", acl = {"allow administrators.role", "allow tests.role", "allow developer.role","invisible *.*"})
+    String addAccount(@CjOpenportParameter(name = "accountName", usage = "账号名") String accountName,
+                      @CjOpenportParameter(name = "nameKind", usage = "账号名类型：0是账号密码；1是手机号；2是邮箱；") byte nameKind,
+                      @CjOpenportParameter(name = "userId", usage = "用户标识") String userId,
+                      @CjOpenportParameter(name = "appId", usage = "应用标识") String appId,
+                      @CjOpenportParameter(name = "accountPwd", usage = "账号密码") String accountPwd) throws CircuitException;
 
     @CjOpenport(usage = "为指定用户添加手机账户", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void addByIphone(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "appid", usage = "租户标识") String appid, @CjOpenportParameter(name = "phone", usage = "电话号码") String phone, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;

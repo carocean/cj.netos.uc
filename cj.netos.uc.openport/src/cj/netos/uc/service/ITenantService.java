@@ -6,7 +6,7 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface ITenantService {
-    String addTenant(String name, String website, String creator, String secret_key) throws CircuitException;
+    String addTenant(String tenantid,String name, String website, String creator) throws CircuitException;
 
     void removeTenant(String tenantid) throws CircuitException;
 

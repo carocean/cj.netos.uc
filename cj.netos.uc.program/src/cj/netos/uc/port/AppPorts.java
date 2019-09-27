@@ -14,8 +14,8 @@ public class AppPorts implements IAppPort {
     IAppService tenantAppService;
 
     @Override
-    public String addApp(TenantApp app) throws CircuitException {
-        return tenantAppService.addApp(app);
+    public String addApp(String appName,String tenantId,long tokenExpire,String appLogo,String callbackUrl,String logoutUrl,String homeUrl) throws CircuitException {
+        return tenantAppService.addApp(null,appName,tenantId,tokenExpire,appLogo,callbackUrl,logoutUrl,homeUrl);
     }
 
     @Override
