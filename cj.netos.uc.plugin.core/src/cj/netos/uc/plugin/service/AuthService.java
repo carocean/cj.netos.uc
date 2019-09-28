@@ -1,18 +1,16 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.domain.*;
+import cj.netos.uc.service.*;
 import cj.netos.uc.util.Encript;
 import cj.netos.uc.util.JwtUtil;
-import cj.netos.uc.service.*;
 import cj.studio.ecm.IServiceSite;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.annotation.CjServiceSite;
 import cj.studio.ecm.net.CircuitException;
-import cj.studio.openport.TokenInfo;
 import io.jsonwebtoken.Claims;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,13 +47,13 @@ public class AuthService implements IAuthService {
                     break;
                 }
             }
-            if(account==null){
+            if (account == null) {
                 throw new CircuitException("404", "账户不存在:" + accountName);
             }
             if (!account.getAccountPwd().equals(Encript.md5(password))) {
                 throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
             }
-        }else{
+        } else {
             if (!account.getAccountPwd().equals(Encript.md5(password))) {
                 throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
             }
@@ -89,38 +87,13 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public TokenInfo verification(String appid, String token) throws CircuitException {
+    public Claims verification(String appid, String token) throws CircuitException {
         TenantApp app = appService.getApp(appid);
         if (app == null) {
             throw new CircuitException("801", "验证失败，应用不存在：" + appid);
         }
         Claims claims = null;
         claims = JwtUtil.parseJWT(token, app.getSecretKey());
-
-        TokenInfo tokenInfo = new TokenInfo();
-        tokenInfo.setUser(claims.getSubject());
-        tokenInfo.getProps().putAll(claims);
-        List<Map<String, String>> ucroles = (List<Map<String, String>>) claims.get("uc-roles");
-        List<String> sroles = new ArrayList<>();
-        for (Map<String, String> role : ucroles) {
-            sroles.add(String.format("uc->%s", role.get("roleId")));
-        }
-        tokenInfo.getRoles().addAll(sroles);
-        List<Map<String, String>> tenantroles = (List<Map<String, String>>) claims.get("tenant-roles");
-        List<String> troles = new ArrayList<>();
-        for (Map<String, String> role : tenantroles) {
-            troles.add(String.format("tenant->%s", role.get("roleId")));
-        }
-        tokenInfo.getRoles().addAll(troles);
-        List<Map<String, String>> approles = (List<Map<String, String>>) claims.get("app-roles");
-        List<String> aroles = new ArrayList<>();
-        for (Map<String, String> role : approles) {
-            aroles.add(String.format("app->%s", role.get("roleId")));
-        }
-        tokenInfo.getRoles().addAll(aroles);
-        tokenInfo.getProps().remove("app-roles");
-        tokenInfo.getProps().remove("uc-roles");
-        tokenInfo.getProps().remove("tenant-roles");
-        return tokenInfo;
+        return claims;
     }
 }

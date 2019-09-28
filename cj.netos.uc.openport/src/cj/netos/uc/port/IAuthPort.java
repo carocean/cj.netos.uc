@@ -8,6 +8,7 @@ import cj.studio.openport.TokenInfo;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
+import io.jsonwebtoken.Claims;
 
 @CjOpenports(usage = "认证")
 public interface IAuthPort extends IOpenportService {
@@ -17,6 +18,6 @@ public interface IAuthPort extends IOpenportService {
                       @CjOpenportParameter(usage = "密码", name = "password") String password) throws CircuitException;
 
     @CjOpenport(usage = "验证", tokenIn = TokenIn.nope)
-    TokenInfo verification(@CjOpenportParameter(usage = "应用标识", name = "appid") String appid,
-                           @CjOpenportParameter(usage = "令牌", name = "token") String token) throws CircuitException;
+    Claims verification(@CjOpenportParameter(usage = "应用标识", name = "appid") String appid,
+                        @CjOpenportParameter(usage = "令牌", name = "token") String token) throws CircuitException;
 }
