@@ -1,3 +1,4 @@
 /logs/
 /.gradle/
-/cmdtools/gateway-2.3.6/logs/
+/cmdtools/gateway/logs/
+/bin/

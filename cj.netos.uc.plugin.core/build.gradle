@@ -14,18 +14,22 @@ sourceSets {
         options.encoding = "UTF-8"  
     } 
  repositories { 
-	 flatDir(dirs: "../global/lib") 
- } 
+ }
 
 dependencies {
 	compile group: 'cj.studio.gateway2', name: 'cj.studio.orm.mybatis', version: ref_cj_studio_orm_mybatis
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-	compile project(':cj.netos.uc.openport');
-	compile fileTree('../global/runtime')
-	//compile fileTree('src/cj/refembeds')
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+    compile project(':cj.netos.uc.openport');
 	compile fileTree('src/cj/references')
 }
-
+task copyReferences(type: Copy) {
+    from configurations.compileClasspath.files {
+        include 'mybatis-*.jar','jjwt-*.jar','jackson-*.jar','mysql-connector-java-8.0.17.jar'
+    }
+    into 'src/cj/references'
+}
+build.dependsOn('copyReferences')
 task copyRefembeds(type: Copy) {
     from configurations.compileClasspath.files {
         include 'cj.studio.orm.mybatis-*.jar'
@@ -37,7 +41,7 @@ build.dependsOn('copyRefembeds')
 task releaseToHost(type: Copy) {
  dependsOn "build"
  from 'build/libs/'
-into '../cmdtools/gateway-2.3.6/assemblies/uc/plugins/uc.plugin'
+into '../cmdtools/gateway/assemblies/uc/plugins/uc.plugin'
  include '**/*.jar'
  exclude '**/*-javadoc.jar','**/*-sources.jar'
  }

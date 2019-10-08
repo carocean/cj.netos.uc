@@ -12,8 +12,8 @@
 			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
 
 		<jdbcConnection
-			connectionURL="jdbc:mysql://localhost:3306/netos.uc2?useSSL=false"
-			driverClass="com.mysql.jdbc.Driver" password="mysql123" userId="cj" />
+			connectionURL="jdbc:mysql://47.104.128.137:3306/netos.uc?useSSL=false"
+			driverClass="com.mysql.jdbc.Driver" password="cj123456" userId="cj" />
 
 		<!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 
 			NUMERIC数据类型； -->
@@ -32,39 +32,39 @@
 		<javaClientGenerator
 			targetPackage="cj.netos.uc.plugin.dao"
 			targetProject="cj.netos.uc.plugin.core" type="XMLMAPPER" />
-		<table schema="netos.uc2" domainObjectName="UcUser"
+		<table schema="netos.uc" domainObjectName="UcUser"
 			tableName="uc_user" />
-		<table schema="netos.uc2" domainObjectName="UcUserSegment"
+		<table schema="netos.uc" domainObjectName="UcUserSegment"
 			tableName="uc_user_seg" />
-		<table schema="netos.uc2" domainObjectName="UcUserAttr"
+		<table schema="netos.uc" domainObjectName="UcUserAttr"
 			tableName="uc_user_attr" />
-		<table schema="netos.uc2" domainObjectName="UcUserAttrVal"
+		<table schema="netos.uc" domainObjectName="UcUserAttrVal"
 			tableName="uc_user_attr_val" />
-		<table schema="netos.uc2" domainObjectName="UcCompany"
+		<table schema="netos.uc" domainObjectName="UcCompany"
 			tableName="uc_company" />
-		<table schema="netos.uc2" domainObjectName="UcDept"
+		<table schema="netos.uc" domainObjectName="UcDept"
 			tableName="uc_dept" />
-		<table schema="netos.uc2" domainObjectName="UcTenant"
+		<table schema="netos.uc" domainObjectName="UcTenant"
 			tableName="uc_tenant" />
-		<table schema="netos.uc2" domainObjectName="TenantRole"
+		<table schema="netos.uc" domainObjectName="TenantRole"
 			tableName="tenant_role" />
-		<table schema="netos.uc2" domainObjectName="TenantApp"
+		<table schema="netos.uc" domainObjectName="TenantApp"
 			tableName="tenant_app" />
-		<table schema="netos.uc2" domainObjectName="AppAccount"
+		<table schema="netos.uc" domainObjectName="AppAccount"
 			tableName="app_account" />
-		<table schema="netos.uc2" domainObjectName="AppRole"
+		<table schema="netos.uc" domainObjectName="AppRole"
 			tableName="app_role" />
-		<table schema="netos.uc2" domainObjectName="UaAppRoleUser"
+		<table schema="netos.uc" domainObjectName="UaAppRoleUser"
 			tableName="ua_app_role_user" />
-		<table schema="netos.uc2" domainObjectName="UcEmployee"
+		<table schema="netos.uc" domainObjectName="UcEmployee"
 			tableName="uc_empl" />
-		<table schema="netos.uc2" domainObjectName="UaRoleEmployee"
+		<table schema="netos.uc" domainObjectName="UaRoleEmployee"
 			tableName="ua_role_empl" />
-		<table schema="netos.uc2" domainObjectName="UaRoleUser"
+		<table schema="netos.uc" domainObjectName="UaRoleUser"
 			tableName="ua_role_user" />
-		<table schema="netos.uc2" domainObjectName="UaTenantRoleUser"
+		<table schema="netos.uc" domainObjectName="UaTenantRoleUser"
 			tableName="ua_tenant_role_user" />
-		<table schema="netos.uc2" domainObjectName="UcRole"
+		<table schema="netos.uc" domainObjectName="UcRole"
 			tableName="uc_role" />
 	</context>
 </generatorConfiguration>

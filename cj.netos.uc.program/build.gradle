@@ -21,8 +21,6 @@ dependencies {
 	compile group: 'cj.netos.openport', name: 'cj.studio.openport', version: ref_cj_studio_openport_version
 	implementation project(':cj.netos.uc.openport')
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-	compile fileTree('../global/runtime')
-	//compile fileTree('src/cj/references')
 }
 
 task copyReferences(type: Copy) {
@@ -37,7 +35,7 @@ build.dependsOn(":cj.netos.uc.openport:release")
 task releaseToHost(dependsOn:copyReferences,type: Copy) {
 	dependsOn "build"
 	from 'build/libs/'
-	into '../cmdtools/gateway-2.3.6/assemblies/uc'
+	into '../cmdtools/gateway/assemblies/uc'
 	include '**/*.jar'
 	exclude '**/*-javadoc.jar','**/*-sources.jar'
  }

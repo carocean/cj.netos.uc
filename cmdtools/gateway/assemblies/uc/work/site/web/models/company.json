@@ -1,0 +1,18 @@
+//样本说明：添加公司时会自动产生companyid
+//如果是根公司则可去掉parentId
+//在同一公司下companyCode不能相同
+{
+  "parentId":"",
+  "companyName":"",
+  "companyCode":"",
+  "zipCode":"",
+  "address":"",
+  "email":"",
+  "website":"",
+  "fex":"",
+  "tel":"",
+  "bank":"",
+  "bankAccount":"",
+  "legalName":"",
+  "legalTel":""
+}

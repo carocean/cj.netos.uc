@@ -10,7 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/cj.netos.uc.main" />
             <option value="$PROJECT_DIR$/cj.netos.uc.openport" />
             <option value="$PROJECT_DIR$/cj.netos.uc.plugin.core" />
             <option value="$PROJECT_DIR$/cj.netos.uc.program" />

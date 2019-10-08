@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="cj.netos.uc.cj.netos.uc.main.main" target="1.8" />
+      <module name="cj.netos.uc.cj.netos.uc.main.test" target="1.8" />
       <module name="cj.netos.uc.cj.studio.backend.uc.debug.main" target="1.8" />
       <module name="cj.netos.uc.cj.studio.backend.uc.debug.test" target="1.8" />
       <module name="cj.netos.uc.cj.studio.backend.uc.plugin.main" target="1.8" />
