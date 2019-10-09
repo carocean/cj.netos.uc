@@ -17,7 +17,7 @@ public interface IAuthPort extends IOpenportService {
                       @CjOpenportParameter(usage = "账户名，或统一用户名。可以是手机号、邮箱等", name = "accountName") String accountName,
                       @CjOpenportParameter(usage = "密码", name = "password") String password) throws CircuitException;
 
-    @CjOpenport(usage = "验证", tokenIn = TokenIn.nope)
+    @CjOpenport(usage = "验证", tokenIn = TokenIn.nope,type = Claims.class)
     Claims verification(@CjOpenportParameter(usage = "应用标识", name = "appid") String appid,
                         @CjOpenportParameter(usage = "令牌", name = "token") String token) throws CircuitException;
 }
