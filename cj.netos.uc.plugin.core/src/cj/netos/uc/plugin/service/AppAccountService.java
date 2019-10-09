@@ -79,7 +79,6 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (existsAccount(appid, accountName)) {
             throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, accountName));
         }
-        password = Encript.md5(password);
         AppAccount account = new AppAccount();
         account.setAccountId(NumberGen.gen());
         account.setAppId(appid);
@@ -100,7 +99,6 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (existsAccount(appid, phone)) {
             throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, phone));
         }
-        password = Encript.md5(password);
         AppAccount account = new AppAccount();
         account.setAccountId(NumberGen.gen());
         account.setAppId(appid);
@@ -121,7 +119,6 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (existsAccount(appid, email)) {
             throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, email));
         }
-        password = Encript.md5(password);
         AppAccount account = new AppAccount();
         account.setAccountId(NumberGen.gen());
         account.setAppId(appid);
