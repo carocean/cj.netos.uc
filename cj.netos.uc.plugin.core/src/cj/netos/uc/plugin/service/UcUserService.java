@@ -87,7 +87,6 @@ public class UcUserService implements IUcUserService {
         user.setUserName(accountName);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-        password = Encript.md5(password);
 
         this.appAccountService.addAccount(accountName, (byte) 0, user.getUserId(), appid, password);
         return user;
@@ -111,7 +110,6 @@ public class UcUserService implements IUcUserService {
         user.setUserName(phone);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-        password = Encript.md5(password);
 
         this.appAccountService.addAccount(phone, (byte) 1, user.getUserId(), appid, password);
         return user;
@@ -135,7 +133,6 @@ public class UcUserService implements IUcUserService {
         user.setUserName(email);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
-        password = Encript.md5(password);
 
         this.appAccountService.addAccount(email, (byte) 2, user.getUserId(), appid, password);
         return user;

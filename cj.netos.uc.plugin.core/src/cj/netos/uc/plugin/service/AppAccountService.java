@@ -85,7 +85,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAppId(appid);
         account.setUserId(uid);
         account.setAccountName(accountName);
-        account.setAccountPwd(password);
+        account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
         accountMapper.insertSelective(account);
@@ -106,7 +106,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAppId(appid);
         account.setUserId(uid);
         account.setAccountName(phone);
-        account.setAccountPwd(password);
+        account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
         accountMapper.insertSelective(account);
@@ -127,7 +127,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAppId(appid);
         account.setUserId(uid);
         account.setAccountName(email);
-        account.setAccountPwd(password);
+        account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
         accountMapper.insertSelective(account);
