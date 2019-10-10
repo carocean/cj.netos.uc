@@ -87,7 +87,7 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Claims verification(String appid, String token) throws CircuitException {
+    public Map<String, Object> verification(String appid, String token) throws CircuitException {
         TenantApp app = appService.getApp(appid);
         if (app == null) {
             throw new CircuitException("801", "验证失败，应用不存在：" + appid);

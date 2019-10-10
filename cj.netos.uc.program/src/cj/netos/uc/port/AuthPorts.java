@@ -8,6 +8,8 @@ import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.TokenInfo;
 import io.jsonwebtoken.Claims;
 
+import java.util.Map;
+
 @CjService(name = "/auth")
 public class AuthPorts implements IAuthPort {
     @CjServiceRef(refByName = "ucplugin.authService")
@@ -19,7 +21,7 @@ public class AuthPorts implements IAuthPort {
     }
 
     @Override
-    public Claims verification(String appid, String token) throws CircuitException {
-        return authService.verification(appid,token);
+    public Map<String, Object> verification(String appid, String token) throws CircuitException {
+        return authService.verification(appid, token);
     }
 }
