@@ -174,7 +174,7 @@
     where ar.role_id=ru.role_id and u.user_id=ru.user_id and ru.role_id=#{roleid} and ru.app_id=#{appid}
     limit #{currPage},#{pageSize}
   </select>
-  <select id="pageRoleInUser" resultMap="BaseResultMap">
+  <select id="pageRoleInUser" resultMap="cj.netos.uc.plugin.mapper.AppRoleMapper.BaseResultMap">
     select ar.* from app_role ar,ua_app_role_user ru
     where ar.role_id=ru.role_id and ru.user_id=#{uid} and ru.app_id=#{appid}
     limit #{currPage},#{pageSize}

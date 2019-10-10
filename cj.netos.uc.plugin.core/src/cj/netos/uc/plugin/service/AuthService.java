@@ -79,7 +79,7 @@ public class AuthService implements IAuthService {
         claims.put("accountName", account.getAccountName());
         claims.put("appid", account.getAppId());
 
-        String appaccessToken = JwtUtil.createJWT(app.getSecretKey(), account.getUserId(), app.getTokenExpire(), claims);
+        String appaccessToken = JwtUtil.createJWT(app.getSecretKey(), account.getUserId(),app.getTenantId(), app.getTokenExpire(), claims);
         identityInfo.setAccessToken(appaccessToken);
         return identityInfo;
     }
