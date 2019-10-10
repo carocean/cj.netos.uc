@@ -1,6 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.UcEmployee;
+import cj.netos.uc.model.UcEmpl;
 import cj.netos.uc.service.IUcEmployeeService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -14,7 +14,7 @@ public class UcEmployeePorts implements IUcEmployeePort {
     IUcEmployeeService ucEmployeeService;
 
     @Override
-    public String addEmployee(UcEmployee employee) throws CircuitException {
+    public String addEmployee(UcEmpl employee) throws CircuitException {
         return ucEmployeeService.addEmployee(employee);
     }
 
@@ -24,22 +24,22 @@ public class UcEmployeePorts implements IUcEmployeePort {
     }
 
     @Override
-    public UcEmployee getEmployee(String emplid) throws CircuitException {
+    public UcEmpl getEmployee(String emplid) throws CircuitException {
         return ucEmployeeService.getEmployee(emplid);
     }
 
     @Override
-    public List<UcEmployee> listMyEmployee(String uid) throws CircuitException {
+    public List<UcEmpl> listMyEmployee(String uid) throws CircuitException {
         return ucEmployeeService.listMyEmployee(uid);
     }
 
     @Override
-    public List<UcEmployee> pageEmployeeOfCompany(String companyid) throws CircuitException {
+    public List<UcEmpl> pageEmployeeOfCompany(String companyid) throws CircuitException {
         return ucEmployeeService.pageEmployeeOfCompany(companyid);
     }
 
     @Override
-    public List<UcEmployee> pageEmployeeOfDept(String companyid, String deptid) throws CircuitException {
+    public List<UcEmpl> pageEmployeeOfDept(String companyid, String deptid) throws CircuitException {
         return ucEmployeeService.pageEmployeeOfDept(companyid,deptid);
     }
 }

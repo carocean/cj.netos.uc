@@ -1,7 +1,6 @@
 package cj.netos.uc.service;
 
-import cj.netos.uc.domain.AppRole;
-import cj.netos.uc.domain.TenantApp;
+import cj.netos.uc.model.TenantApp;
 import cj.studio.ecm.net.CircuitException;
 
 import java.util.List;

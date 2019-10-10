@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MybatisBuilder.project.settings">
+    <option name="connectionInfoList">
+      <list>
+        <ConnectionInfo>
+          <option name="database" value="netos.uc" />
+          <option name="description" value="" />
+          <option name="driverClass" value="" />
+          <option name="driverLibrary" value="" />
+          <option name="driverType" value="MySQL" />
+          <option name="host" value="47.104.128.137" />
+          <option name="id" value="9daf2c4228bf4b57a52d594bf54d482d" />
+          <option name="name" value="netos.uc" />
+          <option name="port" value="3306" />
+          <option name="url" value="" />
+          <option name="userName" value="cj" />
+        </ConnectionInfo>
+      </list>
+    </option>
+    <option name="defaultParameters">
+      <DefaultParameters>
+        <option name="renameConfig">
+          <Config>
+            <option name="mapperTypePattern" value="" />
+            <option name="exampleTypePattern" value="" />
+            <option name="sqlFileNamePattern" value="" />
+          </Config>
+        </option>
+        <option name="selectWithLockConfig">
+          <SelectWithLockConfig>
+            <option name="byPrimaryKeyWithLockOverride" value="" />
+            <option name="byExampleWithLockOverride" value="" />
+            <option name="byExampleWithLockEnabled" value="true" />
+          </SelectWithLockConfig>
+        </option>
+      </DefaultParameters>
+    </option>
+    <option name="historyMap">
+      <map>
+        <entry key="JAVA_CLIENT_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.netos.uc.plugin.mapper" />
+              <option value="cj.db.mappings" />
+              <option value="mapper" />
+            </list>
+          </value>
+        </entry>
+        <entry key="JAVA_MODEL_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.netos.uc.model" />
+              <option value="model" />
+            </list>
+          </value>
+        </entry>
+        <entry key="SQL_MAP_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.db.mappings" />
+              <option value="cj.netos.uc.plugin.mapper" />
+              <option value="sqlmap" />
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastGeneratorParamWrapper">
+      <GeneratorParamWrapper>
+        <option name="defaultTableConfigWrapper">
+          <TableConfigurationWrapper>
+            <option name="domainObjectRenamingRule">
+              <DomainObjectRenamingRule>
+                <option name="replaceString" value="" />
+                <option name="searchString" value="" />
+              </DomainObjectRenamingRule>
+            </option>
+            <option name="generatedKeyWrapper">
+              <GeneratedKeyWrapper>
+                <option name="column" value="" />
+              </GeneratedKeyWrapper>
+            </option>
+          </TableConfigurationWrapper>
+        </option>
+        <option name="javaClientConfig">
+          <JavaClientGeneratorConfiguration>
+            <option name="configurationType" value="XMLMAPPER" />
+            <option name="targetPackage" value="cj.netos.uc.plugin.mapper" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.uc.plugin.core/src" />
+          </JavaClientGeneratorConfiguration>
+        </option>
+        <option name="javaModelConfig">
+          <JavaModelGeneratorConfiguration>
+            <option name="targetPackage" value="cj.netos.uc.model" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.uc.openport/src" />
+          </JavaModelGeneratorConfiguration>
+        </option>
+        <option name="sqlMapConfig">
+          <SqlMapGeneratorConfiguration>
+            <option name="targetPackage" value="cj.db.mappings" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.uc.plugin.core/src" />
+          </SqlMapGeneratorConfiguration>
+        </option>
+      </GeneratorParamWrapper>
+    </option>
+    <option name="tableInfoMap">
+      <map>
+        <entry key="netos.uc#app_account">
+          <value>
+            <TableInfo>
+              <option name="customColumns">
+                <list />
+              </option>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="AppAccount" />
+              <option name="tableName" value="app_account" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#app_role">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="AppRole" />
+              <option name="tableName" value="app_role" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#tenant_app">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="TenantApp" />
+              <option name="tableName" value="tenant_app" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#tenant_role">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="TenantRole" />
+              <option name="tableName" value="tenant_role" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#ua_app_role_user">
+          <value>
+            <TableInfo>
+              <option name="customColumns">
+                <list />
+              </option>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UaAppRoleUser" />
+              <option name="keyColumn" value="" />
+              <option name="tableName" value="ua_app_role_user" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#ua_role_empl">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UaRoleEmpl" />
+              <option name="tableName" value="ua_role_empl" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#ua_role_user">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UaRoleUser" />
+              <option name="tableName" value="ua_role_user" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#ua_tenant_role_user">
+          <value>
+            <TableInfo>
+              <option name="customColumns">
+                <list />
+              </option>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UaTenantRoleUser" />
+              <option name="tableName" value="ua_tenant_role_user" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_company">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcCompany" />
+              <option name="tableName" value="uc_company" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_dept">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcDept" />
+              <option name="tableName" value="uc_dept" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_empl">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcEmpl" />
+              <option name="tableName" value="uc_empl" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_role">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcRole" />
+              <option name="tableName" value="uc_role" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_tenant">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcTenant" />
+              <option name="tableName" value="uc_tenant" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_user">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcUser" />
+              <option name="tableName" value="uc_user" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_user_attr">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcUserAttr" />
+              <option name="tableName" value="uc_user_attr" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_user_attr_val">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcUserAttrVal" />
+              <option name="tableName" value="uc_user_attr_val" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_user_seg">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcUserSeg" />
+              <option name="tableName" value="uc_user_seg" />
+            </TableInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

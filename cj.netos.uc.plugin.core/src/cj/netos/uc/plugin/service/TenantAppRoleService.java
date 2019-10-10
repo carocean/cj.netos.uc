@@ -1,9 +1,8 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.*;
-import cj.netos.uc.plugin.dao.AppRoleMapper;
-import cj.netos.uc.plugin.dao.UaAppRoleUserMapper;
-import cj.netos.uc.util.NumberGen;
+import cj.netos.uc.model.*;
+import cj.netos.uc.plugin.mapper.AppRoleMapper;
+import cj.netos.uc.plugin.mapper.UaAppRoleUserMapper;
 import cj.netos.uc.service.IAppRoleService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
@@ -17,9 +16,9 @@ import java.util.List;
 @CjBridge(aspects = "@transaction")
 @CjService(name = "tenantAppRoleService")
 public class TenantAppRoleService implements IAppRoleService {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.AppRoleMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppRoleMapper")
     AppRoleMapper appRoleMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UaAppRoleUserMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UaAppRoleUserMapper")
     UaAppRoleUserMapper uaAppRoleUserMapper;
 
     @CjTransaction
@@ -37,12 +36,10 @@ public class TenantAppRoleService implements IAppRoleService {
         if (StringUtil.isEmpty(roleName)) {
             throw new CircuitException("404", "角色名为空");
         }
-        if (existsRoleId(roleId)) {
+        if (existsRoleId(roleId,appId)) {
             throw new CircuitException("404", "已存在角色：" + roleId);
         }
-        if (existsRoleName(roleName, appId)) {
-            throw new CircuitException("500", String.format("在应用%s下存在同名角色：%s", appId, roleName));
-        }
+
         AppRole role = new AppRole();
         role.setExtend(extend);
         role.setRoleId(roleId);
@@ -52,26 +49,21 @@ public class TenantAppRoleService implements IAppRoleService {
         return role.getRoleId();
     }
 
-    private boolean existsRoleName(String roleName, String appId) {
-        AppRoleExample example=new AppRoleExample();
-        example.createCriteria().andAppIdEqualTo(appId).andRoleNameEqualTo(roleName);
-        return appRoleMapper.countByExample(example)>0;
-    }
 
-    private boolean existsRoleId(String roleId) throws CircuitException {
-        return  getRole(roleId)!=null;
+    private boolean existsRoleId(String roleId, String appId) throws CircuitException {
+        return  getRole(appId,roleId)!=null;
     }
 
     @CjTransaction
     @Override
-    public void removeRole(String roleid) throws CircuitException {
-        appRoleMapper.deleteByPrimaryKey(roleid);
+    public void removeRole(String appId,String roleid) throws CircuitException {
+        appRoleMapper.deleteByPrimaryKey(roleid,appId);
     }
 
     @CjTransaction
     @Override
-    public AppRole getRole(String roleid) throws CircuitException {
-        return appRoleMapper.selectByPrimaryKey(roleid);
+    public AppRole getRole(String appId,String roleid) throws CircuitException {
+        return appRoleMapper.selectByPrimaryKey(roleid,appId);
     }
 
     @CjTransaction
@@ -82,31 +74,29 @@ public class TenantAppRoleService implements IAppRoleService {
 
     @CjTransaction
     @Override
-    public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
-        return uaAppRoleUserMapper.pageUserInRole(roleid, currPage, pageSize);
+    public List<UcUser> pageUserInRole(String appId,String roleid, int currPage, int pageSize) throws CircuitException {
+        return uaAppRoleUserMapper.pageUserInRole(appId,roleid, currPage, pageSize);
     }
 
     @CjTransaction
     @Override
-    public List<AppRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return uaAppRoleUserMapper.pageRoleInUser(uid, currPage, pageSize);
+    public List<AppRole> pageRoleOfUser(String uid,String appId, int currPage, int pageSize) throws CircuitException {
+        return uaAppRoleUserMapper.pageRoleInUser(uid,appId, currPage, pageSize);
     }
 
     @CjTransaction
     @Override
-    public void addUserToRole(String uid, String roleid) throws CircuitException {
-        UaAppRoleUserKey key = new UaAppRoleUserKey();
+    public void addUserToRole(String uid,String appId, String roleid) throws CircuitException {
+        UaAppRoleUser key = new UaAppRoleUser();
         key.setRoleId(roleid);
         key.setUserId(uid);
+        key.setAppId(appId);
         uaAppRoleUserMapper.insert(key);
     }
 
     @CjTransaction
     @Override
-    public void removeUserFromRole(String uid, String roleid) throws CircuitException {
-        UaAppRoleUserKey key = new UaAppRoleUserKey();
-        key.setRoleId(roleid);
-        key.setUserId(uid);
-        uaAppRoleUserMapper.deleteByPrimaryKey(key);
+    public void removeUserFromRole(String uid,String appId, String roleid) throws CircuitException {
+        uaAppRoleUserMapper.deleteByPrimaryKey(roleid,uid,appId);
     }
 }

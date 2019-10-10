@@ -34,17 +34,17 @@
         <mapper resource="cj/db/mappings/TenantAppMapper.xml"/>
         <mapper resource="cj/db/mappings/TenantRoleMapper.xml"/>
         <mapper resource="cj/db/mappings/UaAppRoleUserMapper.xml"/>
-        <mapper resource="cj/db/mappings/UaRoleEmployeeMapper.xml"/>
+        <mapper resource="cj/db/mappings/UaRoleEmplMapper.xml"/>
         <mapper resource="cj/db/mappings/UaRoleUserMapper.xml"/>
         <mapper resource="cj/db/mappings/UaTenantRoleUserMapper.xml"/>
         <mapper resource="cj/db/mappings/UcCompanyMapper.xml"/>
         <mapper resource="cj/db/mappings/UcDeptMapper.xml"/>
-        <mapper resource="cj/db/mappings/UcEmployeeMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcEmplMapper.xml"/>
         <mapper resource="cj/db/mappings/UcRoleMapper.xml"/>
         <mapper resource="cj/db/mappings/UcTenantMapper.xml"/>
         <mapper resource="cj/db/mappings/UcUserAttrMapper.xml"/>
         <mapper resource="cj/db/mappings/UcUserAttrValMapper.xml"/>
         <mapper resource="cj/db/mappings/UcUserMapper.xml"/>
-        <mapper resource="cj/db/mappings/UcUserSegmentMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcUserSegMapper.xml"/>
     </mappers>
 </configuration>

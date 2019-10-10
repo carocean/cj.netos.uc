@@ -1,8 +1,8 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.UcDept;
-import cj.netos.uc.domain.UcDeptExample;
-import cj.netos.uc.plugin.dao.UcDeptMapper;
+import cj.netos.uc.model.UcDept;
+import cj.netos.uc.model.UcDeptExample;
+import cj.netos.uc.plugin.mapper.UcDeptMapper;
 import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.IUcCompanyService;
 import cj.netos.uc.service.IUcDeptmentService;
@@ -19,7 +19,7 @@ import java.util.List;
 @CjBridge(aspects = "@transaction")
 @CjService(name = "ucDeptService")
 public class UcDeptService implements IUcDeptmentService {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcDeptMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcDeptMapper")
     UcDeptMapper deptMapper;
     @CjServiceRef
     IUcCompanyService ucCompanyService;

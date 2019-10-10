@@ -1,12 +1,14 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.*;
-import cj.netos.uc.plugin.dao.*;
-import cj.netos.uc.util.Encript;
-import cj.netos.uc.util.NumberGen;
+import cj.netos.uc.model.*;
+import cj.netos.uc.plugin.mapper.UcUserAttrMapper;
+import cj.netos.uc.plugin.mapper.UcUserAttrValMapper;
+import cj.netos.uc.plugin.mapper.UcUserMapper;
+import cj.netos.uc.plugin.mapper.UcUserSegMapper;
 import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IUcEmployeeService;
 import cj.netos.uc.service.IUcUserService;
+import cj.netos.uc.util.NumberGen;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceInvertInjection;
@@ -17,18 +19,17 @@ import cj.ultimate.util.StringUtil;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @CjBridge(aspects = "@transaction")
 @CjService(name = "ucUserService")
 public class UcUserService implements IUcUserService {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserMapper")
     UcUserMapper userMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserSegmentMapper")
-    UcUserSegmentMapper userSegmentMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserAttrMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserSegMapper")
+    UcUserSegMapper userSegmentMapper;
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserAttrMapper")
     UcUserAttrMapper userAttrMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserAttrValMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserAttrValMapper")
     UcUserAttrValMapper userAttrValMapper;
 
     @CjServiceInvertInjection
@@ -204,7 +205,7 @@ public class UcUserService implements IUcUserService {
         if (existsSegment(name)) {
             throw new CircuitException("500", "已存在同名段:" + name);
         }
-        UcUserSegment segment = new UcUserSegment();
+        UcUserSeg segment = new UcUserSeg();
         segment.setCreateTime(new Date());
         segment.setName(name);
         segment.setSegmentId(NumberGen.gen());
@@ -212,15 +213,15 @@ public class UcUserService implements IUcUserService {
     }
 
     private boolean existsSegment(String name) {
-        UcUserSegmentExample example = new UcUserSegmentExample();
+        UcUserSegExample example = new UcUserSegExample();
         example.createCriteria().andNameEqualTo(name);
         return userSegmentMapper.countByExample(example) > 0;
     }
 
     @CjTransaction
     @Override
-    public List<UcUserSegment> listSegment() {
-        UcUserSegmentExample example = new UcUserSegmentExample();
+    public List<UcUserSeg> listSegment() {
+        UcUserSegExample example = new UcUserSegExample();
         return userSegmentMapper.selectByExample(example);
     }
 

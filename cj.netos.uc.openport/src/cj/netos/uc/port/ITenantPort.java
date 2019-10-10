@@ -1,6 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.UcTenant;
+import cj.netos.uc.model.UcTenant;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.annotations.CjOpenport;

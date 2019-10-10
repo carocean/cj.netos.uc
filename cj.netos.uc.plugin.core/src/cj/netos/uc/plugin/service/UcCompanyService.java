@@ -1,10 +1,10 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.UcCompany;
-import cj.netos.uc.domain.UcCompanyExample;
-import cj.netos.uc.plugin.dao.UcCompanyMapper;
-import cj.netos.uc.util.NumberGen;
+import cj.netos.uc.model.UcCompany;
+import cj.netos.uc.model.UcCompanyExample;
+import cj.netos.uc.plugin.mapper.UcCompanyMapper;
 import cj.netos.uc.service.IUcCompanyService;
+import cj.netos.uc.util.NumberGen;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -16,7 +16,7 @@ import java.util.List;
 @CjBridge(aspects = "@transaction")
 @CjService(name = "ucCompanyService")
 public class UcCompanyService implements IUcCompanyService {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcCompanyMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcCompanyMapper")
     UcCompanyMapper companyMapper;
     @CjTransaction
     @Override

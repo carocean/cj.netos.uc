@@ -1,13 +1,11 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.*;
+import cj.netos.uc.model.*;
 import cj.netos.uc.service.*;
 import cj.netos.uc.util.Encript;
 import cj.netos.uc.util.JwtUtil;
-import cj.studio.ecm.IServiceSite;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
-import cj.studio.ecm.annotation.CjServiceSite;
 import cj.studio.ecm.net.CircuitException;
 import io.jsonwebtoken.Claims;
 
@@ -29,8 +27,6 @@ public class AuthService implements IAuthService {
     IAppService appService;
     @CjServiceRef
     IUcUserService ucUserService;
-    @CjServiceSite
-    IServiceSite site;
 
     @Override
     public IdentityInfo auth(String appid, String accountName, String password) throws CircuitException {
@@ -58,7 +54,10 @@ public class AuthService implements IAuthService {
                 throw new CircuitException("404", String.format("账户:%s 密码不正确.", accountName));
             }
         }
-
+        TenantApp app = appService.getApp(appid);
+        if (app == null) {
+            throw new CircuitException("404", "应用不存在:" + appid);
+        }
         IdentityInfo identityInfo = new IdentityInfo();
         identityInfo.setAccountid(account.getAccountId());
         identityInfo.setAccountName(account.getAccountName());
@@ -66,8 +65,8 @@ public class AuthService implements IAuthService {
         identityInfo.setUid(account.getUserId());
 
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(account.getUserId(), 0, Integer.MAX_VALUE);
-        List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(account.getUserId(), 0, Integer.MAX_VALUE);
-        List<AppRole> approles = appRoleService.pageRoleOfUser(account.getUserId(), 0, Integer.MAX_VALUE);
+        List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(account.getUserId(), app.getTenantId(), 0, Integer.MAX_VALUE);
+        List<AppRole> approles = appRoleService.pageRoleOfUser(account.getUserId(), appid, 0, Integer.MAX_VALUE);
 
         identityInfo.setUcRoles(ucroles);
         identityInfo.setTenantRoles(taroles);
@@ -80,7 +79,6 @@ public class AuthService implements IAuthService {
         claims.put("accountName", account.getAccountName());
         claims.put("appid", account.getAppId());
 
-        TenantApp app = appService.getApp(account.getAppId());
         String appaccessToken = JwtUtil.createJWT(app.getSecretKey(), account.getUserId(), app.getTokenExpire(), claims);
         identityInfo.setAccessToken(appaccessToken);
         return identityInfo;
@@ -92,8 +90,7 @@ public class AuthService implements IAuthService {
         if (app == null) {
             throw new CircuitException("801", "验证失败，应用不存在：" + appid);
         }
-        Claims claims = null;
-        claims = JwtUtil.parseJWT(token, app.getSecretKey());
+        Claims claims = JwtUtil.parseJWT(token, app.getSecretKey());
         return claims;
     }
 }

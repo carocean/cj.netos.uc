@@ -1,6 +1,5 @@
 package cj.netos.uc;
 
-import cj.netos.uc.domain.UcRole;
 import cj.netos.uc.service.IKeyStore;
 import cj.netos.uc.util.JwtUtil;
 import cj.studio.ecm.IServiceSite;
@@ -12,7 +11,6 @@ import cj.studio.openport.annotations.CjOpenport;
 import io.jsonwebtoken.Claims;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

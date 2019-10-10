@@ -44,7 +44,7 @@ public class UCInit implements IDBInit {
             tenantService.addTenant(tenantid, tenantName, tenantwebsite, uid);
         }
         String appid = ((IProperty) args.getNode("appid")).getValue().getName();
-        site.addService("#.app.id",appid);
+        site.addService("#.app.id", appid);
         if (appService.getApp(appid) == null) {
             String appName = ((IProperty) args.getNode("appName")).getValue().getName();
             String tokenExpire = ((IProperty) args.getNode("tokenExpire")).getValue().getName();
@@ -72,28 +72,37 @@ public class UCInit implements IDBInit {
         if (ucRoleService.getRole("tenantDevelops") == null) {
             ucRoleService.addRole("tenantDevelops", "租户开发者", true);
         }
-        if (tenantRoleService.getRole("appAdministrators") == null) {
+        if (ucRoleService.getRole("tenantUsers") == null) {
+            ucRoleService.addRole("tenantUsers", "租户的普通用户", true);
+        }
+        if (tenantRoleService.getRole("appAdministrators", tenantid) == null) {
             tenantRoleService.addRole("appAdministrators", "tenantAdministrators", tenantid, "应用管理员", true);
         }
-        if (tenantRoleService.getRole("appTests") == null) {
+        if (tenantRoleService.getRole("appTests", tenantid) == null) {
             tenantRoleService.addRole("appTests", "tenantTests", tenantid, "应用测试员", true);
         }
-        if (tenantRoleService.getRole("appDevelops") == null) {
+        if (tenantRoleService.getRole("appDevelops", tenantid) == null) {
             tenantRoleService.addRole("appDevelops", "tenantDevelops", tenantid, "应用开发者", true);
         }
-        if (appRoleService.getRole("administrators") == null) {
+        if (tenantRoleService.getRole("appUsers", tenantid) == null) {
+            tenantRoleService.addRole("appUsers", "tenantUsers", tenantid, "应用的普通用户", true);
+        }
+        if (appRoleService.getRole(appid,"administrators") == null) {
             appRoleService.addRole("administrators", "appAdministrators", appid, "管理员");
         }
-        if (appRoleService.getRole("tests") == null) {
+        if (appRoleService.getRole(appid,"tests") == null) {
             appRoleService.addRole("tests", "appTests", appid, "测试员");
         }
-        if (appRoleService.getRole("develops") == null) {
+        if (appRoleService.getRole(appid,"develops") == null) {
             appRoleService.addRole("develops", "appDevelops", appid, "开发者");
         }
-        if(!ucRoleService.hasRoleOfUser("administrators",uid)) {
+        if (appRoleService.getRole(appid,"users") == null) {
+            appRoleService.addRole("users", "appUsers", appid, "普通用户");
+        }
+        if (!ucRoleService.hasRoleOfUser("administrators", uid)) {
             ucRoleService.addRoleToUser("administrators", uid);
         }
-        if(!ucRoleService.hasRoleOfUser("tenantAdministrators",uid)) {
+        if (!ucRoleService.hasRoleOfUser("tenantAdministrators", uid)) {
             ucRoleService.addRoleToUser("tenantAdministrators", uid);
         }
         CJSystem.logging().info(getClass(), String.format("初始化UC完成。应用：%s, 账号：%s, 密码：%s", appid, accountName, password));

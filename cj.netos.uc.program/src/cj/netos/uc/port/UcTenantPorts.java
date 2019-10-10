@@ -1,6 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.UcTenant;
+import cj.netos.uc.model.UcTenant;
 import cj.netos.uc.service.ITenantService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;

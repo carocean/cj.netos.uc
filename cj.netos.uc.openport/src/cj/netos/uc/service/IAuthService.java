@@ -1,6 +1,6 @@
 package cj.netos.uc.service;
 
-import cj.netos.uc.domain.IdentityInfo;
+import cj.netos.uc.model.IdentityInfo;
 import cj.studio.ecm.net.CircuitException;
 
 import java.util.Map;

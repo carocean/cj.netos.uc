@@ -1,9 +1,10 @@
 package cj.netos.uc.service;
 
-import cj.netos.uc.domain.*;
+import cj.netos.uc.model.UcUser;
+import cj.netos.uc.model.UcUserAttr;
+import cj.netos.uc.model.UcUserAttrVal;
+import cj.netos.uc.model.UcUserSeg;
 import cj.studio.ecm.net.CircuitException;
-import cj.studio.openport.annotations.CjOpenport;
-import cj.studio.openport.annotations.CjOpenportParameter;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public interface IUcUserService {
 
     void addSegment(String name) throws CircuitException;
 
-    List<UcUserSegment> listSegment() throws CircuitException;
+    List<UcUserSeg> listSegment() throws CircuitException;
 
     void removeSegment(String segmentid) throws CircuitException;
 

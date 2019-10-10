@@ -1,7 +1,6 @@
 package cj.netos.uc.service;
 
-import cj.netos.uc.domain.UcDept;
-import cj.netos.uc.domain.UcEmployee;
+import cj.netos.uc.model.UcDept;
 import cj.studio.ecm.net.CircuitException;
 
 import java.util.List;

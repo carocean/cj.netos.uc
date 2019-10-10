@@ -1,6 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.*;
+import cj.netos.uc.model.*;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.annotations.CjOpenport;
@@ -39,7 +39,7 @@ public interface IUcUserPort extends IOpenportService {
     void addSegment(@CjOpenportParameter(name = "name", usage = "信息段名") String name) throws CircuitException;
 
     @CjOpenport(usage = "列出信息段", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    List<UcUserSegment> listSegment() throws CircuitException;
+    List<UcUserSeg> listSegment() throws CircuitException;
 
     @CjOpenport(usage = "移除信息段", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
     void removeSegment(@CjOpenportParameter(name = "segmentid", usage = "信息段标识") String segmentid) throws CircuitException;

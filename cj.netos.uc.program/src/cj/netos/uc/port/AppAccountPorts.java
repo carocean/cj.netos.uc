@@ -1,7 +1,7 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.AppAccount;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.model.AppAccount;
+import cj.netos.uc.model.UcUser;
 import cj.netos.uc.service.IAppAccountService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;

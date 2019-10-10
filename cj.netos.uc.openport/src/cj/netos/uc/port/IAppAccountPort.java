@@ -1,10 +1,9 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.AppAccount;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.model.AppAccount;
+import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
-import cj.studio.openport.InRequest;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;

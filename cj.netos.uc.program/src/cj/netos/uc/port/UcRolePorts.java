@@ -1,8 +1,7 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.*;
+import cj.netos.uc.model.*;
 import cj.netos.uc.service.IUcRoleService;
-import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;

@@ -26,10 +26,10 @@
 					"email": "carocean.jofers@outlook.com",
 					"mobile": "18023457655",
 					"idcard": "",
-					"tenantid": "0019092714383309",
-					"tenantName": "supertenant",
+					"tenantid": "uitcl",
+					"tenantName": "Unlucky Information Technology Co., Ltd.",
 					"tenantWebsite": "https://iscjcj.com/supertenant",
-					"appid": "0019092714383309",
+					"appid": "system",
 					"appName": "超管系统",
 					"tokenExpire": "86400000",
 					"appLogo": "",
@@ -37,7 +37,7 @@
 					"callbackUrl": "",
 					"homeUrl": "",
 					"accountName": "superadmin",
-					"password": "11"
+					"password": "123456"
 				}
 			}
 		]

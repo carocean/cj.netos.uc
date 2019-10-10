@@ -1,9 +1,9 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.AppAccount;
-import cj.netos.uc.domain.AppAccountExample;
-import cj.netos.uc.domain.UcUser;
-import cj.netos.uc.plugin.dao.AppAccountMapper;
+import cj.netos.uc.model.AppAccount;
+import cj.netos.uc.model.AppAccountExample;
+import cj.netos.uc.model.UcUser;
+import cj.netos.uc.plugin.mapper.AppAccountMapper;
 import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IUcUserService;
 import cj.netos.uc.util.Encript;
@@ -22,7 +22,7 @@ import java.util.List;
 @CjBridge(aspects = "@transaction")
 @CjService(name = "appAccountService")
 public class AppAccountService implements IAppAccountService, IServiceSetter {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.AppAccountMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppAccountMapper")
     AppAccountMapper accountMapper;
     IUcUserService ucUserService;
 

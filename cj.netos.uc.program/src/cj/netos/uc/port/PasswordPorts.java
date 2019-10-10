@@ -12,7 +12,7 @@ public class PasswordPorts implements IPasswordPort {
     IPasswordService passwordService;
 
     @Override
-    public void updatePassword(String tenantid, String accountName, String oldpwd, String newpwd) throws CircuitException {
-        passwordService.updatePassword(tenantid, accountName, oldpwd, newpwd);
+    public void updatePassword(String appid, String accountName, String oldpwd, String newpwd) throws CircuitException {
+        passwordService.updatePassword(appid, accountName, oldpwd, newpwd);
     }
 }

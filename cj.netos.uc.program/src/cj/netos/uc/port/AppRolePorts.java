@@ -1,7 +1,7 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.AppRole;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.model.AppRole;
+import cj.netos.uc.model.UcUser;
 import cj.netos.uc.service.IAppRoleService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -20,13 +20,13 @@ public class AppRolePorts implements IAppRolePort {
     }
 
     @Override
-    public void removeRole(String roleid) throws CircuitException {
-        appRoleService.removeRole(roleid);
+    public void removeRole(String appid,String roleid) throws CircuitException {
+        appRoleService.removeRole(appid,roleid);
     }
 
     @Override
-    public AppRole getRole(String roleid) throws CircuitException {
-        return appRoleService.getRole(roleid);
+    public AppRole getRole(String appid,String roleid) throws CircuitException {
+        return appRoleService.getRole(appid,roleid);
     }
 
     @Override
@@ -35,22 +35,22 @@ public class AppRolePorts implements IAppRolePort {
     }
 
     @Override
-    public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
-        return appRoleService.pageUserInRole(roleid, currPage, pageSize);
+    public List<UcUser> pageUserInRole(String appid,String roleid, int currPage, int pageSize) throws CircuitException {
+        return appRoleService.pageUserInRole(appid,roleid, currPage, pageSize);
     }
 
     @Override
-    public List<AppRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return appRoleService.pageRoleOfUser(uid,currPage,pageSize);
+    public List<AppRole> pageRoleOfUser(String uid,String appid, int currPage, int pageSize) throws CircuitException {
+        return appRoleService.pageRoleOfUser(uid,appid,currPage,pageSize);
     }
 
     @Override
-    public void addUserToRole(String uid, String roleid) throws CircuitException {
-        appRoleService.addUserToRole(uid, roleid);
+    public void addUserToRole(String uid,String appid, String roleid) throws CircuitException {
+        appRoleService.addUserToRole(uid, appid,roleid);
     }
 
     @Override
-    public void removeUserFromRole(String uid, String roleid) throws CircuitException {
-        appRoleService.removeUserFromRole(uid, roleid);
+    public void removeUserFromRole(String uid,String appid, String roleid) throws CircuitException {
+        appRoleService.removeUserFromRole(uid,appid, roleid);
     }
 }

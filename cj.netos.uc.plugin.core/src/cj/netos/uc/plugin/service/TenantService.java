@@ -1,7 +1,7 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.*;
-import cj.netos.uc.plugin.dao.UcTenantMapper;
+import cj.netos.uc.model.*;
+import cj.netos.uc.plugin.mapper.UcTenantMapper;
 import cj.netos.uc.util.NumberGen;
 import cj.netos.uc.service.ITenantService;
 import cj.studio.ecm.annotation.CjBridge;
@@ -17,7 +17,7 @@ import java.util.List;
 @CjBridge(aspects = "@transaction")
 @CjService(name = "tenantService")
 public class TenantService implements ITenantService {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcTenantMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcTenantMapper")
     UcTenantMapper tenantMapper;
 
     @CjTransaction

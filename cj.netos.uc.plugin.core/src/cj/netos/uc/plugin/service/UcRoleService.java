@@ -1,9 +1,9 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.*;
-import cj.netos.uc.plugin.dao.UaRoleUserMapper;
-import cj.netos.uc.plugin.dao.UcRoleMapper;
-import cj.netos.uc.plugin.dao.UcUserMapper;
+import cj.netos.uc.model.*;
+import cj.netos.uc.plugin.mapper.UaRoleUserMapper;
+import cj.netos.uc.plugin.mapper.UcRoleMapper;
+import cj.netos.uc.plugin.mapper.UcUserMapper;
 import cj.netos.uc.service.IUcRoleService;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
@@ -17,12 +17,12 @@ import java.util.List;
 @CjBridge(aspects = "@transaction")
 @CjService(name = "ucRoleService")
 public class UcRoleService implements IUcRoleService {
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcRoleMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcRoleMapper")
     UcRoleMapper roleMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UaRoleUserMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UaRoleUserMapper")
     UaRoleUserMapper roleUserMapper;
 
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.dao.UcUserMapper")
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserMapper")
     UcUserMapper userMapper;
 
 
@@ -100,18 +100,15 @@ public class UcRoleService implements IUcRoleService {
         if (getRole(roleid) == null) {
             throw new CircuitException("404", "不存在角色标识:" + uid);
         }
-        UaRoleUserKey key = new UaRoleUserKey();
-        key.setRoleId(roleid);
-        key.setUserId(uid);
-        roleUserMapper.insertSelective(key);
+        UaRoleUser uaRoleUser = new UaRoleUser();
+        uaRoleUser.setRoleId(roleid);
+        uaRoleUser.setUserId(uid);
+        roleUserMapper.insertSelective(uaRoleUser);
     }
 
     @CjTransaction
     @Override
     public void removeRoleFromUser(String roleid, String uid) throws CircuitException {
-        UaRoleUserKey key = new UaRoleUserKey();
-        key.setRoleId(roleid);
-        key.setUserId(uid);
-        roleUserMapper.deleteByPrimaryKey(key);
+        roleUserMapper.deleteByPrimaryKey(roleid, uid);
     }
 }

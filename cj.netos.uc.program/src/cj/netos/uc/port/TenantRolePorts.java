@@ -1,7 +1,7 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.TenantRole;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.model.TenantRole;
+import cj.netos.uc.model.UcUser;
 import cj.netos.uc.service.ITenantRoleService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -20,13 +20,13 @@ public class TenantRolePorts implements ITenantRolePort {
     }
 
     @Override
-    public void removeRole(String roleid) throws CircuitException {
-        tenantRoleService.removeRole(roleid);
+    public void removeRole(String roleid,String tenantid) throws CircuitException {
+        tenantRoleService.removeRole(roleid,tenantid);
     }
 
     @Override
-    public TenantRole getRole(String roleid) throws CircuitException {
-        return tenantRoleService.getRole(roleid);
+    public TenantRole getRole(String roleid,String tenantid) throws CircuitException {
+        return tenantRoleService.getRole(roleid,tenantid);
     }
 
     @Override
@@ -35,22 +35,22 @@ public class TenantRolePorts implements ITenantRolePort {
     }
 
     @Override
-    public List<TenantRole> pageRoleOfUser(String uid, int currPage, int pageSize) throws CircuitException {
-        return tenantRoleService.pageRoleOfUser(uid,currPage,pageSize);
+    public List<TenantRole> pageRoleOfUser(String uid,String tenantid, int currPage, int pageSize) throws CircuitException {
+        return tenantRoleService.pageRoleOfUser(uid,tenantid,currPage,pageSize);
     }
 
     @Override
-    public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
-        return tenantRoleService.pageUserInRole(roleid, currPage, pageSize);
+    public List<UcUser> pageUserInRole( String roleid, String tenantid,int currPage, int pageSize) throws CircuitException {
+        return tenantRoleService.pageUserInRole(roleid, tenantid,currPage, pageSize);
     }
 
     @Override
-    public void addUserToRole(String uid, String roleid) throws CircuitException {
-        tenantRoleService.addUserToRole(uid, roleid);
+    public void addUserToRole(String uid, String roleid,String tenantid) throws CircuitException {
+        tenantRoleService.addUserToRole(uid, roleid,tenantid);
     }
 
     @Override
-    public void removeUserFromRole(String uid, String roleid) throws CircuitException {
-        tenantRoleService.removeUserFromRole(uid, roleid);
+    public void removeUserFromRole(String uid, String roleid,String tenantid) throws CircuitException {
+        tenantRoleService.removeUserFromRole(uid, roleid,tenantid);
     }
 }

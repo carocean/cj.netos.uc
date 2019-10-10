@@ -1,6 +1,6 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.AppAccount;
+import cj.netos.uc.model.AppAccount;
 import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IPasswordService;
 import cj.netos.uc.util.Encript;
@@ -13,8 +13,8 @@ public class PasswordService implements IPasswordService {
     @CjServiceRef
     IAppAccountService appAccountService;
     @Override
-    public void updatePassword(String tenantid, String accountName, String oldpwd, String newpwd) throws CircuitException {
-        AppAccount account=appAccountService.getAccountByName(tenantid,accountName);
+    public void updatePassword(String appid, String accountName, String oldpwd, String newpwd) throws CircuitException {
+        AppAccount account=appAccountService.getAccountByName(appid,accountName);
         if(account==null){
             throw new CircuitException("404","用户不存在:"+accountName);
         }

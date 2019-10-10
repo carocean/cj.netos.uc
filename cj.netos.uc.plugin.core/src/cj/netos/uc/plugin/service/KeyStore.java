@@ -1,6 +1,6 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.domain.TenantApp;
+import cj.netos.uc.model.TenantApp;
 import cj.netos.uc.service.IAppService;
 import cj.netos.uc.service.IKeyStore;
 import cj.studio.ecm.IServiceSite;

@@ -1,12 +1,10 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.IdentityInfo;
+import cj.netos.uc.model.IdentityInfo;
 import cj.netos.uc.service.IAuthService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
-import cj.studio.openport.TokenInfo;
-import io.jsonwebtoken.Claims;
 
 import java.util.Map;
 

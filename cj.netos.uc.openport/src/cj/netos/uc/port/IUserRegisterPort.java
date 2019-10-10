@@ -1,6 +1,6 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.TokenIn;

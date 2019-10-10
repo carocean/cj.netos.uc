@@ -9,5 +9,5 @@ import cj.studio.openport.annotations.CjOpenports;
 @CjOpenports(usage = "修改密码")
 public interface IPasswordPort extends IOpenportService {
     @CjOpenport(usage = "修改密码")
-    void updatePassword(@CjOpenportParameter(usage = "租户标识", name = "tenantid") String tenantid, @CjOpenportParameter(usage = "账户名", name = "accountName") String accountName, @CjOpenportParameter(usage = "旧密码", name = "oldpwd") String oldpwd, @CjOpenportParameter(usage = "新密码", name = "newpwd") String newpwd) throws CircuitException;
+    void updatePassword(@CjOpenportParameter(usage = "应用标识", name = "appid") String appid, @CjOpenportParameter(usage = "账户名", name = "accountName") String accountName, @CjOpenportParameter(usage = "旧密码", name = "oldpwd") String oldpwd, @CjOpenportParameter(usage = "新密码", name = "newpwd") String newpwd) throws CircuitException;
 }

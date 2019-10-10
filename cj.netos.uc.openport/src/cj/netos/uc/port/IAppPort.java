@@ -1,10 +1,8 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.AppRole;
-import cj.netos.uc.domain.TenantApp;
+import cj.netos.uc.model.TenantApp;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
-import cj.studio.openport.InRequest;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
@@ -14,7 +12,8 @@ import java.util.List;
 @CjOpenports(usage = "app")
 public interface IAppPort extends IOpenportService {
     @CjOpenport(command = "post", usage = "app", acl = {"allow administrators.role", "allow tests.role", "allow developer.role"})
-    String addApp(@CjOpenportParameter(name = "appName", usage = "应用名") String appName,
+    String addApp(@CjOpenportParameter(name = "appid", usage = "应用标识") String appid,
+                  @CjOpenportParameter(name = "appName", usage = "应用名") String appName,
                   @CjOpenportParameter(name = "tenantId", usage = "租户编号") String tenantId,
                   @CjOpenportParameter(name = "tokenExpire", usage = "令牌过期时间间隔") long tokenExpire,
                   @CjOpenportParameter(name = "appLogo", usage = "应用logo") String appLogo,

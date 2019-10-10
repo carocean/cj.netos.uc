@@ -1,7 +1,7 @@
 package cj.netos.uc.service;
 
-import cj.netos.uc.domain.UcRole;
-import cj.netos.uc.domain.UcUser;
+import cj.netos.uc.model.UcRole;
+import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 
 import java.util.List;
@@ -24,6 +24,6 @@ public interface IUcRoleService {
 
     void removeRoleFromUser(String roleid, String uid) throws CircuitException;
 
-    boolean hasRoleOfUser(String tenantAdministrators, String uid);
+    boolean hasRoleOfUser(String roleid, String uid);
 
 }

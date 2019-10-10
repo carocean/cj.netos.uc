@@ -1,6 +1,9 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.domain.*;
+import cj.netos.uc.model.UcUser;
+import cj.netos.uc.model.UcUserAttr;
+import cj.netos.uc.model.UcUserAttrVal;
+import cj.netos.uc.model.UcUserSeg;
 import cj.netos.uc.service.IUcUserService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -61,7 +64,7 @@ public class UcUserPorts implements IUcUserPort {
     }
 
     @Override
-    public List<UcUserSegment> listSegment() throws CircuitException {
+    public List<UcUserSeg> listSegment() throws CircuitException {
         return ucUserService.listSegment();
     }
 
