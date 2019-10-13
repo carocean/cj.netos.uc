@@ -6,7 +6,7 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface IAppService {
-    String addApp(String appid,String appName, String tenantId, long tokenExpire, String appLogo, String callbackUrl, String logoutUrl, String homeUrl) throws CircuitException;
+    String addApp(String appid, String appName, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException;
 
     void removeApp(String appid) throws CircuitException;
 
@@ -18,5 +18,12 @@ public interface IAppService {
     boolean existsAppName(String tenantid, String appName);
 
     TenantApp getAppByName(String tenantid, String appName);
+
+
+    void updateWebsite(String appid, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException;
+
+    void updateAppName(String appid, String newAppName) throws CircuitException;
+
+    String issueDevelopToken(String appid, String accountName, String password) throws CircuitException;
 
 }

@@ -14,8 +14,8 @@ public class AppPorts implements IAppPort {
     IAppService tenantAppService;
 
     @Override
-    public String addApp(String appid,String appName,String tenantId,long tokenExpire,String appLogo,String callbackUrl,String logoutUrl,String homeUrl) throws CircuitException {
-        return tenantAppService.addApp(appid,appName,tenantId,tokenExpire,appLogo,callbackUrl,logoutUrl,homeUrl);
+    public String addApp(String appid, String appName, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
+        return tenantAppService.addApp(appid, appName, tenantId, tokenExpire, appLogo, website, loginCBUrl, logoutCBUrl);
     }
 
     @Override
@@ -31,5 +31,21 @@ public class AppPorts implements IAppPort {
     @Override
     public List<TenantApp> pageApp(String tenantid, int currPage, int pageSize) throws CircuitException {
         return tenantAppService.pageApp(tenantid, currPage, pageSize);
+    }
+
+
+    @Override
+    public void updateWebsite(String appid, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
+        tenantAppService.updateWebsite(appid, website, loginCBUrl, logoutCBUrl);
+    }
+
+    @Override
+    public void renameAppName(String appid, String newAppName) throws CircuitException {
+        tenantAppService.updateAppName(appid, newAppName);
+    }
+
+    @Override
+    public String issueDevelopToken(String appid, String accountName, String password) throws CircuitException {
+        return tenantAppService.issueDevelopToken(appid, accountName, password);
     }
 }

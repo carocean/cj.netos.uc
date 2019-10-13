@@ -9,9 +9,9 @@
     <result column="secret_key" jdbcType="VARCHAR" property="secretKey" />
     <result column="token_expire" jdbcType="BIGINT" property="tokenExpire" />
     <result column="app_logo" jdbcType="VARCHAR" property="appLogo" />
-    <result column="callback_url" jdbcType="VARCHAR" property="callbackUrl" />
-    <result column="logout_url" jdbcType="VARCHAR" property="logoutUrl" />
-    <result column="home_url" jdbcType="VARCHAR" property="homeUrl" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="login_cb_url" jdbcType="VARCHAR" property="loginCbUrl" />
+    <result column="logout_cb_url" jdbcType="VARCHAR" property="logoutCbUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -75,8 +75,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    app_id, app_name, tenant_id, secret_key, token_expire, app_logo, callback_url, logout_url, 
-    home_url
+    app_id, app_name, tenant_id, secret_key, token_expire, app_logo, website, login_cb_url, 
+    logout_cb_url
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.TenantAppExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -116,11 +116,11 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into tenant_app (app_id, app_name, tenant_id, 
       secret_key, token_expire, app_logo, 
-      callback_url, logout_url, home_url
+      website, login_cb_url, logout_cb_url
       )
     values (#{appId,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, 
       #{secretKey,jdbcType=VARCHAR}, #{tokenExpire,jdbcType=BIGINT}, #{appLogo,jdbcType=VARCHAR}, 
-      #{callbackUrl,jdbcType=VARCHAR}, #{logoutUrl,jdbcType=VARCHAR}, #{homeUrl,jdbcType=VARCHAR}
+      #{website,jdbcType=VARCHAR}, #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.TenantApp">
@@ -145,14 +145,14 @@
       <if test="appLogo != null">
         app_logo,
       </if>
-      <if test="callbackUrl != null">
-        callback_url,
+      <if test="website != null">
+        website,
       </if>
-      <if test="logoutUrl != null">
-        logout_url,
+      <if test="loginCbUrl != null">
+        login_cb_url,
       </if>
-      <if test="homeUrl != null">
-        home_url,
+      <if test="logoutCbUrl != null">
+        logout_cb_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -174,14 +174,14 @@
       <if test="appLogo != null">
         #{appLogo,jdbcType=VARCHAR},
       </if>
-      <if test="callbackUrl != null">
-        #{callbackUrl,jdbcType=VARCHAR},
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
       </if>
-      <if test="logoutUrl != null">
-        #{logoutUrl,jdbcType=VARCHAR},
+      <if test="loginCbUrl != null">
+        #{loginCbUrl,jdbcType=VARCHAR},
       </if>
-      <if test="homeUrl != null">
-        #{homeUrl,jdbcType=VARCHAR},
+      <if test="logoutCbUrl != null">
+        #{logoutCbUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -214,14 +214,14 @@
       <if test="record.appLogo != null">
         app_logo = #{record.appLogo,jdbcType=VARCHAR},
       </if>
-      <if test="record.callbackUrl != null">
-        callback_url = #{record.callbackUrl,jdbcType=VARCHAR},
+      <if test="record.website != null">
+        website = #{record.website,jdbcType=VARCHAR},
       </if>
-      <if test="record.logoutUrl != null">
-        logout_url = #{record.logoutUrl,jdbcType=VARCHAR},
+      <if test="record.loginCbUrl != null">
+        login_cb_url = #{record.loginCbUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.homeUrl != null">
-        home_url = #{record.homeUrl,jdbcType=VARCHAR},
+      <if test="record.logoutCbUrl != null">
+        logout_cb_url = #{record.logoutCbUrl,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -237,9 +237,9 @@
       secret_key = #{record.secretKey,jdbcType=VARCHAR},
       token_expire = #{record.tokenExpire,jdbcType=BIGINT},
       app_logo = #{record.appLogo,jdbcType=VARCHAR},
-      callback_url = #{record.callbackUrl,jdbcType=VARCHAR},
-      logout_url = #{record.logoutUrl,jdbcType=VARCHAR},
-      home_url = #{record.homeUrl,jdbcType=VARCHAR}
+      website = #{record.website,jdbcType=VARCHAR},
+      login_cb_url = #{record.loginCbUrl,jdbcType=VARCHAR},
+      logout_cb_url = #{record.logoutCbUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -263,14 +263,14 @@
       <if test="appLogo != null">
         app_logo = #{appLogo,jdbcType=VARCHAR},
       </if>
-      <if test="callbackUrl != null">
-        callback_url = #{callbackUrl,jdbcType=VARCHAR},
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
       </if>
-      <if test="logoutUrl != null">
-        logout_url = #{logoutUrl,jdbcType=VARCHAR},
+      <if test="loginCbUrl != null">
+        login_cb_url = #{loginCbUrl,jdbcType=VARCHAR},
       </if>
-      <if test="homeUrl != null">
-        home_url = #{homeUrl,jdbcType=VARCHAR},
+      <if test="logoutCbUrl != null">
+        logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where app_id = #{appId,jdbcType=VARCHAR}
@@ -283,9 +283,9 @@
       secret_key = #{secretKey,jdbcType=VARCHAR},
       token_expire = #{tokenExpire,jdbcType=BIGINT},
       app_logo = #{appLogo,jdbcType=VARCHAR},
-      callback_url = #{callbackUrl,jdbcType=VARCHAR},
-      logout_url = #{logoutUrl,jdbcType=VARCHAR},
-      home_url = #{homeUrl,jdbcType=VARCHAR}
+      website = #{website,jdbcType=VARCHAR},
+      login_cb_url = #{loginCbUrl,jdbcType=VARCHAR},
+      logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR}
     where app_id = #{appId,jdbcType=VARCHAR}
   </update>
   <select id="pageApp" resultMap="BaseResultMap">
@@ -293,4 +293,17 @@
     where app.tenant_id=#{tenantid}
     limit #{currPage},#{pageSize}
   </select>
+  <update id="updateWebsite" parameterType="cj.netos.uc.model.TenantApp">
+    update tenant_app
+    set
+    website = #{website,jdbcType=VARCHAR},
+    login_cb_url = #{loginCbUrl,jdbcType=VARCHAR},
+    logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR}
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateAppName" parameterType="cj.netos.uc.model.TenantApp">
+    update tenant_app
+    set app_name = #{appName,jdbcType=VARCHAR}
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
 </mapper>

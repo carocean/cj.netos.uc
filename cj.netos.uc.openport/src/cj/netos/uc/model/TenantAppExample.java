@@ -547,213 +547,213 @@ public class TenantAppExample {
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlIsNull() {
-            addCriterion("callback_url is null");
+        public Criteria andWebsiteIsNull() {
+            addCriterion("website is null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlIsNotNull() {
-            addCriterion("callback_url is not null");
+        public Criteria andWebsiteIsNotNull() {
+            addCriterion("website is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlEqualTo(String value) {
-            addCriterion("callback_url =", value, "callbackUrl");
+        public Criteria andWebsiteEqualTo(String value) {
+            addCriterion("website =", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlNotEqualTo(String value) {
-            addCriterion("callback_url <>", value, "callbackUrl");
+        public Criteria andWebsiteNotEqualTo(String value) {
+            addCriterion("website <>", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlGreaterThan(String value) {
-            addCriterion("callback_url >", value, "callbackUrl");
+        public Criteria andWebsiteGreaterThan(String value) {
+            addCriterion("website >", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("callback_url >=", value, "callbackUrl");
+        public Criteria andWebsiteGreaterThanOrEqualTo(String value) {
+            addCriterion("website >=", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlLessThan(String value) {
-            addCriterion("callback_url <", value, "callbackUrl");
+        public Criteria andWebsiteLessThan(String value) {
+            addCriterion("website <", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlLessThanOrEqualTo(String value) {
-            addCriterion("callback_url <=", value, "callbackUrl");
+        public Criteria andWebsiteLessThanOrEqualTo(String value) {
+            addCriterion("website <=", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlLike(String value) {
-            addCriterion("callback_url like", value, "callbackUrl");
+        public Criteria andWebsiteLike(String value) {
+            addCriterion("website like", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlNotLike(String value) {
-            addCriterion("callback_url not like", value, "callbackUrl");
+        public Criteria andWebsiteNotLike(String value) {
+            addCriterion("website not like", value, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlIn(List<String> values) {
-            addCriterion("callback_url in", values, "callbackUrl");
+        public Criteria andWebsiteIn(List<String> values) {
+            addCriterion("website in", values, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlNotIn(List<String> values) {
-            addCriterion("callback_url not in", values, "callbackUrl");
+        public Criteria andWebsiteNotIn(List<String> values) {
+            addCriterion("website not in", values, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlBetween(String value1, String value2) {
-            addCriterion("callback_url between", value1, value2, "callbackUrl");
+        public Criteria andWebsiteBetween(String value1, String value2) {
+            addCriterion("website between", value1, value2, "website");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackUrlNotBetween(String value1, String value2) {
-            addCriterion("callback_url not between", value1, value2, "callbackUrl");
+        public Criteria andWebsiteNotBetween(String value1, String value2) {
+            addCriterion("website not between", value1, value2, "website");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlIsNull() {
-            addCriterion("logout_url is null");
+        public Criteria andLoginCbUrlIsNull() {
+            addCriterion("login_cb_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlIsNotNull() {
-            addCriterion("logout_url is not null");
+        public Criteria andLoginCbUrlIsNotNull() {
+            addCriterion("login_cb_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlEqualTo(String value) {
-            addCriterion("logout_url =", value, "logoutUrl");
+        public Criteria andLoginCbUrlEqualTo(String value) {
+            addCriterion("login_cb_url =", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlNotEqualTo(String value) {
-            addCriterion("logout_url <>", value, "logoutUrl");
+        public Criteria andLoginCbUrlNotEqualTo(String value) {
+            addCriterion("login_cb_url <>", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlGreaterThan(String value) {
-            addCriterion("logout_url >", value, "logoutUrl");
+        public Criteria andLoginCbUrlGreaterThan(String value) {
+            addCriterion("login_cb_url >", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("logout_url >=", value, "logoutUrl");
+        public Criteria andLoginCbUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("login_cb_url >=", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlLessThan(String value) {
-            addCriterion("logout_url <", value, "logoutUrl");
+        public Criteria andLoginCbUrlLessThan(String value) {
+            addCriterion("login_cb_url <", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlLessThanOrEqualTo(String value) {
-            addCriterion("logout_url <=", value, "logoutUrl");
+        public Criteria andLoginCbUrlLessThanOrEqualTo(String value) {
+            addCriterion("login_cb_url <=", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlLike(String value) {
-            addCriterion("logout_url like", value, "logoutUrl");
+        public Criteria andLoginCbUrlLike(String value) {
+            addCriterion("login_cb_url like", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlNotLike(String value) {
-            addCriterion("logout_url not like", value, "logoutUrl");
+        public Criteria andLoginCbUrlNotLike(String value) {
+            addCriterion("login_cb_url not like", value, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlIn(List<String> values) {
-            addCriterion("logout_url in", values, "logoutUrl");
+        public Criteria andLoginCbUrlIn(List<String> values) {
+            addCriterion("login_cb_url in", values, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlNotIn(List<String> values) {
-            addCriterion("logout_url not in", values, "logoutUrl");
+        public Criteria andLoginCbUrlNotIn(List<String> values) {
+            addCriterion("login_cb_url not in", values, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlBetween(String value1, String value2) {
-            addCriterion("logout_url between", value1, value2, "logoutUrl");
+        public Criteria andLoginCbUrlBetween(String value1, String value2) {
+            addCriterion("login_cb_url between", value1, value2, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andLogoutUrlNotBetween(String value1, String value2) {
-            addCriterion("logout_url not between", value1, value2, "logoutUrl");
+        public Criteria andLoginCbUrlNotBetween(String value1, String value2) {
+            addCriterion("login_cb_url not between", value1, value2, "loginCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlIsNull() {
-            addCriterion("home_url is null");
+        public Criteria andLogoutCbUrlIsNull() {
+            addCriterion("logout_cb_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlIsNotNull() {
-            addCriterion("home_url is not null");
+        public Criteria andLogoutCbUrlIsNotNull() {
+            addCriterion("logout_cb_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlEqualTo(String value) {
-            addCriterion("home_url =", value, "homeUrl");
+        public Criteria andLogoutCbUrlEqualTo(String value) {
+            addCriterion("logout_cb_url =", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlNotEqualTo(String value) {
-            addCriterion("home_url <>", value, "homeUrl");
+        public Criteria andLogoutCbUrlNotEqualTo(String value) {
+            addCriterion("logout_cb_url <>", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlGreaterThan(String value) {
-            addCriterion("home_url >", value, "homeUrl");
+        public Criteria andLogoutCbUrlGreaterThan(String value) {
+            addCriterion("logout_cb_url >", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("home_url >=", value, "homeUrl");
+        public Criteria andLogoutCbUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("logout_cb_url >=", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlLessThan(String value) {
-            addCriterion("home_url <", value, "homeUrl");
+        public Criteria andLogoutCbUrlLessThan(String value) {
+            addCriterion("logout_cb_url <", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlLessThanOrEqualTo(String value) {
-            addCriterion("home_url <=", value, "homeUrl");
+        public Criteria andLogoutCbUrlLessThanOrEqualTo(String value) {
+            addCriterion("logout_cb_url <=", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlLike(String value) {
-            addCriterion("home_url like", value, "homeUrl");
+        public Criteria andLogoutCbUrlLike(String value) {
+            addCriterion("logout_cb_url like", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlNotLike(String value) {
-            addCriterion("home_url not like", value, "homeUrl");
+        public Criteria andLogoutCbUrlNotLike(String value) {
+            addCriterion("logout_cb_url not like", value, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlIn(List<String> values) {
-            addCriterion("home_url in", values, "homeUrl");
+        public Criteria andLogoutCbUrlIn(List<String> values) {
+            addCriterion("logout_cb_url in", values, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlNotIn(List<String> values) {
-            addCriterion("home_url not in", values, "homeUrl");
+        public Criteria andLogoutCbUrlNotIn(List<String> values) {
+            addCriterion("logout_cb_url not in", values, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlBetween(String value1, String value2) {
-            addCriterion("home_url between", value1, value2, "homeUrl");
+        public Criteria andLogoutCbUrlBetween(String value1, String value2) {
+            addCriterion("logout_cb_url between", value1, value2, "logoutCbUrl");
             return (Criteria) this;
         }
 
-        public Criteria andHomeUrlNotBetween(String value1, String value2) {
-            addCriterion("home_url not between", value1, value2, "homeUrl");
+        public Criteria andLogoutCbUrlNotBetween(String value1, String value2) {
+            addCriterion("logout_cb_url not between", value1, value2, "logoutCbUrl");
             return (Criteria) this;
         }
     }
