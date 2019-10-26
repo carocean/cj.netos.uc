@@ -33,6 +33,10 @@ public class AppPorts implements IAppPort {
         return tenantAppService.pageApp(tenantid, currPage, pageSize);
     }
 
+    @Override
+    public void upgradeBecomeDeveloper(String appid, String accountName) throws CircuitException {
+        tenantAppService.upgradeBecomeDeveloper(appid,accountName);
+    }
 
     @Override
     public void updateWebsite(String appid, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {

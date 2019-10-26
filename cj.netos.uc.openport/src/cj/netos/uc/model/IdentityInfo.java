@@ -7,6 +7,7 @@ public class IdentityInfo {
     String accountid;
     String accountName;
     String appid;
+    String tenantid;
     String accessToken;
     List<UcRole> ucRoles;
     List<TenantRole> tenantRoles;
@@ -22,6 +23,14 @@ public class IdentityInfo {
 
     public void setAppRoles(List<AppRole> appRoles) {
         this.appRoles = appRoles;
+    }
+
+    public String getTenantid() {
+        return tenantid;
+    }
+
+    public void setTenantid(String tenantid) {
+        this.tenantid = tenantid;
     }
 
     public List<UcRole> getUcRoles() {

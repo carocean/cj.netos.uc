@@ -49,6 +49,9 @@ public interface IAppPort extends IOpenportService {
                              @CjOpenportParameter(name = "accountName", usage = "账户名，或统一用户名。可以是手机号、邮箱等") String accountName,
                              @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
 
+    @CjOpenport(usage = "升级账号使之成为应用的开发者", acl = {"allow administrators.role", "allow tests.role", "allow developers.role"})
+    void upgradeBecomeDeveloper(@CjOpenportParameter(name = "appid", usage = "应用标识") String appid,
+                                @CjOpenportParameter(name = "accountName", usage = "账户名，或统一用户名。可以是手机号、邮箱等") String accountName)throws CircuitException;
 
     class BeforeUpdateWebsite implements IOpenportBeforeInvoker {
         @Override

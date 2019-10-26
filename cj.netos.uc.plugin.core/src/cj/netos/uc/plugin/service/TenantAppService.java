@@ -161,4 +161,21 @@ public class TenantAppService implements IAppService {
         String appaccessToken = JwtUtil.createJWT(sysapp.getSecretKey(), account.getUserId(),app.getTenantId(), app.getTokenExpire(), claims);
         return appaccessToken;
     }
+    @CjTransaction
+    @Override
+    public void upgradeBecomeDeveloper(String appid, String accountName) throws CircuitException {
+        TenantApp app = getApp(appid);
+        if (app == null) {
+            throw new CircuitException("404", "应用不存在:" + appid);
+        }
+        AppAccount account = appAccountService.getAccountByName(appid, accountName);
+        if (account == null) {
+            throw new CircuitException("404", "账户不存在:" + accountName);
+        }
+
+        String uid=account.getUserId();
+        if(!ucRoleService.hasRoleOfUser("tenantDevelops",uid)) {
+            ucRoleService.addRoleToUser("tenantDevelops", uid);
+        }
+    }
 }

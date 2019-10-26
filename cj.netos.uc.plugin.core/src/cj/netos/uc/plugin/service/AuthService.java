@@ -62,6 +62,7 @@ public class AuthService implements IAuthService {
         identityInfo.setAccountid(account.getAccountId());
         identityInfo.setAccountName(account.getAccountName());
         identityInfo.setAppid(account.getAppId());
+        identityInfo.setTenantid(app.getTenantId());
         identityInfo.setUid(account.getUserId());
 
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(account.getUserId(), 0, Integer.MAX_VALUE);

@@ -26,4 +26,6 @@ public interface IAppService {
 
     String issueDevelopToken(String appid, String accountName, String password) throws CircuitException;
 
+    void upgradeBecomeDeveloper(String appid, String accountName)throws CircuitException;
+
 }
