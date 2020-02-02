@@ -6,12 +6,39 @@ public class IdentityInfo {
     String uid;
     String accountid;
     String accountName;
+    String nickName;
+    String signature;
+    String avatar;
     String appid;
     String tenantid;
     String accessToken;
     List<UcRole> ucRoles;
     List<TenantRole> tenantRoles;
     List<AppRole> appRoles;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public void setUcRoles(List<UcRole> ucRoles) {
         this.ucRoles = ucRoles;
