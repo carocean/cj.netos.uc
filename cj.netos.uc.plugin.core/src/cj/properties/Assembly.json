@@ -37,7 +37,10 @@
 					"callbackUrl": "",
 					"homeUrl": "",
 					"accountName": "superadmin",
-					"password": "123456"
+					"password": "123456",
+					"nickName": "超管",
+					"avatar": "",
+					"signature": "金证集团，发展状大"
 				}
 			}
 		]

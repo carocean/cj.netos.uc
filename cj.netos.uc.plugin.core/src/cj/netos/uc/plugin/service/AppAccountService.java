@@ -44,7 +44,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd) throws CircuitException {
+    public String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(accountName)) {
             throw new CircuitException("404", "缺少账户名");
         }
@@ -66,6 +66,9 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         appAccount.setIsEnable((byte) 1);
         appAccount.setNameKind(nameKind);
         appAccount.setUserId(userId);
+        appAccount.setNickName(nickName);
+        appAccount.setAvatar(avatar);
+        appAccount.setSignature(signature);
         accountMapper.insertSelective(appAccount);
         return appAccount.getAccountId();
     }

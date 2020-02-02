@@ -4,6 +4,7 @@ import cj.netos.uc.model.AppAccount;
 import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
+import cj.studio.openport.InRequest;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
@@ -12,12 +13,16 @@ import java.util.List;
 
 @CjOpenports(usage = "账户")
 public interface IAppAccountPort extends IOpenportService {
-    @CjOpenport(usage = "添加账户", command = "post", acl = {"allow administrators.role", "allow tests.role", "allow developers.role","invisible *.*"})
+    @CjOpenport(usage = "添加账户", command = "post", acl = {"allow administrators.role", "allow tests.role", "allow developers.role", "invisible *.*"})
     String addAccount(@CjOpenportParameter(name = "accountName", usage = "账号名") String accountName,
                       @CjOpenportParameter(name = "nameKind", usage = "账号名类型：0是账号密码；1是手机号；2是邮箱；") byte nameKind,
                       @CjOpenportParameter(name = "userId", usage = "用户标识") String userId,
                       @CjOpenportParameter(name = "appId", usage = "应用标识") String appId,
-                      @CjOpenportParameter(name = "accountPwd", usage = "账号密码") String accountPwd) throws CircuitException;
+                      @CjOpenportParameter(name = "accountPwd", usage = "账号密码") String accountPwd,
+                      @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
+                      @CjOpenportParameter(name = "avatar", usage = "头像") String avatar,
+                      @CjOpenportParameter(name = "signature", usage = "个人签名", in = InRequest.content) String signature) throws CircuitException;
+
     @CjOpenport(usage = "为指定用户添加登录账户", acl = {"allow administrators.role", "allow tests.role", "allow developers.role"})
     void addByPassword(@CjOpenportParameter(name = "uid", usage = "用户标识") String uid, @CjOpenportParameter(name = "appid", usage = "租户标识") String appid, @CjOpenportParameter(name = "accountName", usage = "账号名") String accountName, @CjOpenportParameter(name = "password", usage = "密码") String password) throws CircuitException;
 
@@ -44,7 +49,8 @@ public interface IAppAccountPort extends IOpenportService {
 
     @CjOpenport(usage = "使活账户", acl = {"allow administrators.role", "allow tests.role", "allow developers.role"})
     void setAccountEnable(@CjOpenportParameter(usage = "账户标识", name = "accountid") String accountid, @CjOpenportParameter(usage = "true是使活，false是停用账户", name = "enable") boolean enable) throws CircuitException;
+
     @CjOpenport(usage = "移除账户", acl = {"allow administrators.role", "allow tests.role", "allow developers.role"})
     void removeAccountByName(@CjOpenportParameter(name = "accountName", usage = "账号名") String accountName,
-                       @CjOpenportParameter(name = "appid", usage = "应用标识") String appid);
+                             @CjOpenportParameter(name = "appid", usage = "应用标识") String appid);
 }

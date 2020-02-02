@@ -19,6 +19,23 @@ public class AppAccount {
     private String accountName;
 
     /**
+     * Column: nick_name
+     * Remark: 昵称
+     */
+    private String nickName;
+
+    /**
+     * Column: avatar
+     * Remark: 账户头像
+     */
+    private String avatar;
+
+    /**
+     * Column: signature
+     */
+    private String signature;
+
+    /**
      * Column: name_kind
      * Remark: 账号名类别：0自定义；1为手机号；2为邮箱；3是微信；4是支付宝账号；5是qq；6是新浪微博；
      */
@@ -68,6 +85,30 @@ public class AppAccount {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName == null ? null : accountName.trim();
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature == null ? null : signature.trim();
     }
 
     public Byte getNameKind() {

@@ -5,6 +5,9 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="account_id" jdbcType="VARCHAR" property="accountId" />
     <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
     <result column="name_kind" jdbcType="TINYINT" property="nameKind" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="app_id" jdbcType="VARCHAR" property="appId" />
@@ -74,7 +77,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    account_id, account_name, name_kind, user_id, app_id, account_pwd, is_enable, create_time
+    account_id, account_name, nick_name, avatar, signature, name_kind, user_id, app_id, 
+    account_pwd, is_enable, create_time
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.AppAccountExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -112,10 +116,12 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.AppAccount">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into app_account (account_id, account_name, name_kind, 
+    insert into app_account (account_id, account_name, nick_name, 
+      avatar, signature, name_kind, 
       user_id, app_id, account_pwd, 
       is_enable, create_time)
-    values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{nameKind,jdbcType=TINYINT}, 
+    values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{nameKind,jdbcType=TINYINT}, 
       #{userId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{accountPwd,jdbcType=VARCHAR}, 
       #{isEnable,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
@@ -128,6 +134,15 @@
       </if>
       <if test="accountName != null">
         account_name,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="signature != null">
+        signature,
       </if>
       <if test="nameKind != null">
         name_kind,
@@ -154,6 +169,15 @@
       </if>
       <if test="accountName != null">
         #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
       </if>
       <if test="nameKind != null">
         #{nameKind,jdbcType=TINYINT},
@@ -192,6 +216,15 @@
       <if test="record.accountName != null">
         account_name = #{record.accountName,jdbcType=VARCHAR},
       </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null">
+        signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
       <if test="record.nameKind != null">
         name_kind = #{record.nameKind,jdbcType=TINYINT},
       </if>
@@ -220,6 +253,9 @@
     update app_account
     set account_id = #{record.accountId,jdbcType=VARCHAR},
       account_name = #{record.accountName,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR},
       name_kind = #{record.nameKind,jdbcType=TINYINT},
       user_id = #{record.userId,jdbcType=VARCHAR},
       app_id = #{record.appId,jdbcType=VARCHAR},
@@ -236,6 +272,15 @@
     <set>
       <if test="accountName != null">
         account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
       </if>
       <if test="nameKind != null">
         name_kind = #{nameKind,jdbcType=TINYINT},
@@ -262,6 +307,9 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_account
     set account_name = #{accountName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
       name_kind = #{nameKind,jdbcType=TINYINT},
       user_id = #{userId,jdbcType=VARCHAR},
       app_id = #{appId,jdbcType=VARCHAR},
@@ -271,12 +319,12 @@
     where account_id = #{accountId,jdbcType=VARCHAR}
   </update>
 
-  <update id="updateAccountEnable" >
+  <update id="updateAccountEnable">
     update app_account
     set is_enable =#{enable,jdbcType=TINYINT}
     where account_id=#{accountid,jdbcType=VARCHAR}
   </update>
-  <update id="updatePwd" >
+  <update id="updatePwd">
     update app_account
     set account_pwd =#{newpwd,jdbcType=VARCHAR}
     where account_id=#{accountid,jdbcType=VARCHAR}

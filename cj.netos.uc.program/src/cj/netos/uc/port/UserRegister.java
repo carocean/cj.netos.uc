@@ -12,17 +12,18 @@ public class UserRegister implements IUserRegisterPort {
     IUcUserService ucUserService;
 
     @Override
-    public UcUser registerByPassword(String tenant, String accountName, String password) throws CircuitException {
-        return ucUserService.registerByPassword(tenant, accountName, password);
+    public UcUser registerByPassword(String appid, String accountName, String password, String nickName, String avatar, String signature) throws CircuitException {
+        return ucUserService.registerByPassword(appid, accountName, password,nickName,avatar,signature);
     }
 
     @Override
-    public UcUser registerByIphone(String tenant, String phone, String password) throws CircuitException {
-        return ucUserService.registerByIphone(tenant, phone, password);
+    public UcUser registerByIphone(String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
+        return ucUserService.registerByIphone(appid,phone,password,nickName,avatar,signature);
     }
 
     @Override
-    public UcUser registerByEmail(String tenant, String email, String password) throws CircuitException {
-        return ucUserService.registerByEmail(tenant, email, password);
+    public UcUser registerByEmail(String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
+        return ucUserService.registerByEmail(appid,email,password,nickName,avatar,signature);
     }
+
 }

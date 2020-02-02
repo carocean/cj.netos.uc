@@ -31,7 +31,6 @@
           <SelectWithLockConfig>
             <option name="byPrimaryKeyWithLockOverride" value="" />
             <option name="byExampleWithLockOverride" value="" />
-            <option name="byExampleWithLockEnabled" value="true" />
           </SelectWithLockConfig>
         </option>
       </DefaultParameters>

@@ -56,8 +56,11 @@ public class UCInit implements IDBInit {
         }
         String accountName = ((IProperty) args.getNode("accountName")).getValue().getName();
         String password = ((IProperty) args.getNode("password")).getValue().getName();
+        String nickName = ((IProperty) args.getNode("nickName")).getValue().getName();
+        String avatar = ((IProperty) args.getNode("avatar")).getValue().getName();
+        String signature = ((IProperty) args.getNode("signature")).getValue().getName();
         if (!appAccountService.existsAccount(appid, accountName)) {
-            appAccountService.addAccount(accountName, (byte) 0, uid, appid, password);
+            appAccountService.addAccount(accountName, (byte) 0, uid, appid, password,nickName,avatar,signature);
         }
         //初始化角色
         if (ucRoleService.getRole("administrators") == null) {

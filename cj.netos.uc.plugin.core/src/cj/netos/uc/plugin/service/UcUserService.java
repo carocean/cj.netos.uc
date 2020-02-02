@@ -72,7 +72,7 @@ public class UcUserService implements IUcUserService {
 
     @CjTransaction
     @Override
-    public UcUser registerByPassword(String appid, String accountName, String password) throws CircuitException {
+    public UcUser registerByPassword(String appid, String accountName, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
             throw new CircuitException("404", "应用编号为空");
         }
@@ -89,13 +89,13 @@ public class UcUserService implements IUcUserService {
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
 
-        this.appAccountService.addAccount(accountName, (byte) 0, user.getUserId(), appid, password);
+        this.appAccountService.addAccount(accountName, (byte) 0, user.getUserId(), appid, password,nickName,avatar,signature);
         return user;
     }
 
     @CjTransaction
     @Override
-    public UcUser registerByIphone(String appid, String phone, String password) throws CircuitException {
+    public UcUser registerByIphone(String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
             throw new CircuitException("404", "应用编号为空");
         }
@@ -110,15 +110,16 @@ public class UcUserService implements IUcUserService {
         user.setCreateTime(new Date());
         user.setUserName(phone);
         user.setUserId(NumberGen.gen());
+        user.setMobile(phone);
         userMapper.insert(user);
 
-        this.appAccountService.addAccount(phone, (byte) 1, user.getUserId(), appid, password);
+        this.appAccountService.addAccount(phone, (byte) 1, user.getUserId(), appid, password,nickName,avatar,signature);
         return user;
     }
 
     @CjTransaction
     @Override
-    public UcUser registerByEmail(String appid, String email, String password) throws CircuitException {
+    public UcUser registerByEmail(String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
             throw new CircuitException("404", "应用编号为空");
         }
@@ -133,9 +134,10 @@ public class UcUserService implements IUcUserService {
         user.setCreateTime(new Date());
         user.setUserName(email);
         user.setUserId(NumberGen.gen());
+        user.setEmail(email);
         userMapper.insert(user);
 
-        this.appAccountService.addAccount(email, (byte) 2, user.getUserId(), appid, password);
+        this.appAccountService.addAccount(email, (byte) 2, user.getUserId(), appid, password,nickName,avatar,signature);
         return user;
     }
 

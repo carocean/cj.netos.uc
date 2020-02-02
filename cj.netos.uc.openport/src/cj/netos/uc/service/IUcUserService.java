@@ -16,11 +16,11 @@ public interface IUcUserService {
     long getUserCount() throws CircuitException;
 
 
-    UcUser registerByPassword(String appid, String accountName, String password) throws CircuitException;
+    UcUser registerByPassword(String appid, String accountName, String password, String nickName, String avatar, String signature)throws CircuitException;
 
-    UcUser registerByIphone(String appid, String phone, String password) throws CircuitException;
+    UcUser registerByIphone(String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException;
 
-    UcUser registerByEmail(String appid, String email, String password) throws CircuitException;
+    UcUser registerByEmail(String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException;
 
 
     UcUser getUserById(String uid);
@@ -51,4 +51,6 @@ public interface IUcUserService {
     void removeAttribute(String attibuteid) throws CircuitException;
 
     boolean isEmployee(String uid) throws CircuitException;
+
+
 }
