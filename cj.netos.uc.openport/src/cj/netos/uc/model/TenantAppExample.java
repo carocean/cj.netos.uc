@@ -207,6 +207,76 @@ public class TenantAppExample {
             return (Criteria) this;
         }
 
+        public Criteria andAppCodeIsNull() {
+            addCriterion("app_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeIsNotNull() {
+            addCriterion("app_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeEqualTo(String value) {
+            addCriterion("app_code =", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeNotEqualTo(String value) {
+            addCriterion("app_code <>", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeGreaterThan(String value) {
+            addCriterion("app_code >", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("app_code >=", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeLessThan(String value) {
+            addCriterion("app_code <", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeLessThanOrEqualTo(String value) {
+            addCriterion("app_code <=", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeLike(String value) {
+            addCriterion("app_code like", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeNotLike(String value) {
+            addCriterion("app_code not like", value, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeIn(List<String> values) {
+            addCriterion("app_code in", values, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeNotIn(List<String> values) {
+            addCriterion("app_code not in", values, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeBetween(String value1, String value2) {
+            addCriterion("app_code between", value1, value2, "appCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppCodeNotBetween(String value1, String value2) {
+            addCriterion("app_code not between", value1, value2, "appCode");
+            return (Criteria) this;
+        }
+
         public Criteria andAppNameIsNull() {
             addCriterion("app_name is null");
             return (Criteria) this;
@@ -347,73 +417,143 @@ public class TenantAppExample {
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyIsNull() {
-            addCriterion("secret_key is null");
+        public Criteria andAppKeyIsNull() {
+            addCriterion("app_key is null");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyIsNotNull() {
-            addCriterion("secret_key is not null");
+        public Criteria andAppKeyIsNotNull() {
+            addCriterion("app_key is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyEqualTo(String value) {
-            addCriterion("secret_key =", value, "secretKey");
+        public Criteria andAppKeyEqualTo(String value) {
+            addCriterion("app_key =", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyNotEqualTo(String value) {
-            addCriterion("secret_key <>", value, "secretKey");
+        public Criteria andAppKeyNotEqualTo(String value) {
+            addCriterion("app_key <>", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyGreaterThan(String value) {
-            addCriterion("secret_key >", value, "secretKey");
+        public Criteria andAppKeyGreaterThan(String value) {
+            addCriterion("app_key >", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyGreaterThanOrEqualTo(String value) {
-            addCriterion("secret_key >=", value, "secretKey");
+        public Criteria andAppKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("app_key >=", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyLessThan(String value) {
-            addCriterion("secret_key <", value, "secretKey");
+        public Criteria andAppKeyLessThan(String value) {
+            addCriterion("app_key <", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyLessThanOrEqualTo(String value) {
-            addCriterion("secret_key <=", value, "secretKey");
+        public Criteria andAppKeyLessThanOrEqualTo(String value) {
+            addCriterion("app_key <=", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyLike(String value) {
-            addCriterion("secret_key like", value, "secretKey");
+        public Criteria andAppKeyLike(String value) {
+            addCriterion("app_key like", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyNotLike(String value) {
-            addCriterion("secret_key not like", value, "secretKey");
+        public Criteria andAppKeyNotLike(String value) {
+            addCriterion("app_key not like", value, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyIn(List<String> values) {
-            addCriterion("secret_key in", values, "secretKey");
+        public Criteria andAppKeyIn(List<String> values) {
+            addCriterion("app_key in", values, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyNotIn(List<String> values) {
-            addCriterion("secret_key not in", values, "secretKey");
+        public Criteria andAppKeyNotIn(List<String> values) {
+            addCriterion("app_key not in", values, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyBetween(String value1, String value2) {
-            addCriterion("secret_key between", value1, value2, "secretKey");
+        public Criteria andAppKeyBetween(String value1, String value2) {
+            addCriterion("app_key between", value1, value2, "appKey");
             return (Criteria) this;
         }
 
-        public Criteria andSecretKeyNotBetween(String value1, String value2) {
-            addCriterion("secret_key not between", value1, value2, "secretKey");
+        public Criteria andAppKeyNotBetween(String value1, String value2) {
+            addCriterion("app_key not between", value1, value2, "appKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretIsNull() {
+            addCriterion("app_secret is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretIsNotNull() {
+            addCriterion("app_secret is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretEqualTo(String value) {
+            addCriterion("app_secret =", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretNotEqualTo(String value) {
+            addCriterion("app_secret <>", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretGreaterThan(String value) {
+            addCriterion("app_secret >", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretGreaterThanOrEqualTo(String value) {
+            addCriterion("app_secret >=", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretLessThan(String value) {
+            addCriterion("app_secret <", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretLessThanOrEqualTo(String value) {
+            addCriterion("app_secret <=", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretLike(String value) {
+            addCriterion("app_secret like", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretNotLike(String value) {
+            addCriterion("app_secret not like", value, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretIn(List<String> values) {
+            addCriterion("app_secret in", values, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretNotIn(List<String> values) {
+            addCriterion("app_secret not in", values, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretBetween(String value1, String value2) {
+            addCriterion("app_secret between", value1, value2, "appSecret");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppSecretNotBetween(String value1, String value2) {
+            addCriterion("app_secret not between", value1, value2, "appSecret");
             return (Criteria) this;
         }
 

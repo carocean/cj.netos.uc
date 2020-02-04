@@ -117,6 +117,15 @@
             </TableInfo>
           </value>
         </entry>
+        <entry key="netos.uc#app_refresh_token">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="AppRefreshToken" />
+              <option name="tableName" value="app_refresh_token" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.uc#app_role">
           <value>
             <TableInfo>
@@ -129,6 +138,9 @@
         <entry key="netos.uc#tenant_app">
           <value>
             <TableInfo>
+              <option name="customColumns">
+                <list />
+              </option>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="TenantApp" />
               <option name="tableName" value="tenant_app" />
@@ -141,6 +153,15 @@
               <option name="database" value="netos.uc" />
               <option name="domainName" value="TenantRole" />
               <option name="tableName" value="tenant_role" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#ua_app_role_person">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UaAppRolePerson" />
+              <option name="tableName" value="ua_app_role_person" />
             </TableInfo>
           </value>
         </entry>

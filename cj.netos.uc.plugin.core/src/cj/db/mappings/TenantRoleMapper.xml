@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="cj.netos.uc.model.TenantRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="role_id" jdbcType="VARCHAR" property="roleId" />
-    <id column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
     <result column="extend" jdbcType="VARCHAR" property="extend" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="is_Inheritable" jdbcType="BIT" property="isInheritable" />
@@ -71,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    role_id, tenant_id, extend, role_name, is_Inheritable
+    role_id, role_code, tenant_id, extend, role_name, is_Inheritable
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.TenantRoleExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -88,19 +89,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     select 
     <include refid="Base_Column_List" />
     from tenant_role
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and tenant_id = #{tenantId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="map">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     delete from tenant_role
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and tenant_id = #{tenantId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cj.netos.uc.model.TenantRoleExample">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -111,10 +110,12 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.TenantRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into tenant_role (role_id, tenant_id, extend, 
-      role_name, is_Inheritable)
-    values (#{roleId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR}, 
-      #{roleName,jdbcType=VARCHAR}, #{isInheritable,jdbcType=BIT})
+    insert into tenant_role (role_id, role_code, tenant_id, 
+      extend, role_name, is_Inheritable
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, 
+      #{extend,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{isInheritable,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.TenantRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -122,6 +123,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
         role_id,
+      </if>
+      <if test="roleCode != null">
+        role_code,
       </if>
       <if test="tenantId != null">
         tenant_id,
@@ -139,6 +143,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
         #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="tenantId != null">
         #{tenantId,jdbcType=VARCHAR},
@@ -168,6 +175,9 @@
       <if test="record.roleId != null">
         role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
+      <if test="record.roleCode != null">
+        role_code = #{record.roleCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.tenantId != null">
         tenant_id = #{record.tenantId,jdbcType=VARCHAR},
       </if>
@@ -189,6 +199,7 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update tenant_role
     set role_id = #{record.roleId,jdbcType=VARCHAR},
+      role_code = #{record.roleCode,jdbcType=VARCHAR},
       tenant_id = #{record.tenantId,jdbcType=VARCHAR},
       extend = #{record.extend,jdbcType=VARCHAR},
       role_name = #{record.roleName,jdbcType=VARCHAR},
@@ -201,6 +212,12 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update tenant_role
     <set>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
       <if test="extend != null">
         extend = #{extend,jdbcType=VARCHAR},
       </if>
@@ -212,16 +229,16 @@
       </if>
     </set>
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and tenant_id = #{tenantId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.TenantRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update tenant_role
-    set extend = #{extend,jdbcType=VARCHAR},
+    set role_code = #{roleCode,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=VARCHAR},
+      extend = #{extend,jdbcType=VARCHAR},
       role_name = #{roleName,jdbcType=VARCHAR},
       is_Inheritable = #{isInheritable,jdbcType=BIT}
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and tenant_id = #{tenantId,jdbcType=VARCHAR}
   </update>
 
   <select id="pageRole" resultMap="BaseResultMap">
@@ -231,7 +248,7 @@
   </select>
   <select id="pageUserInRole" resultMap="cj.netos.uc.plugin.mapper.UcUserMapper.BaseResultMap">
     select u.* from ua_tenant_role_user ru,uc_user u
-    where ru.user_id=u.user_id and ru.role_id=#{roleid} and ru.tenant_id=#{tenantid}
+    where ru.user_id=u.user_id and ru.role_id=#{roleid}
     limit #{currPage},#{pageSize}
   </select>
   <select id="pageRoleOfUser" resultMap="BaseResultMap">

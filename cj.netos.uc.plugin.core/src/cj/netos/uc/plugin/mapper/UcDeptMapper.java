@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UcDeptMapper {
+
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -64,5 +65,4 @@ public interface UcDeptMapper {
     List<UcDept> pageChildren(@Param(value = "parentDeptid") String parentDeptid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
     List<UcDept> pageDeptOfCompany(@Param(value = "companyid") String companyid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
-
 }

@@ -5,7 +5,7 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="role_id" jdbcType="VARCHAR" property="roleId" />
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
-    <id column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -86,12 +86,19 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    select 
+    <include refid="Base_Column_List" />
+    from ua_tenant_role_user
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="map">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     delete from ua_tenant_role_user
     where role_id = #{roleId,jdbcType=VARCHAR}
       and user_id = #{userId,jdbcType=VARCHAR}
-      and tenant_id = #{tenantId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cj.netos.uc.model.UaTenantRoleUserExample">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -167,5 +174,23 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cj.netos.uc.model.UaTenantRoleUser">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update ua_tenant_role_user
+    <set>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.UaTenantRoleUser">
+    <!-- @mbg.generated: generated automatically, do not modify! -->
+    update ua_tenant_role_user
+    set tenant_id = #{tenantId,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

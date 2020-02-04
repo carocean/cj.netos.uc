@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AppRoleMapper {
+
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -19,7 +20,7 @@ public interface AppRoleMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int deleteByPrimaryKey(@Param("roleId") String roleId, @Param("appId") String appId);
+    int deleteByPrimaryKey(String roleId);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -39,7 +40,7 @@ public interface AppRoleMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    AppRole selectByPrimaryKey(@Param("roleId") String roleId, @Param("appId") String appId);
+    AppRole selectByPrimaryKey(String roleId);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -62,6 +63,4 @@ public interface AppRoleMapper {
     int updateByPrimaryKey(AppRole record);
 
     List<AppRole> pageRole(@Param(value = "appid") String appid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
-
-
 }

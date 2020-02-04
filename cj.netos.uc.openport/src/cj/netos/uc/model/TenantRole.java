@@ -6,9 +6,14 @@ package cj.netos.uc.model;
 public class TenantRole {
     /**
      * Column: role_id
-     * Remark: 租户角色标识
+     * Remark: 租户角色标识,表示为：role_code@tenant_id
      */
     private String roleId;
+
+    /**
+     * Column: role_code
+     */
+    private String roleCode;
 
     /**
      * Column: tenant_id
@@ -39,6 +44,14 @@ public class TenantRole {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId == null ? null : roleId.trim();
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode == null ? null : roleCode.trim();
     }
 
     public String getTenantId() {

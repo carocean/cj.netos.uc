@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UcUserMapper {
+
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -62,5 +63,4 @@ public interface UcUserMapper {
     int updateByPrimaryKey(UcUser record);
 
     List<UcUser> pageUser(@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
-
 }

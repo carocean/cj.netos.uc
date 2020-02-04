@@ -4,9 +4,11 @@
   <resultMap id="BaseResultMap" type="cj.netos.uc.model.AppRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="role_id" jdbcType="VARCHAR" property="roleId" />
-    <id column="app_id" jdbcType="VARCHAR" property="appId" />
-    <result column="extend" jdbcType="VARCHAR" property="extend" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+    <result column="extend" jdbcType="VARCHAR" property="extend" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -70,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    role_id, app_id, extend, role_name
+    role_id, role_code, role_name, app_id, tenant_id, extend
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.AppRoleExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -87,19 +89,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     select 
     <include refid="Base_Column_List" />
     from app_role
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and app_id = #{appId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="map">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     delete from app_role
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and app_id = #{appId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cj.netos.uc.model.AppRoleExample">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -110,10 +110,12 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.AppRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into app_role (role_id, app_id, extend, 
-      role_name)
-    values (#{roleId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR}, 
-      #{roleName,jdbcType=VARCHAR})
+    insert into app_role (role_id, role_code, role_name, 
+      app_id, tenant_id, extend
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{appId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.AppRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -122,28 +124,40 @@
       <if test="roleId != null">
         role_id,
       </if>
-      <if test="appId != null">
-        app_id,
-      </if>
-      <if test="extend != null">
-        extend,
+      <if test="roleCode != null">
+        role_code,
       </if>
       <if test="roleName != null">
         role_name,
+      </if>
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="extend != null">
+        extend,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
         #{roleId,jdbcType=VARCHAR},
       </if>
-      <if test="appId != null">
-        #{appId,jdbcType=VARCHAR},
-      </if>
-      <if test="extend != null">
-        #{extend,jdbcType=VARCHAR},
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="extend != null">
+        #{extend,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -161,14 +175,20 @@
       <if test="record.roleId != null">
         role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.appId != null">
-        app_id = #{record.appId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.extend != null">
-        extend = #{record.extend,jdbcType=VARCHAR},
+      <if test="record.roleCode != null">
+        role_code = #{record.roleCode,jdbcType=VARCHAR},
       </if>
       <if test="record.roleName != null">
         role_name = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appId != null">
+        app_id = #{record.appId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null">
+        tenant_id = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extend != null">
+        extend = #{record.extend,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -179,9 +199,11 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_role
     set role_id = #{record.roleId,jdbcType=VARCHAR},
+      role_code = #{record.roleCode,jdbcType=VARCHAR},
+      role_name = #{record.roleName,jdbcType=VARCHAR},
       app_id = #{record.appId,jdbcType=VARCHAR},
-      extend = #{record.extend,jdbcType=VARCHAR},
-      role_name = #{record.roleName,jdbcType=VARCHAR}
+      tenant_id = #{record.tenantId,jdbcType=VARCHAR},
+      extend = #{record.extend,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -190,23 +212,33 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_role
     <set>
-      <if test="extend != null">
-        extend = #{extend,jdbcType=VARCHAR},
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
       </if>
       <if test="roleName != null">
         role_name = #{roleName,jdbcType=VARCHAR},
       </if>
+      <if test="appId != null">
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="extend != null">
+        extend = #{extend,jdbcType=VARCHAR},
+      </if>
     </set>
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and app_id = #{appId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.AppRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_role
-    set extend = #{extend,jdbcType=VARCHAR},
-      role_name = #{roleName,jdbcType=VARCHAR}
+    set role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=VARCHAR},
+      extend = #{extend,jdbcType=VARCHAR}
     where role_id = #{roleId,jdbcType=VARCHAR}
-      and app_id = #{appId,jdbcType=VARCHAR}
   </update>
   <select id="pageRole" resultMap="BaseResultMap">
     select ar.* from app_role ar

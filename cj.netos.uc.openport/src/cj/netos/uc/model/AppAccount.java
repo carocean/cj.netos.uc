@@ -8,15 +8,21 @@ import java.util.Date;
 public class AppAccount {
     /**
      * Column: account_id
-     * Remark: 账户id
+     * Remark: 账户id即person也为official=account_code@app_id，意为在同一租户同一应用下唯一
      */
     private String accountId;
 
     /**
-     * Column: account_name
+     * Column: account_code
      * Remark: 登录名，当name_kind是第三方时，如微信、支持宝等，该字段存储的是openid
      */
-    private String accountName;
+    private String accountCode;
+
+    /**
+     * Column: app_id
+     * Remark: 应用编号
+     */
+    private String appId;
 
     /**
      * Column: nick_name
@@ -26,12 +32,13 @@ public class AppAccount {
 
     /**
      * Column: avatar
-     * Remark: 账户头像
+     * Remark: 头像
      */
     private String avatar;
 
     /**
      * Column: signature
+     * Remark: 个人签名文本
      */
     private String signature;
 
@@ -46,12 +53,6 @@ public class AppAccount {
      * Remark: 登录账号关联的用户
      */
     private String userId;
-
-    /**
-     * Column: app_id
-     * Remark: 应用编号
-     */
-    private String appId;
 
     /**
      * Column: account_pwd
@@ -79,12 +80,20 @@ public class AppAccount {
         this.accountId = accountId == null ? null : accountId.trim();
     }
 
-    public String getAccountName() {
-        return accountName;
+    public String getAccountCode() {
+        return accountCode;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName == null ? null : accountName.trim();
+    public void setAccountCode(String accountCode) {
+        this.accountCode = accountCode == null ? null : accountCode.trim();
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId == null ? null : appId.trim();
     }
 
     public String getNickName() {
@@ -125,14 +134,6 @@ public class AppAccount {
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId == null ? null : appId.trim();
     }
 
     public String getAccountPwd() {

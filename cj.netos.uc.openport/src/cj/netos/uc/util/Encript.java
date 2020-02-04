@@ -1,6 +1,7 @@
 package cj.netos.uc.util;
 
 import java.security.MessageDigest;
+import java.util.Random;
 
 public class Encript { 
     //十六进制下数字到字符的映射数组 
@@ -64,5 +65,14 @@ public class Encript {
         int d1 = n/16; 
         int d2 = n%16; 
         return hexDigits[d1] + hexDigits[d2]; 
-    } 
+    }
+
+    public static void main(String... args) {
+        String appKey="D40E4C5AA581C83073D47188F8683108";
+        String nonce= new Random().nextLong()+"";
+        String sign=md5(String.format("%s%s",appKey,nonce));
+        System.out.println(String.format("appKey=%s",appKey));
+        System.out.println(String.format("nonce=%s",nonce));
+        System.out.println(String.format("sign=%s",sign));
+    }
 } 

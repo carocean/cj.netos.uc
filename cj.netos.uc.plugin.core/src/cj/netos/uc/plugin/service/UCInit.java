@@ -43,7 +43,8 @@ public class UCInit implements IDBInit {
             String tenantwebsite = ((IProperty) args.getNode("tenantWebsite")).getValue().getName();
             tenantService.addTenant(tenantid, tenantName, tenantwebsite, uid);
         }
-        String appid = ((IProperty) args.getNode("appid")).getValue().getName();
+        String appCode = ((IProperty) args.getNode("appCode")).getValue().getName();
+        String appid=String.format("%s.%s",appCode,tenantid);
         site.addService("#.app.id", appid);
         if (appService.getApp(appid) == null) {
             String appName = ((IProperty) args.getNode("appName")).getValue().getName();
@@ -52,15 +53,15 @@ public class UCInit implements IDBInit {
             String callbackUrl = ((IProperty) args.getNode("callbackUrl")).getValue().getName();
             String logoutUrl = ((IProperty) args.getNode("logoutUrl")).getValue().getName();
             String homeUrl = ((IProperty) args.getNode("homeUrl")).getValue().getName();
-            appService.addApp(appid, appName, tenantid, Long.valueOf(tokenExpire), appLogo, callbackUrl, logoutUrl, homeUrl);
+            appService.addApp(appCode, appName, tenantid, Long.valueOf(tokenExpire), appLogo, callbackUrl, logoutUrl, homeUrl);
         }
-        String accountName = ((IProperty) args.getNode("accountName")).getValue().getName();
+        String accountCode = ((IProperty) args.getNode("accountCode")).getValue().getName();
         String password = ((IProperty) args.getNode("password")).getValue().getName();
         String nickName = ((IProperty) args.getNode("nickName")).getValue().getName();
         String avatar = ((IProperty) args.getNode("avatar")).getValue().getName();
         String signature = ((IProperty) args.getNode("signature")).getValue().getName();
-        if (!appAccountService.existsAccount(appid, accountName)) {
-            appAccountService.addAccount(accountName, (byte) 0, uid, appid, password,nickName,avatar,signature);
+        if (!appAccountService.existsAccount(appid, accountCode)) {
+            appAccountService.addAccount(accountCode, (byte) 0, uid, appid, password,nickName,avatar,signature);
         }
         //初始化角色
         if (ucRoleService.getRole("administrators") == null) {
@@ -108,7 +109,7 @@ public class UCInit implements IDBInit {
         if (!ucRoleService.hasRoleOfUser("tenantAdministrators", uid)) {
             ucRoleService.addRoleToUser("tenantAdministrators", uid);
         }
-        CJSystem.logging().info(getClass(), String.format("初始化UC完成。应用：%s, 账号：%s, 密码：%s", appid, accountName, password));
+        CJSystem.logging().info(getClass(), String.format("初始化UC完成。应用：%s, 账号：%s, 密码：%s", appid, accountCode, password));
     }
 
 }

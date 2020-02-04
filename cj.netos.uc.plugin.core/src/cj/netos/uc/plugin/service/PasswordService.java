@@ -14,7 +14,7 @@ public class PasswordService implements IPasswordService {
     IAppAccountService appAccountService;
     @Override
     public void updatePassword(String appid, String accountName, String oldpwd, String newpwd) throws CircuitException {
-        AppAccount account=appAccountService.getAccountByName(appid,accountName);
+        AppAccount account=appAccountService.getAccountByCode(appid,accountName);
         if(account==null){
             throw new CircuitException("404","用户不存在:"+accountName);
         }

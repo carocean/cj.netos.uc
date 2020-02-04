@@ -2,12 +2,12 @@ package cj.netos.uc.plugin.mapper;
 
 import cj.netos.uc.model.UcRole;
 import cj.netos.uc.model.UcRoleExample;
-import java.util.List;
-
 import cj.netos.uc.model.UcUser;
 import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 public interface UcRoleMapper {
+
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -63,9 +63,9 @@ public interface UcRoleMapper {
      */
     int updateByPrimaryKey(UcRole record);
 
+    List<UcRole> pageRole(@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
-    List<UcRole> pageRole(@Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
+    List<UcUser> pageUserInRole(@Param(value = "roleid") String roleid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 
-    List<UcUser> pageUserInRole(@Param(value = "roleid") String roleid, @Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
-    List<UcRole> pageRoleOfUser(@Param(value = "uid")String uid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+    List<UcRole> pageRoleOfUser(@Param(value = "uid") String uid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 }

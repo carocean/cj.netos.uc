@@ -26,27 +26,28 @@ public class TenantRoleService implements ITenantRoleService {
 
     @CjTransaction
     @Override
-    public String addRole(String roleid, String extend, String tenantId, String roleName, boolean isInheritable) throws CircuitException {
+    public String addRole(String roleCode, String extend, String tenantId, String roleName, boolean isInheritable) throws CircuitException {
         if (StringUtil.isEmpty(tenantId)) {
             throw new CircuitException("404", "缺少租户标识");
         }
         if (StringUtil.isEmpty(extend)) {
             throw new CircuitException("404", "缺少继承角色");
         }
-        if (StringUtil.isEmpty(roleid)) {
-            throw new CircuitException("404", "缺少角色标识");
+        if (StringUtil.isEmpty(roleCode)) {
+            throw new CircuitException("404", "缺少角色编号");
         }
         if (StringUtil.isEmpty(roleName)) {
             throw new CircuitException("404", "缺少角色名");
         }
-        if (existsRoleId(roleid, tenantId)) {
-            throw new CircuitException("500", "已存在角色标识：" + roleid);
+        if (existsRoleId(roleCode, tenantId)) {
+            throw new CircuitException("500", "已存在角色编号：" + roleCode);
         }
 
         TenantRole role = new TenantRole();
         role.setExtend(extend);
         role.setIsInheritable(isInheritable);
-        role.setRoleId(roleid);
+        role.setRoleId(String.format("%s@%s", roleCode, tenantId));
+        role.setRoleCode(roleCode);
         role.setRoleName(roleName);
         role.setTenantId(tenantId);
         roleMapper.insert(role);
@@ -54,21 +55,21 @@ public class TenantRoleService implements ITenantRoleService {
     }
 
 
-    private boolean existsRoleId(String roleId, String tenantid) {
-        return roleMapper.selectByPrimaryKey(roleId, tenantid) != null;
+    private boolean existsRoleId(String roleCode, String tenantid) {
+        return roleMapper.selectByPrimaryKey(String.format("%s@%s", roleCode, tenantid)) != null;
     }
 
 
     @CjTransaction
     @Override
-    public void removeRole(String roleid, String tenantid) throws CircuitException {
-        roleMapper.deleteByPrimaryKey(roleid, tenantid);
+    public void removeRole(String roleCode, String tenantid) throws CircuitException {
+        roleMapper.deleteByPrimaryKey(String.format("%s@%s", roleCode, tenantid));
     }
 
     @CjTransaction
     @Override
-    public TenantRole getRole(String roleid, String tenantid) throws CircuitException {
-        return roleMapper.selectByPrimaryKey(roleid, tenantid);
+    public TenantRole getRole(String roleCode, String tenantid) throws CircuitException {
+        return roleMapper.selectByPrimaryKey(String.format("%s@%s", roleCode, tenantid));
     }
 
     @CjTransaction
@@ -79,8 +80,8 @@ public class TenantRoleService implements ITenantRoleService {
 
     @CjTransaction
     @Override
-    public List<UcUser> pageUserInRole(String roleid, String tenantid, int currPage, int pageSize) throws CircuitException {
-        return roleMapper.pageUserInRole(roleid, tenantid, currPage, pageSize);
+    public List<UcUser> pageUserInRole(String roleid,  int currPage, int pageSize) throws CircuitException {
+        return roleMapper.pageUserInRole(roleid,  currPage, pageSize);
     }
 
     @CjTransaction
@@ -102,7 +103,7 @@ public class TenantRoleService implements ITenantRoleService {
 
     @CjTransaction
     @Override
-    public void removeUserFromRole(String uid, String roleid, String tenantid) throws CircuitException {
-        uaTenantRoleUserMapper.deleteByPrimaryKey(roleid, uid, tenantid);
+    public void removeUserFromRole(String uid, String roleCode, String tenantid) throws CircuitException {
+        uaTenantRoleUserMapper.deleteByPrimaryKey(String.format("%s@%s", roleCode, tenantid), uid);
     }
 }

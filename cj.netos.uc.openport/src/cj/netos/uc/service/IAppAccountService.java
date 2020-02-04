@@ -9,17 +9,19 @@ import java.util.List;
 public interface IAppAccountService {
     String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException;
 
-    void addByPassword(String uid, String appid, String accountName, String password) throws CircuitException;
 
-    void addByIphone(String uid, String appid, String phone, String password) throws CircuitException;
+    void addByPassword(String uid, String appid, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException;
 
-    void addByEmail(String uid, String appid, String email, String password) throws CircuitException;
+
+    void addByIphone(String uid, String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException;
+
+
+    void addByEmail(String uid, String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException;
 
     void removeAccount(String accountid) throws CircuitException;
 
     List<AppAccount> pageAccount(String appid, int currPage, int pageSize) throws CircuitException;
 
-    List<AppAccount> listAccount(String uid) throws CircuitException;
 
     UcUser getUser(String appid, String accountName) throws CircuitException;
 
@@ -29,9 +31,11 @@ public interface IAppAccountService {
 
     boolean existsAccount(String appid, String accountName) throws CircuitException;
 
-    AppAccount getAccountByName(String appid, String accountName);
+    AppAccount getAccountByCode(String appid, String accountName);
 
     void updatePwd(String accountId, String newpwd);
+
+    List<AppAccount> listAllAccount(String uid) throws CircuitException;
 
     List<AppAccount> listAccountByAppidAndUid(String appid, String userId);
 

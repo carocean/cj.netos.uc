@@ -19,6 +19,6 @@ public class KeyStore implements IKeyStore {
     public String getKey() throws CircuitException {
         String appid=(String) serviceSite.getService("#.app.id");
         TenantApp app=appService.getApp(appid);
-        return app.getSecretKey();
+        return app.getAppSecret();
     }
 }

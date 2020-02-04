@@ -4,9 +4,11 @@
   <resultMap id="BaseResultMap" type="cj.netos.uc.model.TenantApp">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="app_code" jdbcType="VARCHAR" property="appCode" />
     <result column="app_name" jdbcType="VARCHAR" property="appName" />
     <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
-    <result column="secret_key" jdbcType="VARCHAR" property="secretKey" />
+    <result column="app_key" jdbcType="VARCHAR" property="appKey" />
+    <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
     <result column="token_expire" jdbcType="BIGINT" property="tokenExpire" />
     <result column="app_logo" jdbcType="VARCHAR" property="appLogo" />
     <result column="website" jdbcType="VARCHAR" property="website" />
@@ -75,8 +77,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    app_id, app_name, tenant_id, secret_key, token_expire, app_logo, website, login_cb_url, 
-    logout_cb_url
+    app_id, app_code, app_name, tenant_id, app_key, app_secret, token_expire, app_logo, 
+    website, login_cb_url, logout_cb_url
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.TenantAppExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -114,14 +116,14 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.TenantApp">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into tenant_app (app_id, app_name, tenant_id, 
-      secret_key, token_expire, app_logo, 
-      website, login_cb_url, logout_cb_url
-      )
-    values (#{appId,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, 
-      #{secretKey,jdbcType=VARCHAR}, #{tokenExpire,jdbcType=BIGINT}, #{appLogo,jdbcType=VARCHAR}, 
-      #{website,jdbcType=VARCHAR}, #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR}
-      )
+    insert into tenant_app (app_id, app_code, app_name, 
+      tenant_id, app_key, app_secret, 
+      token_expire, app_logo, website, 
+      login_cb_url, logout_cb_url)
+    values (#{appId,jdbcType=VARCHAR}, #{appCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{tenantId,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR}, 
+      #{tokenExpire,jdbcType=BIGINT}, #{appLogo,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.TenantApp">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -130,14 +132,20 @@
       <if test="appId != null">
         app_id,
       </if>
+      <if test="appCode != null">
+        app_code,
+      </if>
       <if test="appName != null">
         app_name,
       </if>
       <if test="tenantId != null">
         tenant_id,
       </if>
-      <if test="secretKey != null">
-        secret_key,
+      <if test="appKey != null">
+        app_key,
+      </if>
+      <if test="appSecret != null">
+        app_secret,
       </if>
       <if test="tokenExpire != null">
         token_expire,
@@ -159,14 +167,20 @@
       <if test="appId != null">
         #{appId,jdbcType=VARCHAR},
       </if>
+      <if test="appCode != null">
+        #{appCode,jdbcType=VARCHAR},
+      </if>
       <if test="appName != null">
         #{appName,jdbcType=VARCHAR},
       </if>
       <if test="tenantId != null">
         #{tenantId,jdbcType=VARCHAR},
       </if>
-      <if test="secretKey != null">
-        #{secretKey,jdbcType=VARCHAR},
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        #{appSecret,jdbcType=VARCHAR},
       </if>
       <if test="tokenExpire != null">
         #{tokenExpire,jdbcType=BIGINT},
@@ -199,14 +213,20 @@
       <if test="record.appId != null">
         app_id = #{record.appId,jdbcType=VARCHAR},
       </if>
+      <if test="record.appCode != null">
+        app_code = #{record.appCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.appName != null">
         app_name = #{record.appName,jdbcType=VARCHAR},
       </if>
       <if test="record.tenantId != null">
         tenant_id = #{record.tenantId,jdbcType=VARCHAR},
       </if>
-      <if test="record.secretKey != null">
-        secret_key = #{record.secretKey,jdbcType=VARCHAR},
+      <if test="record.appKey != null">
+        app_key = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appSecret != null">
+        app_secret = #{record.appSecret,jdbcType=VARCHAR},
       </if>
       <if test="record.tokenExpire != null">
         token_expire = #{record.tokenExpire,jdbcType=BIGINT},
@@ -232,9 +252,11 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update tenant_app
     set app_id = #{record.appId,jdbcType=VARCHAR},
+      app_code = #{record.appCode,jdbcType=VARCHAR},
       app_name = #{record.appName,jdbcType=VARCHAR},
       tenant_id = #{record.tenantId,jdbcType=VARCHAR},
-      secret_key = #{record.secretKey,jdbcType=VARCHAR},
+      app_key = #{record.appKey,jdbcType=VARCHAR},
+      app_secret = #{record.appSecret,jdbcType=VARCHAR},
       token_expire = #{record.tokenExpire,jdbcType=BIGINT},
       app_logo = #{record.appLogo,jdbcType=VARCHAR},
       website = #{record.website,jdbcType=VARCHAR},
@@ -248,14 +270,20 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update tenant_app
     <set>
+      <if test="appCode != null">
+        app_code = #{appCode,jdbcType=VARCHAR},
+      </if>
       <if test="appName != null">
         app_name = #{appName,jdbcType=VARCHAR},
       </if>
       <if test="tenantId != null">
         tenant_id = #{tenantId,jdbcType=VARCHAR},
       </if>
-      <if test="secretKey != null">
-        secret_key = #{secretKey,jdbcType=VARCHAR},
+      <if test="appKey != null">
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        app_secret = #{appSecret,jdbcType=VARCHAR},
       </if>
       <if test="tokenExpire != null">
         token_expire = #{tokenExpire,jdbcType=BIGINT},
@@ -278,9 +306,11 @@
   <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.TenantApp">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update tenant_app
-    set app_name = #{appName,jdbcType=VARCHAR},
+    set app_code = #{appCode,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
       tenant_id = #{tenantId,jdbcType=VARCHAR},
-      secret_key = #{secretKey,jdbcType=VARCHAR},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      app_secret = #{appSecret,jdbcType=VARCHAR},
       token_expire = #{tokenExpire,jdbcType=BIGINT},
       app_logo = #{appLogo,jdbcType=VARCHAR},
       website = #{website,jdbcType=VARCHAR},
@@ -304,6 +334,12 @@
   <update id="updateAppName" parameterType="cj.netos.uc.model.TenantApp">
     update tenant_app
     set app_name = #{appName,jdbcType=VARCHAR}
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateAppSecret" parameterType="cj.netos.uc.model.TenantApp">
+    update tenant_app
+    set app_secret = #{appSecret,jdbcType=VARCHAR},
+     token_expire = #{tokenExpire,jdbcType=BIGINT},
     where app_id = #{appId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -6,9 +6,15 @@ package cj.netos.uc.model;
 public class TenantApp {
     /**
      * Column: app_id
-     * Remark: 应用id
+     * Remark: 应用id=app_code.tenant_id的组合
      */
     private String appId;
+
+    /**
+     * Column: app_code
+     * Remark: 应用代码，表是在一个租户下的应用唯一代码
+     */
+    private String appCode;
 
     /**
      * Column: app_name
@@ -18,18 +24,25 @@ public class TenantApp {
 
     /**
      * Column: tenant_id
+     * Remark: 租户
      */
     private String tenantId;
 
     /**
-     * Column: secret_key
+     * Column: app_key
+     * Remark: 应用key
+     */
+    private String appKey;
+
+    /**
+     * Column: app_secret
      * Remark: 接入密钥
      */
-    private String secretKey;
+    private String appSecret;
 
     /**
      * Column: token_expire
-     * Remark: 令牌过期时间间隔
+     * Remark: 访问令牌过期时间间隔
      */
     private Long tokenExpire;
 
@@ -65,6 +78,14 @@ public class TenantApp {
         this.appId = appId == null ? null : appId.trim();
     }
 
+    public String getAppCode() {
+        return appCode;
+    }
+
+    public void setAppCode(String appCode) {
+        this.appCode = appCode == null ? null : appCode.trim();
+    }
+
     public String getAppName() {
         return appName;
     }
@@ -81,12 +102,20 @@ public class TenantApp {
         this.tenantId = tenantId == null ? null : tenantId.trim();
     }
 
-    public String getSecretKey() {
-        return secretKey;
+    public String getAppKey() {
+        return appKey;
     }
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey == null ? null : secretKey.trim();
+    public void setAppKey(String appKey) {
+        this.appKey = appKey == null ? null : appKey.trim();
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret == null ? null : appSecret.trim();
     }
 
     public Long getTokenExpire() {

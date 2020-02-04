@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UcTenantMapper {
+
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -61,6 +62,5 @@ public interface UcTenantMapper {
      */
     int updateByPrimaryKey(UcTenant record);
 
-
-    List<UcTenant> pageTenant(@Param(value = "currPage") int currPage, @Param(value = "pageSize")int pageSize);
+    List<UcTenant> pageTenant(@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
 }

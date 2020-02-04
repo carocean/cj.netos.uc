@@ -33,9 +33,9 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public UcUser getUser(String appid, String accountName) {
+    public UcUser getUser(String appid, String accountCode) {
         AppAccountExample example = new AppAccountExample();
-        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
+        example.createCriteria().andAppIdEqualTo(appid).andAccountCodeEqualTo(accountCode);
         List<AppAccount> list = accountMapper.selectByExample(example);
         if (list.isEmpty()) return null;
         AppAccount account = list.get(0);
@@ -44,8 +44,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException {
-        if (StringUtil.isEmpty(accountName)) {
+    public String addAccount(String accountCode, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException {
+        if (StringUtil.isEmpty(accountCode)) {
             throw new CircuitException("404", "缺少账户名");
         }
         if (StringUtil.isEmpty(appId)) {
@@ -54,13 +54,13 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (StringUtil.isEmpty(userId)) {
             throw new CircuitException("404", "缺少用户编号");
         }
-        if (existsAccount(appId, accountName)) {
-            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", userId, appId, accountName));
+        if (existsAccount(appId, accountCode)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", userId, appId, accountCode));
         }
         AppAccount appAccount = new AppAccount();
         appAccount.setAppId(appId);
-        appAccount.setAccountId(NumberGen.gen());
-        appAccount.setAccountName(accountName);
+        appAccount.setAccountId(String.format("%s@%s", accountCode, appId));
+        appAccount.setAccountCode(accountCode);
         appAccount.setAccountPwd(Encript.md5(accountPwd));
         appAccount.setCreateTime(new Date());
         appAccount.setIsEnable((byte) 1);
@@ -75,27 +75,30 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public void addByPassword(String uid, String appid, String accountName, String password) throws CircuitException {
+    public void addByPassword(String uid, String appid, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
-        if (existsAccount(appid, accountName)) {
-            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, accountName));
+        if (existsAccount(appid, accountCode)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, accountCode));
         }
         AppAccount account = new AppAccount();
-        account.setAccountId(NumberGen.gen());
+        account.setAccountId(String.format("%s@%s", accountCode, appid));
         account.setAppId(appid);
         account.setUserId(uid);
-        account.setAccountName(accountName);
+        account.setAccountCode(accountCode);
         account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
+        account.setNickName(nickName);
+        account.setAvatar(avatar);
+        account.setSignature(signature);
         accountMapper.insertSelective(account);
     }
 
     @CjTransaction
     @Override
-    public void addByIphone(String uid, String appid, String phone, String password) throws CircuitException {
+    public void addByIphone(String uid, String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
@@ -103,19 +106,22 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
             throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, phone));
         }
         AppAccount account = new AppAccount();
-        account.setAccountId(NumberGen.gen());
+        account.setAccountId(String.format("%s@%s", phone, appid));
         account.setAppId(appid);
         account.setUserId(uid);
-        account.setAccountName(phone);
+        account.setAccountCode(phone);
         account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
+        account.setNickName(nickName);
+        account.setAvatar(avatar);
+        account.setSignature(signature);
         accountMapper.insertSelective(account);
     }
 
     @CjTransaction
     @Override
-    public void addByEmail(String uid, String appid, String email, String password) throws CircuitException {
+    public void addByEmail(String uid, String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (ucUserService.getUserCount() < 1) {
             throw new CircuitException("404", "用户不存在");
         }
@@ -123,13 +129,17 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
             throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", uid, appid, email));
         }
         AppAccount account = new AppAccount();
-        account.setAccountId(NumberGen.gen());
+        account.setAccountId(String.format("%s@%s", Encript.md5(email), appid));
+        account.setAccountCode(email);
         account.setAppId(appid);
         account.setUserId(uid);
-        account.setAccountName(email);
+        account.setAccountCode(email);
         account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
+        account.setNickName(nickName);
+        account.setAvatar(avatar);
+        account.setSignature(signature);
         accountMapper.insertSelective(account);
     }
 
@@ -147,7 +157,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public List<AppAccount> listAccount(String uid) throws CircuitException {
+    public List<AppAccount> listAllAccount(String uid) throws CircuitException {
         AppAccountExample example = new AppAccountExample();
         example.createCriteria().andUserIdEqualTo(uid);
         return accountMapper.selectByExample(example);
@@ -175,17 +185,17 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public boolean existsAccount(String appid, String accountName) throws CircuitException {
+    public boolean existsAccount(String appid, String accountCode) throws CircuitException {
         AppAccountExample example = new AppAccountExample();
-        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
+        example.createCriteria().andAppIdEqualTo(appid).andAccountCodeEqualTo(accountCode);
         return this.accountMapper.countByExample(example) > 0;
     }
 
     @CjTransaction
     @Override
-    public AppAccount getAccountByName(String appid, String accountName) {
+    public AppAccount getAccountByCode(String appid, String accountCode) {
         AppAccountExample example = new AppAccountExample();
-        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
+        example.createCriteria().andAppIdEqualTo(appid).andAccountCodeEqualTo(accountCode);
 
         List<AppAccount> list = accountMapper.selectByExample(example);
         if (list.isEmpty()) return null;
@@ -194,9 +204,9 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public void removeAccount(String accountName, String appid) {
+    public void removeAccount(String accountCode, String appid) {
         AppAccountExample example = new AppAccountExample();
-        example.createCriteria().andAppIdEqualTo(appid).andAccountNameEqualTo(accountName);
+        example.createCriteria().andAppIdEqualTo(appid).andAccountCodeEqualTo(accountCode);
         accountMapper.deleteByExample(example);
     }
 

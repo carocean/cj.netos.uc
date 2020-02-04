@@ -1,10 +1,7 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.model.*;
-import cj.netos.uc.plugin.mapper.UcUserAttrMapper;
-import cj.netos.uc.plugin.mapper.UcUserAttrValMapper;
 import cj.netos.uc.plugin.mapper.UcUserMapper;
-import cj.netos.uc.plugin.mapper.UcUserSegMapper;
 import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IUcEmployeeService;
 import cj.netos.uc.service.IUcUserService;
@@ -25,12 +22,6 @@ import java.util.List;
 public class UcUserService implements IUcUserService {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserMapper")
     UcUserMapper userMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserSegMapper")
-    UcUserSegMapper userSegmentMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserAttrMapper")
-    UcUserAttrMapper userAttrMapper;
-    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserAttrValMapper")
-    UcUserAttrValMapper userAttrValMapper;
 
     @CjServiceInvertInjection
     @CjServiceRef(refByName = "appAccountService")
@@ -154,125 +145,6 @@ public class UcUserService implements IUcUserService {
     public void updateProfile(String uid, UcUser user) {
         user.setUserId(uid);
         userMapper.updateByPrimaryKeySelective(user);
-    }
-
-    @CjTransaction
-    @Override
-    public List<UcUserAttrVal> listAttributeValue(String uid, String segmentid) {
-        return userAttrValMapper.listAttributeValue(uid, segmentid);
-    }
-
-    @CjTransaction
-    @Override
-    public void setAttributeValue(String uid, String attributeid, String value) throws CircuitException {
-        if (getUserById(uid) == null) {
-            throw new CircuitException("404", String.format("用户不存在：%s", uid));
-        }
-        if (getAttribute(attributeid) == null) {
-            throw new CircuitException("404", String.format("用户属性不存在：%s", attributeid));
-        }
-        UcUserAttrVal val = getAttributeValue(uid, attributeid);
-        if (val == null) {
-            val = new UcUserAttrVal();
-            val.setUserId(uid);
-            val.setAttributeId(attributeid);
-            val.setValueId(NumberGen.gen());
-            val.setValue(value);
-            this.userAttrValMapper.insertSelective(val);
-            return;
-        }
-        val.setValue(value);
-        userAttrValMapper.updateByPrimaryKeySelective(val);
-    }
-
-    @CjTransaction
-    @Override
-    public UcUserAttrVal getAttributeValue(String uid, String attibuteid) {
-        UcUserAttrValExample example = new UcUserAttrValExample();
-        example.createCriteria().andUserIdEqualTo(uid).andAttributeIdEqualTo(attibuteid);
-        List<UcUserAttrVal> list = userAttrValMapper.selectByExample(example);
-        if (list.isEmpty()) return null;
-        return list.get(0);
-    }
-
-    @CjTransaction
-    @Override
-    public void emptyAttributeValues(String uid, String segmentid) {
-        userAttrValMapper.emptyAttributeValues(uid, segmentid);
-    }
-
-    @CjTransaction
-    @Override
-    public void addSegment(String name) throws CircuitException {
-        if (existsSegment(name)) {
-            throw new CircuitException("500", "已存在同名段:" + name);
-        }
-        UcUserSeg segment = new UcUserSeg();
-        segment.setCreateTime(new Date());
-        segment.setName(name);
-        segment.setSegmentId(NumberGen.gen());
-        userSegmentMapper.insertSelective(segment);
-    }
-
-    private boolean existsSegment(String name) {
-        UcUserSegExample example = new UcUserSegExample();
-        example.createCriteria().andNameEqualTo(name);
-        return userSegmentMapper.countByExample(example) > 0;
-    }
-
-    @CjTransaction
-    @Override
-    public List<UcUserSeg> listSegment() {
-        UcUserSegExample example = new UcUserSegExample();
-        return userSegmentMapper.selectByExample(example);
-    }
-
-    @CjTransaction
-    @Override
-    public void removeSegment(String segmentid) {
-        userSegmentMapper.deleteByPrimaryKey(segmentid);
-    }
-
-    @CjTransaction
-    @Override
-    public void addAttribute(String segmentid, String name, String type, int sort) throws CircuitException {
-        if (existsAttribute(segmentid, name)) {
-            throw new CircuitException("500", String.format("段：%s内已存在属性：%s", segmentid, name));
-        }
-        UcUserAttr attr = new UcUserAttr();
-        attr.setAttributeId(NumberGen.gen());
-        attr.setName(name);
-        attr.setSegmentId(segmentid);
-        attr.setSort(sort);
-        attr.setType(type);
-        userAttrMapper.insertSelective(attr);
-    }
-
-    private boolean existsAttribute(String segmentid, String name) {
-        UcUserAttrExample example = new UcUserAttrExample();
-        example.createCriteria().andSegmentIdEqualTo(segmentid).andNameEqualTo(name);
-        return userAttrMapper.countByExample(example) > 0;
-    }
-
-    @CjTransaction
-    @Override
-    public UcUserAttr getAttribute(String attributeid) {
-
-        return userAttrMapper.selectByPrimaryKey(attributeid);
-    }
-
-    @CjTransaction
-    @Override
-    public List<UcUserAttr> listAttribute(String segmentid) {
-        UcUserAttrExample example = new UcUserAttrExample();
-        example.createCriteria().andSegmentIdEqualTo(segmentid);
-        return userAttrMapper.selectByExample(example);
-    }
-
-    @CjTransaction
-    @Override
-    public void removeAttribute(String attibuteid) {
-        userAttrMapper.deleteByPrimaryKey(attibuteid);
     }
 
 
