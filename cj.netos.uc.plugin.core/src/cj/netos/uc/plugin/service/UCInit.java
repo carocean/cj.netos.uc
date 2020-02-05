@@ -45,7 +45,6 @@ public class UCInit implements IDBInit {
         }
         String appCode = ((IProperty) args.getNode("appCode")).getValue().getName();
         String appid=String.format("%s.%s",appCode,tenantid);
-        site.addService("#.app.id", appid);
         if (appService.getApp(appid) == null) {
             String appName = ((IProperty) args.getNode("appName")).getValue().getName();
             String tokenExpire = ((IProperty) args.getNode("tokenExpire")).getValue().getName();
@@ -108,6 +107,9 @@ public class UCInit implements IDBInit {
         }
         if (!ucRoleService.hasRoleOfUser("tenantAdministrators", uid)) {
             ucRoleService.addRoleToUser("tenantAdministrators", uid);
+        }
+        if (!tenantRoleService.hasRoleOfUser(String.format("appAdministrators@%s",tenantid), uid)) {
+            tenantRoleService.addRoleToUser(String.format("appAdministrators@%s",tenantid),uid);
         }
         CJSystem.logging().info(getClass(), String.format("初始化UC完成。应用：%s, 账号：%s, 密码：%s", appid, accountCode, password));
     }

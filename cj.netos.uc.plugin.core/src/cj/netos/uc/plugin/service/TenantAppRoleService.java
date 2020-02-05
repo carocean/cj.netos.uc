@@ -1,6 +1,7 @@
 package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.model.*;
+import cj.netos.uc.plugin.mapper.AppAccountMapper;
 import cj.netos.uc.plugin.mapper.AppRoleMapper;
 import cj.netos.uc.plugin.mapper.UaAppRolePersonMapper;
 import cj.netos.uc.service.IAppRoleService;
@@ -20,7 +21,8 @@ public class TenantAppRoleService implements IAppRoleService {
     AppRoleMapper appRoleMapper;
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UaAppRolePersonMapper")
     UaAppRolePersonMapper uaAppRolePersonMapper;
-
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppAccountMapper")
+    AppAccountMapper appAccountMapper;
     @CjTransaction
     @Override
     public String addRole(String roleCode, String extend, String appId, String roleName) throws CircuitException {
@@ -43,7 +45,7 @@ public class TenantAppRoleService implements IAppRoleService {
         AppRole role = new AppRole();
         role.setExtend(extend);
         role.setRoleCode(roleCode);
-        role.setRoleId(String.format("%s@%s",roleCode,appId));
+        role.setRoleId(String.format("%s@%s", roleCode, appId));
         role.setRoleName(roleName);
         role.setAppId(appId);
         appRoleMapper.insertSelective(role);
@@ -58,31 +60,43 @@ public class TenantAppRoleService implements IAppRoleService {
     @CjTransaction
     @Override
     public void removeRole(String appId, String roleCode) throws CircuitException {
-        appRoleMapper.deleteByPrimaryKey(String.format("%s@%s",roleCode,appId));
+        appRoleMapper.deleteByPrimaryKey(String.format("%s@%s", roleCode, appId));
+    }
+
+    @CjTransaction
+    @Override
+    public void removeRoleBy(String roleid) {
+        appRoleMapper.deleteByPrimaryKey(roleid);
+    }
+
+    @CjTransaction
+    @Override
+    public AppRole getRoleBy(String roleid) {
+        return appRoleMapper.selectByPrimaryKey(roleid);
     }
 
     @CjTransaction
     @Override
     public AppRole getRole(String appId, String roleCode) throws CircuitException {
-        return appRoleMapper.selectByPrimaryKey(String.format("%s@%s",roleCode,appId));
+        return appRoleMapper.selectByPrimaryKey(String.format("%s@%s", roleCode, appId));
     }
 
     @CjTransaction
     @Override
-    public List<AppRole> pageRole(String appid, int currPage, int pageSize) throws CircuitException {
+    public List<AppRole> pageRole(String appid, long currPage, long pageSize) throws CircuitException {
         return appRoleMapper.pageRole(appid, currPage, pageSize);
     }
 
     @CjTransaction
     @Override
-    public List<AppAccount> pageAccountInRole(String appId, String rolecode, int offset, int limit) throws CircuitException {
-        return uaAppRolePersonMapper.pageAccountInRole(appId, rolecode, offset, limit);
+    public List<AppAccount> pageAccountInRole(String appId, String roleid, long offset, long limit) throws CircuitException {
+        return uaAppRolePersonMapper.pageAccountInRole(appId, roleid, offset, limit);
     }
 
     @CjTransaction
     @Override
-    public List<AppRole> pageRoleOfAccount(String accountid, String appId, int offset, int limit) throws CircuitException {
-        return uaAppRolePersonMapper.pageRoleOfAccount(accountid, appId, offset,limit );
+    public List<AppRole> pageRoleOfAccount(String accountid, String appId, long offset, long limit) throws CircuitException {
+        return uaAppRolePersonMapper.pageRoleOfAccount(accountid, appId, offset, limit);
     }
 
     @CjTransaction
@@ -100,7 +114,25 @@ public class TenantAppRoleService implements IAppRoleService {
 
     @CjTransaction
     @Override
-    public void removeAccountFromRole(String accountid, String appId, String roleCode) throws CircuitException {
-        uaAppRolePersonMapper.deleteByPrimaryKey(String.format("%s@%s",roleCode,appId), accountid);
+    public void removeAccountFromRole(String accountid, String roleid) throws CircuitException {
+        uaAppRolePersonMapper.deleteByPrimaryKey(roleid, accountid);
+    }
+    @CjTransaction
+    @Override
+    public void addRoleToAccount(String roleid, String accountid) {
+       AppAccount account= appAccountMapper.selectByPrimaryKey(accountid);
+        UaAppRolePerson key = new UaAppRolePerson();
+        key.setRoleId(roleid);
+        key.setUserId(account.getUserId());
+        key.setAppId(account.getAppId());
+        String tenantid = account.getAppId().substring(account.getAppId().lastIndexOf(".") + 1, account.getAppId().length());
+        key.setTenantId(tenantid);
+        key.setAccountId(accountid);
+        uaAppRolePersonMapper.insert(key);
+    }
+    @CjTransaction
+    @Override
+    public void removeRoleFromAccount(String roleid, String accountid) {
+        uaAppRolePersonMapper.deleteByPrimaryKey(roleid,accountid);
     }
 }

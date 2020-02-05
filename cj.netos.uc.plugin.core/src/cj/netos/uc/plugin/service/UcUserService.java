@@ -63,11 +63,11 @@ public class UcUserService implements IUcUserService {
 
     @CjTransaction
     @Override
-    public UcUser registerByPassword(String appid, String accountName, String password, String nickName, String avatar, String signature) throws CircuitException {
+    public UcUser registerByPassword(String appid, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
-            throw new CircuitException("404", "应用编号为空");
+            throw new CircuitException("404", "应用标识为空");
         }
-        if (StringUtil.isEmpty(accountName)) {
+        if (StringUtil.isEmpty(accountCode)) {
             throw new CircuitException("404", "账户名为空");
         }
         if (StringUtil.isEmpty(password)) {
@@ -76,11 +76,11 @@ public class UcUserService implements IUcUserService {
 
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
-        user.setUserName(accountName);
+        user.setUserName(accountCode);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
 
-        this.appAccountService.addAccount(accountName, (byte) 0, user.getUserId(), appid, password,nickName,avatar,signature);
+        this.appAccountService.addAccount(accountCode, (byte) 0, user.getUserId(), appid, password,nickName,avatar,signature);
         return user;
     }
 
@@ -88,7 +88,7 @@ public class UcUserService implements IUcUserService {
     @Override
     public UcUser registerByIphone(String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
-            throw new CircuitException("404", "应用编号为空");
+            throw new CircuitException("404", "应用标识为空");
         }
         if (StringUtil.isEmpty(phone)) {
             throw new CircuitException("404", "手机号为空");
@@ -112,7 +112,7 @@ public class UcUserService implements IUcUserService {
     @Override
     public UcUser registerByEmail(String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
-            throw new CircuitException("404", "应用编号为空");
+            throw new CircuitException("404", "应用标识为空");
         }
         if (StringUtil.isEmpty(email)) {
             throw new CircuitException("404", "邮箱为空");

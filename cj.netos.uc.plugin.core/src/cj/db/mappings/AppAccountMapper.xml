@@ -329,6 +329,21 @@
     set account_pwd =#{newpwd,jdbcType=VARCHAR}
     where account_id=#{accountid,jdbcType=VARCHAR}
   </update>
+  <update id="updateAvatar">
+    update app_account
+    set avatar =#{avatar,jdbcType=VARCHAR}
+    where account_id=#{accountid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSignature">
+    update app_account
+    set signature =#{signature,jdbcType=VARCHAR}
+    where account_id=#{accountid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateNickName">
+    update app_account
+    set nick_name =#{nickName,jdbcType=VARCHAR}
+    where account_id=#{accountid,jdbcType=VARCHAR}
+  </update>
   <select id="pageAccount" resultMap="BaseResultMap">
     select ta.* from app_account ta
     where ta.app_id=#{appid}

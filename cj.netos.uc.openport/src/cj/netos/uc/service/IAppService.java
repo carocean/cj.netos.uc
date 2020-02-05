@@ -13,12 +13,13 @@ public interface IAppService {
 
     TenantApp getApp(String appid) throws CircuitException;
 
-    List<TenantApp> pageApp(String tenantid, int currPage, int pageSize) throws CircuitException;
+    List<TenantApp> pageApp(String tenantid, long currPage, int pageSize) throws CircuitException;
 
 
     boolean existsAppName(String tenantid, String appName);
 
-    void reissueAppSecret(String appid, String appName, String tenantId, long tokenExpire);
+
+    void reissueAppSecret(String appid, long tokenExpire);
 
     TenantApp getAppByName(String tenantid, String appName);
 

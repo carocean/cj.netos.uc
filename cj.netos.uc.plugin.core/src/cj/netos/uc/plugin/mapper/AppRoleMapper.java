@@ -62,5 +62,5 @@ public interface AppRoleMapper {
      */
     int updateByPrimaryKey(AppRole record);
 
-    List<AppRole> pageRole(@Param(value = "appid") String appid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+    List<AppRole> pageRole(@Param(value = "appid") String appid, @Param(value = "offset") long office, @Param(value = "limit") long limit);
 }

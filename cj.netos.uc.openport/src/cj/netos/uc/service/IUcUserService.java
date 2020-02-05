@@ -13,7 +13,7 @@ public interface IUcUserService {
     long getUserCount() throws CircuitException;
 
 
-    UcUser registerByPassword(String appid, String accountName, String password, String nickName, String avatar, String signature)throws CircuitException;
+    UcUser registerByPassword(String appid, String accountCode, String password, String nickName, String avatar, String signature)throws CircuitException;
 
     UcUser registerByIphone(String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException;
 

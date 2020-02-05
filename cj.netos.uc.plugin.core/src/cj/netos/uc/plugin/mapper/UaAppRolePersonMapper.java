@@ -64,7 +64,7 @@ public interface UaAppRolePersonMapper {
      */
     int updateByPrimaryKey(UaAppRolePerson record);
 
-    List<AppAccount> pageAccountInRole(@Param(value = "appId") String appId, @Param(value = "roleid") String roleid, @Param(value = "offset") long offset, @Param(value = "limit") int limit);
+    List<AppAccount> pageAccountInRole(@Param(value = "appId") String appId, @Param(value = "roleid") String roleid, @Param(value = "offset") long offset, @Param(value = "limit") long limit);
 
-    List<AppRole> pageRoleOfAccount(@Param(value = "accountid") String accountid, @Param(value = "appId") String appId, @Param(value = "offset") long offset, @Param(value = "limit") int limit);
+    List<AppRole> pageRoleOfAccount(@Param(value = "accountid") String accountid, @Param(value = "appId") String appId, @Param(value = "offset") long offset, @Param(value = "limit") long limit);
 }

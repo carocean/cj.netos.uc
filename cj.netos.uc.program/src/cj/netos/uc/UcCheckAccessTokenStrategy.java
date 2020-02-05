@@ -1,38 +1,40 @@
 package cj.netos.uc;
 
-import cj.netos.uc.service.IKeyStore;
-import cj.netos.uc.util.JwtUtil;
+import cj.netos.uc.model.AppAccessToken;
+import cj.netos.uc.service.IAppAccessTokenService;
 import cj.studio.ecm.IServiceSite;
-import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.CheckAccessTokenException;
 import cj.studio.openport.DefaultSecuritySession;
 import cj.studio.openport.ICheckAccessTokenStrategy;
 import cj.studio.openport.ISecuritySession;
-import io.jsonwebtoken.Claims;
+import cj.ultimate.gson2.com.google.gson.Gson;
+import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
 
 import java.util.List;
-import java.util.Map;
 
 public class UcCheckAccessTokenStrategy implements ICheckAccessTokenStrategy {
-    IKeyStore keyStore;
+    IAppAccessTokenService appAccessTokenService;
     @Override
     public void init(IServiceSite site) {
-        keyStore=(IKeyStore)site.getService("ucplugin.keyStore");
+        appAccessTokenService=(IAppAccessTokenService) site.getService("ucplugin.appAccessTokenService");
     }
 
     @Override
     public ISecuritySession checkAccessToken(String portsurl, String methodName, String accessToken) throws CheckAccessTokenException {
-        Claims claims = null;
-        try {
-            claims = JwtUtil.parseJWT(accessToken,keyStore.getKey());
-        } catch (CircuitException e) {
-            throw new CheckAccessTokenException(e.getStatus(),e.getMessage());
+        AppAccessToken appAccessToken= appAccessTokenService.getAccessToken(accessToken);
+        if (appAccessToken == null) {
+            throw new CheckAccessTokenException("1002","验证访问令牌失败，原因：非法的令牌");
         }
-        ISecuritySession securitySession=new DefaultSecuritySession(claims.getSubject());
-        //uc的api使用的仅仅是uc角色，租户角色和应用角色可弃之不用
-        List<Map<String,String>> roles=(List<Map<String,String>>)claims.get("uc-roles");
-        for(Map<String,String> role:roles){
-            securitySession.addRole(role.get("roleId"));
+        //过期逻辑
+        long lasttime=appAccessToken.getPubTime()+appAccessToken.getExpireTime();
+        if (System.currentTimeMillis() > lasttime) {
+            throw new CheckAccessTokenException("1003","验证访问令牌失败，原因：已过期");
+        }
+        ISecuritySession securitySession = new DefaultSecuritySession(appAccessToken.getPerson());
+        String json=appAccessToken.getRoles();
+        List<String> roles = new Gson().fromJson(json,new TypeToken<List<String>>(){}.getType());
+        for (String r : roles) {
+            securitySession.addRole(r);
         }
         return securitySession;
     }

@@ -13,14 +13,24 @@ public interface IAppRoleService {
 
     AppRole getRole(String appId, String rolecode) throws CircuitException;
 
-    List<AppRole> pageRole(String appid, int currPage, int pageSize) throws CircuitException;
 
-    List<AppAccount> pageAccountInRole(String appId, String rolecode, int currPage, int pageSize) throws CircuitException;
-
-    List<AppRole> pageRoleOfAccount(String accountid, String appId, int currPage, int pageSize) throws CircuitException;
+    List<AppRole> pageRoleOfAccount(String accountid, String appId, long offset, long limit) throws CircuitException;
 
 
-    void addAccountToRole(String appId, String accountid, String rolecode, String tenantid, String uid) throws CircuitException;
+    List<AppRole> pageRole(String appid, long currPage, long pageSize) throws CircuitException;
 
-    void removeAccountFromRole(String uid, String appId, String rolecode) throws CircuitException;
+    List<AppAccount> pageAccountInRole(String appId, String roleid, long offset, long limit) throws CircuitException;
+
+    void addAccountToRole(String appId, String accountid, String roleid, String tenantid, String uid) throws CircuitException;
+
+    void removeAccountFromRole(String uid,  String roleid) throws CircuitException;
+
+    void removeRoleBy(String roleid);
+
+    AppRole getRoleBy(String roleid);
+
+    void addRoleToAccount(String roleid, String accountid);
+
+    void removeRoleFromAccount(String roleid, String accountid);
+
 }

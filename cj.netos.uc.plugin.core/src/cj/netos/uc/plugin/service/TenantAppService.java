@@ -52,7 +52,7 @@ public class TenantAppService implements IAppService {
         }
         String appid=String.format("%s.%s",appCode,tenantId);
         String appKey = Encript.md5(appid);
-        String appSecret = Encript.md5(String.format("%s.%s", appid, UUID.randomUUID().toString()));
+        String appSecret = Encript.md5(String.format("%s.%s.%s", appid,appKey, UUID.randomUUID().toString()));
 
         TenantApp app = new TenantApp();
         app.setAppId(appid);
@@ -68,6 +68,19 @@ public class TenantAppService implements IAppService {
         app.setLogoutCbUrl(logoutCBUrl);
 
         tenantAppMapper.insertSelective(app);
+        //同时为app添加固定角色
+        if (appRoleService.getRole(appid,"administrators") == null) {
+            appRoleService.addRole("administrators", "appAdministrators", appid, "管理员");
+        }
+        if (appRoleService.getRole(appid,"tests") == null) {
+            appRoleService.addRole("tests", "appTests", appid, "测试员");
+        }
+        if (appRoleService.getRole(appid,"develops") == null) {
+            appRoleService.addRole("develops", "appDevelops", appid, "开发者");
+        }
+        if (appRoleService.getRole(appid,"users") == null) {
+            appRoleService.addRole("users", "appUsers", appid, "普通用户");
+        }
         return app.getAppId();
     }
 
@@ -80,8 +93,9 @@ public class TenantAppService implements IAppService {
     }
     @CjTransaction
     @Override
-    public void reissueAppSecret(String appid, String appName, String tenantId, long tokenExpire) {
-        String appSecret = Encript.md5(String.format("%s.%s.%s", appid, tenantId, UUID.randomUUID().toString()));
+    public void reissueAppSecret(String appid, long tokenExpire) {
+        String appKey = Encript.md5(appid);
+        String appSecret = Encript.md5(String.format("%s.%s.%s", appid,appKey, UUID.randomUUID().toString()));
         tenantAppMapper.updateAppSecret(appid, appSecret, tokenExpire);
     }
 
@@ -109,7 +123,7 @@ public class TenantAppService implements IAppService {
 
     @CjTransaction
     @Override
-    public List<TenantApp> pageApp(String tenantid, int currPage, int pageSize) throws CircuitException {
+    public List<TenantApp> pageApp(String tenantid, long currPage, int pageSize) throws CircuitException {
         return tenantAppMapper.pageApp(tenantid, currPage, pageSize);
     }
 
@@ -127,14 +141,14 @@ public class TenantAppService implements IAppService {
 
     @CjTransaction
     @Override
-    public void upgradeBecomeDeveloper(String appid, String accountName) throws CircuitException {
+    public void upgradeBecomeDeveloper(String appid, String accountCode) throws CircuitException {
         TenantApp app = getApp(appid);
         if (app == null) {
             throw new CircuitException("404", "应用不存在:" + appid);
         }
-        AppAccount account = appAccountService.getAccountByCode(appid, accountName);
+        AppAccount account = appAccountService.getAccountByCode(appid, accountCode);
         if (account == null) {
-            throw new CircuitException("404", "账户不存在:" + accountName);
+            throw new CircuitException("404", "账户不存在:" + accountCode);
         }
 
         String uid = account.getUserId();

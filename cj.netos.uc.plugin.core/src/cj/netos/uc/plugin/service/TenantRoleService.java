@@ -80,8 +80,8 @@ public class TenantRoleService implements ITenantRoleService {
 
     @CjTransaction
     @Override
-    public List<UcUser> pageUserInRole(String roleid,  int currPage, int pageSize) throws CircuitException {
-        return roleMapper.pageUserInRole(roleid,  currPage, pageSize);
+    public List<UcUser> pageUserInRole(String roleid, int currPage, int pageSize) throws CircuitException {
+        return roleMapper.pageUserInRole(roleid, currPage, pageSize);
     }
 
     @CjTransaction
@@ -105,5 +105,22 @@ public class TenantRoleService implements ITenantRoleService {
     @Override
     public void removeUserFromRole(String uid, String roleCode, String tenantid) throws CircuitException {
         uaTenantRoleUserMapper.deleteByPrimaryKey(String.format("%s@%s", roleCode, tenantid), uid);
+    }
+
+    @CjTransaction
+    @Override
+    public boolean hasRoleOfUser(String roleid, String uid) {
+        return uaTenantRoleUserMapper.selectByPrimaryKey(roleid, uid) != null;
+    }
+
+    @CjTransaction
+    @Override
+    public void addRoleToUser(String roleid, String uid) {
+        UaTenantRoleUser uaTenantRoleUser = new UaTenantRoleUser();
+        uaTenantRoleUser.setRoleId(roleid);
+        uaTenantRoleUser.setUserId(uid);
+        String tenantid = roleid.substring(roleid.lastIndexOf("@") + 1, roleid.length());
+        uaTenantRoleUser.setTenantId(tenantid);
+        uaTenantRoleUserMapper.insertSelective(uaTenantRoleUser);
     }
 }

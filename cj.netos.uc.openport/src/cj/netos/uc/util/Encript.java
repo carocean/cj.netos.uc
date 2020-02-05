@@ -68,10 +68,14 @@ public class Encript {
     }
 
     public static void main(String... args) {
-        String appKey="D40E4C5AA581C83073D47188F8683108";
-        String nonce= new Random().nextLong()+"";
-        String sign=md5(String.format("%s%s",appKey,nonce));
+        String appKey="92D9F2B8078D039A7405AC0498F71059";
+        String appSecret = "7D469EF8E93729B98455B8919975BC60";
+//        String nonce= new Random().nextLong()+"";
+        String nonce="7696317939417951096";
+        String text=String.format("%s%s%s",appKey,nonce,appSecret);
+        String sign=md5(text);
         System.out.println(String.format("appKey=%s",appKey));
+        System.out.println(String.format("appSecret=%s",appSecret));
         System.out.println(String.format("nonce=%s",nonce));
         System.out.println(String.format("sign=%s",sign));
     }

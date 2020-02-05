@@ -5,6 +5,7 @@ import cj.netos.uc.model.AppAccountExample;
 import cj.netos.uc.model.UcUser;
 import cj.netos.uc.plugin.mapper.AppAccountMapper;
 import cj.netos.uc.service.IAppAccountService;
+import cj.netos.uc.service.IAppRoleService;
 import cj.netos.uc.service.IUcUserService;
 import cj.netos.uc.util.Encript;
 import cj.netos.uc.util.NumberGen;
@@ -25,6 +26,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppAccountMapper")
     AppAccountMapper accountMapper;
     IUcUserService ucUserService;
+    @CjServiceRef(refByName = "tenantAppRoleService")
+    IAppRoleService appRoleService;
 
     @Override
     public void setService(String serviceId, Object service) {
@@ -57,20 +60,22 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         if (existsAccount(appId, accountCode)) {
             throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", userId, appId, accountCode));
         }
-        AppAccount appAccount = new AppAccount();
-        appAccount.setAppId(appId);
-        appAccount.setAccountId(String.format("%s@%s", accountCode, appId));
-        appAccount.setAccountCode(accountCode);
-        appAccount.setAccountPwd(Encript.md5(accountPwd));
-        appAccount.setCreateTime(new Date());
-        appAccount.setIsEnable((byte) 1);
-        appAccount.setNameKind(nameKind);
-        appAccount.setUserId(userId);
-        appAccount.setNickName(nickName);
-        appAccount.setAvatar(avatar);
-        appAccount.setSignature(signature);
-        accountMapper.insertSelective(appAccount);
-        return appAccount.getAccountId();
+        AppAccount account = new AppAccount();
+        account.setAppId(appId);
+        account.setAccountId(String.format("%s@%s", accountCode, appId));
+        account.setAccountCode(accountCode);
+        account.setAccountPwd(Encript.md5(accountPwd));
+        account.setCreateTime(new Date());
+        account.setIsEnable((byte) 1);
+        account.setNameKind(nameKind);
+        account.setUserId(userId);
+        account.setNickName(nickName);
+        account.setAvatar(avatar);
+        account.setSignature(signature);
+        accountMapper.insertSelective(account);
+        String tenantid = appId.substring(appId.indexOf(".") + 1, appId.length());
+        this.appRoleService.addAccountToRole(appId, account.getAccountId(), String.format("users@%s", appId), tenantid, account.getUserId());
+        return account.getAccountId();
     }
 
     @CjTransaction
@@ -94,6 +99,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAvatar(avatar);
         account.setSignature(signature);
         accountMapper.insertSelective(account);
+        String tenantid = appid.substring(appid.indexOf(".") + 1, appid.length());
+        this.appRoleService.addAccountToRole(appid, account.getAccountId(), String.format("users@%s", appid), tenantid, account.getUserId());
     }
 
     @CjTransaction
@@ -117,6 +124,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAvatar(avatar);
         account.setSignature(signature);
         accountMapper.insertSelective(account);
+        String tenantid = appid.substring(appid.indexOf(".") + 1, appid.length());
+        this.appRoleService.addAccountToRole(appid, account.getAccountId(), String.format("users@%s", appid), tenantid, account.getUserId());
     }
 
     @CjTransaction
@@ -141,6 +150,8 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAvatar(avatar);
         account.setSignature(signature);
         accountMapper.insertSelective(account);
+        String tenantid = appid.substring(appid.indexOf(".") + 1, appid.length());
+        this.appRoleService.addAccountToRole(appid, account.getAccountId(), String.format("users@%s", appid), tenantid, account.getUserId());
     }
 
     @CjTransaction
@@ -151,7 +162,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
-    public List<AppAccount> pageAccount(String appid, int currPage, int pageSize) throws CircuitException {
+    public List<AppAccount> pageAccount(String appid, long currPage, int pageSize) throws CircuitException {
         return accountMapper.pageAccount(appid, currPage, pageSize);
     }
 
@@ -180,7 +191,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @CjTransaction
     @Override
     public void setAccountEnable(String accountid, boolean enable) throws CircuitException {
-        accountMapper.updateAccountEnable(accountid, enable);
+        accountMapper.updateAccountEnable(accountid, (byte)(enable?1:0));
     }
 
     @CjTransaction
@@ -214,5 +225,23 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @Override
     public void updatePwd(String accountId, String newpwd) {
         accountMapper.updatePwd(accountId, newpwd);
+    }
+
+    @CjTransaction
+    @Override
+    public void updateAvatar(String accountid, String avatar) {
+        accountMapper.updateAvatar(accountid, avatar);
+    }
+
+    @CjTransaction
+    @Override
+    public void updateSignature(String accountId, String signature) {
+        accountMapper.updateSignature(accountId, signature);
+    }
+
+    @CjTransaction
+    @Override
+    public void updateNickName(String accountId, String nickName) {
+        accountMapper.updateNickName(accountId, nickName);
     }
 }

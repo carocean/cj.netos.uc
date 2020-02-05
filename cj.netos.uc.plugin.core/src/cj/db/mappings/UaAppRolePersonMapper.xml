@@ -223,12 +223,12 @@
     where role_id = #{roleId,jdbcType=VARCHAR}
       and account_id = #{accountId,jdbcType=VARCHAR}
   </update>
-  <select id="pageAccountInRole" resultMap="BaseResultMap">
-    select aa.* from AppAccount aa where aa.appId=#{appId} and aa.roleid=#{roleid}
-    limit #{limit},#{offset}
+  <select id="pageAccountInRole" resultMap="cj.netos.uc.plugin.mapper.AppAccountMapper.BaseResultMap">
+    select aa.* from app_account aa,ua_app_role_person ar where aa.account_id=ar.account_id and ar.app_id=#{appId} and ar.role_id=#{roleid}
+    limit #{offset},#{limit}
   </select>
   <select id="pageRoleOfAccount" resultMap="cj.netos.uc.plugin.mapper.AppRoleMapper.BaseResultMap">
-    select ar.* from app_role ar,ua_app_role_person ua where ar.role_id=ua.role_id and ar.app_id=ua.app_id and ua.app_id=#{appId} and ua.account_id=#{accountid}
-    limit #{limit},#{offset}
+    select rl.* from app_role rl, ua_app_role_person ar where rl.role_id=ar.role_id and ar.app_id=#{appId} and ar.account_id=#{accountid}
+    limit #{offset},#{limit}
   </select>
 </mapper>

@@ -14,6 +14,7 @@
     <result column="website" jdbcType="VARCHAR" property="website" />
     <result column="login_cb_url" jdbcType="VARCHAR" property="loginCbUrl" />
     <result column="logout_cb_url" jdbcType="VARCHAR" property="logoutCbUrl" />
+    <result column="ctime" jdbcType="BIGINT" property="ctime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -78,7 +79,7 @@
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     app_id, app_code, app_name, tenant_id, app_key, app_secret, token_expire, app_logo, 
-    website, login_cb_url, logout_cb_url
+    website, login_cb_url, logout_cb_url, ctime
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.TenantAppExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -119,11 +120,13 @@
     insert into tenant_app (app_id, app_code, app_name, 
       tenant_id, app_key, app_secret, 
       token_expire, app_logo, website, 
-      login_cb_url, logout_cb_url)
+      login_cb_url, logout_cb_url, ctime
+      )
     values (#{appId,jdbcType=VARCHAR}, #{appCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
       #{tenantId,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR}, 
       #{tokenExpire,jdbcType=BIGINT}, #{appLogo,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
-      #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR})
+      #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.TenantApp">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -162,6 +165,9 @@
       <if test="logoutCbUrl != null">
         logout_cb_url,
       </if>
+      <if test="ctime != null">
+        ctime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="appId != null">
@@ -196,6 +202,9 @@
       </if>
       <if test="logoutCbUrl != null">
         #{logoutCbUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -243,6 +252,9 @@
       <if test="record.logoutCbUrl != null">
         logout_cb_url = #{record.logoutCbUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.ctime != null">
+        ctime = #{record.ctime,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,7 +273,8 @@
       app_logo = #{record.appLogo,jdbcType=VARCHAR},
       website = #{record.website,jdbcType=VARCHAR},
       login_cb_url = #{record.loginCbUrl,jdbcType=VARCHAR},
-      logout_cb_url = #{record.logoutCbUrl,jdbcType=VARCHAR}
+      logout_cb_url = #{record.logoutCbUrl,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -300,6 +313,9 @@
       <if test="logoutCbUrl != null">
         logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR},
       </if>
+      <if test="ctime != null">
+        ctime = #{ctime,jdbcType=BIGINT},
+      </if>
     </set>
     where app_id = #{appId,jdbcType=VARCHAR}
   </update>
@@ -315,7 +331,8 @@
       app_logo = #{appLogo,jdbcType=VARCHAR},
       website = #{website,jdbcType=VARCHAR},
       login_cb_url = #{loginCbUrl,jdbcType=VARCHAR},
-      logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR}
+      logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=BIGINT}
     where app_id = #{appId,jdbcType=VARCHAR}
   </update>
   <select id="pageApp" resultMap="BaseResultMap">

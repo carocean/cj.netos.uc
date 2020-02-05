@@ -105,6 +105,15 @@
     </option>
     <option name="tableInfoMap">
       <map>
+        <entry key="netos.uc#app_access_token">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="AppAccessToken" />
+              <option name="tableName" value="app_access_token" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.uc#app_account">
           <value>
             <TableInfo>

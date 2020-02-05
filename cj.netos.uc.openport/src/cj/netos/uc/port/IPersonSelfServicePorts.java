@@ -1,8 +1,7 @@
 package cj.netos.uc.port;
 
+import cj.netos.uc.model.AppInfo;
 import cj.netos.uc.model.PersonInfo;
-import cj.netos.uc.model.TenantApp;
-import cj.netos.uc.model.UcTenant;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
@@ -36,28 +35,41 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "获取公众信息")
     PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException;
 
-    @CjOpenport(usage = "使用账号密码添加新登录账户",command = "post")
+    @CjOpenport(usage = "使用账号密码添加新登录账户", command = "post")
     void addByPassword(ISecuritySession securitySession,
-                       @CjOpenportParameter(name = "accountName", usage = "登录名") String accountName,
+                       @CjOpenportParameter(name = "accountCode", usage = "登录名") String accountCode,
                        @CjOpenportParameter(name = "password", usage = "密码") String password,
                        @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
                        @CjOpenportParameter(name = "avatar", usage = "头像") String avatar,
                        @CjOpenportParameter(name = "signature", usage = "个人签名", in = PKeyInRequest.content) String signature) throws CircuitException;
 
-    @CjOpenport(usage = "使用手机号添加新登录账户",command = "post")
+    @CjOpenport(usage = "使用手机号添加新登录账户", command = "post")
     void addByIphone(ISecuritySession securitySession,
-                     @CjOpenportParameter(name = "phone", usage = "手机号")String phone,
+                     @CjOpenportParameter(name = "phone", usage = "手机号") String phone,
                      @CjOpenportParameter(name = "password", usage = "密码") String password,
                      @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
                      @CjOpenportParameter(name = "avatar", usage = "头像") String avatar,
                      @CjOpenportParameter(name = "signature", usage = "个人签名", in = PKeyInRequest.content) String signature) throws CircuitException;
 
-    @CjOpenport(usage = "使用邮箱添加新登录账户",command = "post")
+    @CjOpenport(usage = "使用邮箱添加新登录账户", command = "post")
     void addByEmail(ISecuritySession securitySession,
-                    @CjOpenportParameter(name = "email", usage = "邮箱")String email,
+                    @CjOpenportParameter(name = "email", usage = "邮箱") String email,
                     @CjOpenportParameter(name = "password", usage = "密码") String password,
                     @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
                     @CjOpenportParameter(name = "avatar", usage = "头像") String avatar,
                     @CjOpenportParameter(name = "signature", usage = "个人签名", in = PKeyInRequest.content) String signature) throws CircuitException;
 
+    @CjOpenport(usage = "普通用户可以申请创建一个应用")
+    void requestCreateApp(ISecuritySession securitySession,
+                          @CjOpenportParameter(name = "appCode", usage = "应用编号，英文") String appCode,
+                          @CjOpenportParameter(name = "appName", usage = "应用名，一般为中文") String appName,
+                          @CjOpenportParameter(name = "tenantId", usage = "租户标识") String tenantId,
+                          @CjOpenportParameter(name = "tokenExpire", usage = "应用访问令牌的过期时间间隔") long tokenExpire,
+                          @CjOpenportParameter(name = "appLogo", usage = "应用logo") String appLogo,
+                          @CjOpenportParameter(name = "website", usage = "应用站点地址，如果有") String website,
+                          @CjOpenportParameter(name = "loginCBUrl", usage = "uc中心发现应用登录回调通知地址") String loginCBUrl,
+                          @CjOpenportParameter(name = "logoutCBUrl", usage = "uc中心发现应用会话过期回调通知地址") String logoutCBUrl
+    ) throws CircuitException;
+
+    AppInfo getAppInfo(ISecuritySession securitySession) throws CircuitException;
 }

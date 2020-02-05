@@ -25,4 +25,8 @@ public interface ITenantRoleService {
 
     List<TenantRole> pageRoleOfUser(String uid, String tenantid, int currPage, int pageSize);
 
+    boolean hasRoleOfUser(String roleid, String uid);
+
+    void addRoleToUser(String roleid, String uid);
+
 }

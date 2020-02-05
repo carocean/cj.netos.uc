@@ -20,7 +20,7 @@ public interface IAppAccountService {
 
     void removeAccount(String accountid) throws CircuitException;
 
-    List<AppAccount> pageAccount(String appid, int currPage, int pageSize) throws CircuitException;
+    List<AppAccount> pageAccount(String appid, long currPage, int pageSize) throws CircuitException;
 
 
     UcUser getUser(String appid, String accountName) throws CircuitException;
@@ -40,5 +40,11 @@ public interface IAppAccountService {
     List<AppAccount> listAccountByAppidAndUid(String appid, String userId);
 
     void removeAccount(String accountName, String appid);
+
+    void updateAvatar(String accountId, String avatar);
+
+    void updateSignature(String accountId, String signature);
+
+    void updateNickName(String accountId, String nickName);
 
 }

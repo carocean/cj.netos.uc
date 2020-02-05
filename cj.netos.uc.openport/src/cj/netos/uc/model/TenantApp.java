@@ -70,6 +70,12 @@ public class TenantApp {
      */
     private String logoutCbUrl;
 
+    /**
+     * Column: ctime
+     * Remark: App创建时间
+     */
+    private Long ctime;
+
     public String getAppId() {
         return appId;
     }
@@ -156,5 +162,13 @@ public class TenantApp {
 
     public void setLogoutCbUrl(String logoutCbUrl) {
         this.logoutCbUrl = logoutCbUrl == null ? null : logoutCbUrl.trim();
+    }
+
+    public Long getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Long ctime) {
+        this.ctime = ctime;
     }
 }

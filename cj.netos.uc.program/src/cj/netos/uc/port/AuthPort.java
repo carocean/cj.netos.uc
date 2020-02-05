@@ -9,6 +9,8 @@ import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
+import cj.ultimate.gson2.com.google.gson.Gson;
+import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
 
 import java.util.*;
 
@@ -26,6 +28,8 @@ public class AuthPort implements IAuthPort {
     IAppRoleService appRoleService;
     @CjServiceRef(refByName = "ucplugin.appRefreshTokenService")
     IAppRefreshTokenService appRefreshTokenService;
+    @CjServiceRef(refByName = "ucplugin.appAccessTokenService")
+    IAppAccessTokenService appAccessTokenService;
 
     @Override
     public Map<String, Object> auth(ISecuritySession securitySession, String accountCode, String password) throws CircuitException {
@@ -40,7 +44,6 @@ public class AuthPort implements IAuthPort {
         if (!Encript.md5(password).equals(appAccount.getAccountPwd())) {
             throw new CircuitException("1002", "登录失败，原因：密码不正确");
         }
-        Map<String, Object> claims = new HashMap<>();
         //填充角色
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(appAccount.getUserId(), 0, Integer.MAX_VALUE);
         List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(appAccount.getUserId(), app.getTenantId(), 0, Integer.MAX_VALUE);
@@ -55,13 +58,22 @@ public class AuthPort implements IAuthPort {
         for (AppRole r : approles) {
             roles.add(String.format("app:%s", r.getRoleId()));
         }
-        claims.put("roles", roles);
         String person = appAccount.getAccountId();
-        String accessToken = JwtUtil.createJWT(app.getAppSecret(), person, app.getTokenExpire(), claims);
+        //accessToken仅仅只是生成一个标识串
+        String accessToken = Encript.md5(String.format("%s%s%s", person, UUID.randomUUID(), app.getAppSecret()));
+        AppAccessToken appAccessToken = new AppAccessToken();
+        appAccessToken.setAccessToken(accessToken);
+        appAccessToken.setExpireTime(app.getTokenExpire());
+        appAccessToken.setPerson(person);
+        appAccessToken.setPubTime(System.currentTimeMillis());
+        appAccessToken.setRoles(new Gson().toJson(roles));
+        appAccessTokenService.updateAccessToken(person, appAccessToken);
 
         Map<String, Object> response = new HashMap<>();
+
         Map<String, Object> appToken = new HashMap<>();
         appToken.put("accessToken", accessToken);
+        appToken.put("pubTime", appAccessToken.getPubTime());
         String refreshToken = appRefreshTokenService.updateRefreshToken(person).getRefreshToken();
         appToken.put("refreshToken", refreshToken);
         appToken.put("expireTime", app.getTokenExpire());
@@ -74,7 +86,6 @@ public class AuthPort implements IAuthPort {
         info.setSignature(appAccount.getSignature());
         info.setUid(appAccount.getUserId());
         response.put("subject", info);
-        //生成jwt令牌
         return response;
     }
 
@@ -100,10 +111,18 @@ public class AuthPort implements IAuthPort {
         if (app == null) {
             throw new CircuitException("1002", "登录失败，原因：非法应用");
         }
-        try {
-            return JwtUtil.parseJWT(token, app.getAppSecret());
-        } catch (Exception e) {
-            throw new CircuitException("1004", "验证令牌失败");
+        AppAccessToken appAccessToken = appAccessTokenService.getAccessToken(token);
+        if (appAccessToken == null) {
+            throw new CircuitException("1002", "登录失败，原因：令牌无效");
         }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("person", appAccessToken.getPerson());
+        map.put("pubTime", appAccessToken.getPubTime());
+        map.put("expireTime", appAccessToken.getExpireTime());
+        map.put("isExpired",System.currentTimeMillis()>appAccessToken.getPubTime()+appAccessToken.getExpireTime());
+        List<String> roles = new Gson().fromJson(appAccessToken.getRoles(), new TypeToken<ArrayList<String>>() {
+        }.getType());
+        map.put("roles", roles);
+        return map;
     }
 }

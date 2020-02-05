@@ -243,6 +243,6 @@
   <select id="pageRole" resultMap="BaseResultMap">
     select ar.* from app_role ar
     where ar.app_id=#{appid}
-    limit #{currPage},#{pageSize}
+    limit #{offset},#{limit}
   </select>
 </mapper>

@@ -62,9 +62,16 @@ public interface AppAccountMapper {
      */
     int updateByPrimaryKey(AppAccount record);
 
-    void updateAccountEnable(@Param(value = "accountid") String accountid, @Param(value = "enable") boolean enable);
+    void updateAccountEnable(@Param(value = "accountid") String accountid, @Param(value = "enable") byte enable);
 
-    List<AppAccount> pageAccount(@Param(value = "appid") String tenantid, @Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+    List<AppAccount> pageAccount(@Param(value = "appid") String tenantid, @Param(value = "currPage") long currPage, @Param(value = "pageSize") int pageSize);
 
     void updatePwd(@Param(value = "accountid") String accountid, @Param(value = "newpwd") String newpwd);
+
+    void updateAvatar(@Param(value = "accountid")String accountid, @Param(value = "avatar")String avatar);
+
+    void updateSignature(@Param(value = "accountid")String accountid,@Param(value = "signature") String signature);
+
+    void updateNickName(@Param(value = "accountid")String accountid, @Param(value = "nickName")String nickName);
+
 }
