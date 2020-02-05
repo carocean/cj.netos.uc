@@ -224,7 +224,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @CjTransaction
     @Override
     public void updatePwd(String accountId, String newpwd) {
-        accountMapper.updatePwd(accountId, newpwd);
+        accountMapper.updatePwd(accountId, Encript.md5(newpwd));
     }
 
     @CjTransaction
