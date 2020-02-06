@@ -20,7 +20,7 @@ public interface AppAccessTokenMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int deleteByPrimaryKey(String person);
+    int deleteByPrimaryKey(@Param("person") String person, @Param("device") String device);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -40,7 +40,7 @@ public interface AppAccessTokenMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    AppAccessToken selectByPrimaryKey(String person);
+    AppAccessToken selectByPrimaryKey(@Param("person") String person, @Param("device") String device);
 
     /**
      * @mbg.generated generated automatically, do not modify!

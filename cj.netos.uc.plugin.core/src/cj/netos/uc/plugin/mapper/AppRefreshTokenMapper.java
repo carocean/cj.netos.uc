@@ -20,7 +20,7 @@ public interface AppRefreshTokenMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int deleteByPrimaryKey(String person);
+    int deleteByPrimaryKey(@Param("person") String person, @Param("device") String device);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -40,7 +40,7 @@ public interface AppRefreshTokenMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    AppRefreshToken selectByPrimaryKey(String person);
+    AppRefreshToken selectByPrimaryKey(@Param("person") String person, @Param("device") String device);
 
     /**
      * @mbg.generated generated automatically, do not modify!

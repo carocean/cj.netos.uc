@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cj.netos.uc.model.AppAccessToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="person" jdbcType="VARCHAR" property="person" />
+    <id column="device" jdbcType="VARCHAR" property="device" />
     <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
     <result column="expire_time" jdbcType="BIGINT" property="expireTime" />
     <result column="pub_time" jdbcType="BIGINT" property="pubTime" />
@@ -71,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    person, access_token, expire_time, pub_time, roles
+    person, device, access_token, expire_time, pub_time, roles
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.AppAccessTokenExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -88,17 +89,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     select 
     <include refid="Base_Column_List" />
     from app_access_token
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     delete from app_access_token
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cj.netos.uc.model.AppAccessTokenExample">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -109,10 +112,12 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.AppAccessToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into app_access_token (person, access_token, expire_time, 
-      pub_time, roles)
-    values (#{person,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR}, #{expireTime,jdbcType=BIGINT}, 
-      #{pubTime,jdbcType=BIGINT}, #{roles,jdbcType=VARCHAR})
+    insert into app_access_token (person, device, access_token, 
+      expire_time, pub_time, roles
+      )
+    values (#{person,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR}, 
+      #{expireTime,jdbcType=BIGINT}, #{pubTime,jdbcType=BIGINT}, #{roles,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.AppAccessToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -120,6 +125,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="person != null">
         person,
+      </if>
+      <if test="device != null">
+        device,
       </if>
       <if test="accessToken != null">
         access_token,
@@ -137,6 +145,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="person != null">
         #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        #{device,jdbcType=VARCHAR},
       </if>
       <if test="accessToken != null">
         #{accessToken,jdbcType=VARCHAR},
@@ -166,6 +177,9 @@
       <if test="record.person != null">
         person = #{record.person,jdbcType=VARCHAR},
       </if>
+      <if test="record.device != null">
+        device = #{record.device,jdbcType=VARCHAR},
+      </if>
       <if test="record.accessToken != null">
         access_token = #{record.accessToken,jdbcType=VARCHAR},
       </if>
@@ -187,6 +201,7 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_access_token
     set person = #{record.person,jdbcType=VARCHAR},
+      device = #{record.device,jdbcType=VARCHAR},
       access_token = #{record.accessToken,jdbcType=VARCHAR},
       expire_time = #{record.expireTime,jdbcType=BIGINT},
       pub_time = #{record.pubTime,jdbcType=BIGINT},
@@ -213,6 +228,7 @@
       </if>
     </set>
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.AppAccessToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -222,5 +238,6 @@
       pub_time = #{pubTime,jdbcType=BIGINT},
       roles = #{roles,jdbcType=VARCHAR}
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </update>
 </mapper>

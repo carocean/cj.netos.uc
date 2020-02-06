@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cj.netos.uc.model.AppRefreshToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="person" jdbcType="VARCHAR" property="person" />
+    <id column="device" jdbcType="VARCHAR" property="device" />
     <result column="refresh_token" jdbcType="VARCHAR" property="refreshToken" />
     <result column="pub_time" jdbcType="BIGINT" property="pubTime" />
   </resultMap>
@@ -69,7 +70,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    person, refresh_token, pub_time
+    person, device, refresh_token, pub_time
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.AppRefreshTokenExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -86,17 +87,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     select 
     <include refid="Base_Column_List" />
     from app_refresh_token
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     delete from app_refresh_token
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cj.netos.uc.model.AppRefreshTokenExample">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -107,10 +110,10 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.AppRefreshToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into app_refresh_token (person, refresh_token, pub_time
-      )
-    values (#{person,jdbcType=VARCHAR}, #{refreshToken,jdbcType=VARCHAR}, #{pubTime,jdbcType=BIGINT}
-      )
+    insert into app_refresh_token (person, device, refresh_token, 
+      pub_time)
+    values (#{person,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, #{refreshToken,jdbcType=VARCHAR}, 
+      #{pubTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.AppRefreshToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -118,6 +121,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="person != null">
         person,
+      </if>
+      <if test="device != null">
+        device,
       </if>
       <if test="refreshToken != null">
         refresh_token,
@@ -129,6 +135,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="person != null">
         #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="device != null">
+        #{device,jdbcType=VARCHAR},
       </if>
       <if test="refreshToken != null">
         #{refreshToken,jdbcType=VARCHAR},
@@ -152,6 +161,9 @@
       <if test="record.person != null">
         person = #{record.person,jdbcType=VARCHAR},
       </if>
+      <if test="record.device != null">
+        device = #{record.device,jdbcType=VARCHAR},
+      </if>
       <if test="record.refreshToken != null">
         refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
       </if>
@@ -167,6 +179,7 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_refresh_token
     set person = #{record.person,jdbcType=VARCHAR},
+      device = #{record.device,jdbcType=VARCHAR},
       refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
       pub_time = #{record.pubTime,jdbcType=BIGINT}
     <if test="_parameter != null">
@@ -185,6 +198,7 @@
       </if>
     </set>
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.AppRefreshToken">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -192,5 +206,6 @@
     set refresh_token = #{refreshToken,jdbcType=VARCHAR},
       pub_time = #{pubTime,jdbcType=BIGINT}
     where person = #{person,jdbcType=VARCHAR}
+      and device = #{device,jdbcType=VARCHAR}
   </update>
 </mapper>

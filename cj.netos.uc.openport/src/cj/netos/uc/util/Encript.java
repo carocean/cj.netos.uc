@@ -68,8 +68,8 @@ public class Encript {
     }
 
     public static void main(String... args) {
-        String appKey="92D9F2B8078D039A7405AC0498F71059";
-        String appSecret = "7D469EF8E93729B98455B8919975BC60";
+        String appKey="995C2A861BE8064A1F8A022B5C0D2E36";
+        String appSecret = "6EA4774EE78DCDF0768CA18ECF3AD1DB";
 //        String nonce= new Random().nextLong()+"";
         String nonce="7696317939417951096";
         String text=String.format("%s%s%s",appKey,nonce,appSecret);

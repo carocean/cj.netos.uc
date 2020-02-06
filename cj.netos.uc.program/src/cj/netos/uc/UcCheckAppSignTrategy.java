@@ -36,14 +36,14 @@ public class UcCheckAppSignTrategy implements ICheckAppSignStrategy {
             throw new CheckAppSignException("801", "app验证失败，拒绝访问，原因：应用不存在");
         }
         if (app==null) {
-            throw new CheckAppSignException("801", String.format("app验证失败，拒绝访问，原因：appid:%s 不存在",appId));
+            throw new CheckAppSignException("802", String.format("app验证失败，拒绝访问，原因：appid:%s 不存在",appId));
         }
         if (!appKey.equals(app.getAppKey())) {
-            throw new CheckAppSignException("801", "app验证失败，拒绝访问，原因：公钥不匹配");
+            throw new CheckAppSignException("803", "app验证失败，拒绝访问，原因：公钥不匹配");
         }
         String genSign = Encript.md5(String.format("%s%s%s", appKey, nonce,app.getAppSecret()));
         if (!genSign.equals(sign)) {
-            throw new CheckAppSignException("801", "app验证失败，拒绝访问，原因：签名不正确");
+            throw new CheckAppSignException("804", "app验证失败，拒绝访问，原因：签名不正确");
         }
         ISecuritySession securitySession = new DefaultSecuritySession(appId);
         return securitySession;

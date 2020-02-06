@@ -16,14 +16,14 @@ public class AppRefreshTokenService implements IAppRefreshTokenService {
     AppRefreshTokenMapper appRefreshTokenMapper;
 
     @Override
-    public AppRefreshToken updateRefreshToken(String person) {
-        AppRefreshToken appRefreshToken = appRefreshTokenMapper.selectByPrimaryKey(person);
-        String refreshToken= Encript.md5(String.format("%s%s",person, UUID.randomUUID()));
+    public AppRefreshToken updateRefreshToken(String person,String device) {
+        AppRefreshToken appRefreshToken = appRefreshTokenMapper.selectByPrimaryKey(person,device);
+        String refreshToken= Encript.md5(String.format("%s%s%s",person,device, UUID.randomUUID()));
         long pubTime=System.currentTimeMillis();
         if (appRefreshToken == null) {
             appRefreshToken = new AppRefreshToken();
             appRefreshToken.setPerson(person);
-
+            appRefreshToken.setDevice(device);
             appRefreshToken.setRefreshToken(refreshToken);
             appRefreshToken.setPubTime(pubTime);
             appRefreshTokenMapper.insertSelective(appRefreshToken);
@@ -31,6 +31,7 @@ public class AppRefreshTokenService implements IAppRefreshTokenService {
         }
         appRefreshToken.setPubTime(pubTime);
         appRefreshToken.setRefreshToken(refreshToken);
+        appRefreshToken.setDevice(device);
         appRefreshToken.setPerson(person);
         appRefreshTokenMapper.updateByPrimaryKey(appRefreshToken);
         return appRefreshToken;

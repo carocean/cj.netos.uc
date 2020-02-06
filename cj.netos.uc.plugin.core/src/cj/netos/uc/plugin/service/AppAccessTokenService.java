@@ -30,14 +30,17 @@ public class AppAccessTokenService implements IAppAccessTokenService {
 
     @CjTransaction
     @Override
-    public void updateAccessToken(String person, AppAccessToken appAccessToken) {
-        AppAccessToken token = appAccessTokenMapper.selectByPrimaryKey(person);
+    public void updateAccessToken(String person,String device, AppAccessToken appAccessToken) {
+        AppAccessToken token = appAccessTokenMapper.selectByPrimaryKey(person,device);
         if (token == null) {
             appAccessTokenMapper.insertSelective(appAccessToken);
             return;
         }
         if (StringUtil.isEmpty(appAccessToken.getPerson())) {
             appAccessToken.setPerson(person);
+        }
+        if (StringUtil.isEmpty(appAccessToken.getDevice())) {
+            appAccessToken.setDevice(device);
         }
         this.appAccessTokenMapper.updateByPrimaryKeySelective(appAccessToken);
     }

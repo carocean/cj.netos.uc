@@ -23,12 +23,12 @@ public class UcCheckAccessTokenStrategy implements ICheckAccessTokenStrategy {
     public ISecuritySession checkAccessToken(String portsurl, String methodName, String accessToken) throws CheckAccessTokenException {
         AppAccessToken appAccessToken= appAccessTokenService.getAccessToken(accessToken);
         if (appAccessToken == null) {
-            throw new CheckAccessTokenException("1002","验证访问令牌失败，原因：非法的令牌");
+            throw new CheckAccessTokenException("10001","验证访问令牌失败，原因：非法的令牌");
         }
         //过期逻辑
         long lasttime=appAccessToken.getPubTime()+appAccessToken.getExpireTime();
         if (System.currentTimeMillis() > lasttime) {
-            throw new CheckAccessTokenException("1003","验证访问令牌失败，原因：已过期");
+            throw new CheckAccessTokenException("1002","验证访问令牌失败，原因：已过期");
         }
         ISecuritySession securitySession = new DefaultSecuritySession(appAccessToken.getPerson());
         String json=appAccessToken.getRoles();
@@ -36,6 +36,7 @@ public class UcCheckAccessTokenStrategy implements ICheckAccessTokenStrategy {
         for (String r : roles) {
             securitySession.addRole(r);
         }
+        securitySession.property("device", appAccessToken.getDevice());
         return securitySession;
     }
 
