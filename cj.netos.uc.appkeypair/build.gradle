@@ -1,0 +1,60 @@
+apply plugin:'application'
+mainClassName = "cj.netos.uc.appkeypair.Main"
+sourceSets {
+    main {
+        java{
+            srcDir "$projectDir/src"
+        }
+        resources{
+            srcDir "$projectDir/src"
+        }
+    }
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+repositories {
+    mavenCentral();
+}
+jar {
+    manifest {
+        attributes 'Manifest-Version': version,
+                'Class-Path': '.',
+                'Main-Class':'cj.netos.uc.appkeypair.Main',
+                'DynamicImport-Package':'*'
+    }
+}
+
+dependencies {
+    compile('commons-cli:commons-cli:1.2')
+    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.7.0'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+}
+
+task runnableJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'cj.netos.uc.appkeypair.Main'
+    }
+    baseName = 'appkeypair'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task releaseToGateway(dependsOn: runnableJar,type: Copy) {
+    dependsOn "build"
+    from 'build/libs/'
+    into '../cmdtools/gateway'
+    include '**/appkeypair-*.jar'
+    exclude '**/*-javadoc.jar','**/*-sources.jar'
+}
+
+task release(type: Copy) {
+    dependsOn "releaseToGateway"
+    doLast {
+        println 'gateway 环境发布完毕!'
+    }
+}

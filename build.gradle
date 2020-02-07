@@ -99,5 +99,7 @@ task release(type: Copy) {
 release.dependsOn ":cj.netos.uc.openport:release"
 release.dependsOn ":cj.netos.uc.program:release"
 release.dependsOn ":cj.netos.uc.plugin.core:release"
+release.dependsOn ":cj.netos.uc.appkeypair:release"
+
 tasks.getByPath(':cj.netos.uc.program:release').mustRunAfter tasks.getByPath(':cj.netos.uc.openport:release')
 
