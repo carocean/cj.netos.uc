@@ -24,6 +24,7 @@ public class Main {
         properties.load(reader);
 
         System.out.print("**************缓存的上次生成的appkeypari*****************************************************\r\n");
+        System.out.println(String.format("\tappid    : %s", properties.getProperty("appid")));
         System.out.println(String.format("\tappKey   : %s", properties.getProperty("appKey")));
         System.out.println(String.format("\tappNonce : %s", properties.getProperty("appNonce")));
         System.out.println(String.format("\tappSign  : %s", properties.getProperty("appSign")));
@@ -32,6 +33,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("*************以下生成新的appkeypair，只需输入appKey和appSecret。不想生成新的输入!q **************\r\n");
+        System.out.print("输入appid    > ");
+        String appid = scan(scanner);
         System.out.print("输入appKey    > ");
         String appKey = scan(scanner);
         System.out.print("输入appSecret > ");
@@ -39,6 +42,7 @@ public class Main {
         String nonce = Encript.md5(UUID.randomUUID().toString());
         String sign = Encript.md5(String.format("%s%s%s", appKey, nonce, appSecret));
         System.out.println("结果：");
+        System.out.println(String.format("\tappid    : %s", appid));
         System.out.println(String.format("\tappKey   : %s", appKey));
         System.out.println(String.format("\tappNonce : %s", nonce));
         System.out.println(String.format("\tappSign  : %s", sign));
@@ -47,6 +51,7 @@ public class Main {
         System.out.println("使用的appSecret是：");
         System.out.println(String.format("\t> %s", appSecret));
 
+        properties.put("appid", appid);
         properties.put("appKey", appKey);
         properties.put("appNonce", nonce);
         properties.put("appSign", sign);
