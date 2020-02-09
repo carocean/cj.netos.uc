@@ -1,5 +1,6 @@
 package cj.netos.uc.service;
 
+import cj.netos.uc.model.AppAccount;
 import cj.netos.uc.model.TenantApp;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
@@ -29,5 +30,7 @@ public interface IAppService {
     void updateAppName(String appid, String newAppName) throws CircuitException;
 
     void upgradeBecomeDeveloper(String appid, String accountName)throws CircuitException;
+
+    List<AppAccount> listMyAccount(String uid, String appid);
 
 }

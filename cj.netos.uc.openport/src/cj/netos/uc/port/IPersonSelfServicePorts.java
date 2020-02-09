@@ -10,6 +10,10 @@ import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 除了该开放口，其它的开放口均是提供管理员的服务，本口是为访问者(accessToken)提供的自助服务
  */
@@ -35,6 +39,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "获取公众信息")
     PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException;
 
+    @CjOpenport(usage = "获取当前用户号下所有的账号")
+    List<Map<String, Object>> listMyAccount(ISecuritySession securitySession,
+                                            @CjOpenportParameter(usage = "如果appid为空则按令牌中的应用号获取", name = "appid") String appid) throws CircuitException;
+
+
     @CjOpenport(usage = "使用账号密码添加新登录账户", command = "post")
     void addByPassword(ISecuritySession securitySession,
                        @CjOpenportParameter(name = "accountCode", usage = "登录名") String accountCode,
@@ -59,6 +68,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
                     @CjOpenportParameter(name = "avatar", usage = "头像") String avatar,
                     @CjOpenportParameter(name = "signature", usage = "个人签名", in = PKeyInRequest.content) String signature) throws CircuitException;
 
+    @CjOpenport(usage = "列出访问者所在租户的应用信息", type = HashMap.class, elementType = AppInfo.class)
+    List<AppInfo> listAppInfo(ISecuritySession securitySession,
+                              @CjOpenportParameter(usage = "页号", name = "offset") long offset,
+                              @CjOpenportParameter(usage = "页大小", name = "limit") int limit) throws CircuitException;
+
     @CjOpenport(usage = "普通用户可以申请创建一个应用")
     void requestCreateApp(ISecuritySession securitySession,
                           @CjOpenportParameter(name = "appCode", usage = "应用编号，英文") String appCode,
@@ -71,5 +85,6 @@ public interface IPersonSelfServicePorts extends IOpenportService {
                           @CjOpenportParameter(name = "logoutCBUrl", usage = "uc中心发现应用会话过期回调通知地址") String logoutCBUrl
     ) throws CircuitException;
 
+    @CjOpenport(usage = "列出访问者所属的应用信息")
     AppInfo getAppInfo(ISecuritySession securitySession) throws CircuitException;
 }

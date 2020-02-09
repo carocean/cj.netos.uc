@@ -37,6 +37,12 @@ public class TenantAppService implements IAppService {
 
     @CjTransaction
     @Override
+    public List<AppAccount> listMyAccount(String uid, String appid) {
+        return appAccountService.listAccountByAppidAndUid(appid, uid);
+    }
+
+    @CjTransaction
+    @Override
     public String addApp(String appCode, String appName, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
         if (StringUtil.isEmpty(tenantId)) {
             throw new CircuitException("404", "租户标识为空");
@@ -50,9 +56,9 @@ public class TenantAppService implements IAppService {
         if (tokenExpire < 1) {
             tokenExpire = 24 * 60 * 60 * 1000L;
         }
-        String appid=String.format("%s.%s",appCode,tenantId);
+        String appid = String.format("%s.%s", appCode, tenantId);
         String appKey = Encript.md5(appid);
-        String appSecret = Encript.md5(String.format("%s.%s.%s", appid,appKey, UUID.randomUUID().toString()));
+        String appSecret = Encript.md5(String.format("%s.%s.%s", appid, appKey, UUID.randomUUID().toString()));
 
         TenantApp app = new TenantApp();
         app.setAppId(appid);
@@ -69,16 +75,16 @@ public class TenantAppService implements IAppService {
 
         tenantAppMapper.insertSelective(app);
         //同时为app添加固定角色
-        if (appRoleService.getRole(appid,"administrators") == null) {
+        if (appRoleService.getRole(appid, "administrators") == null) {
             appRoleService.addRole("administrators", "appAdministrators", appid, "管理员");
         }
-        if (appRoleService.getRole(appid,"tests") == null) {
+        if (appRoleService.getRole(appid, "tests") == null) {
             appRoleService.addRole("tests", "appTests", appid, "测试员");
         }
-        if (appRoleService.getRole(appid,"develops") == null) {
+        if (appRoleService.getRole(appid, "develops") == null) {
             appRoleService.addRole("develops", "appDevelops", appid, "开发者");
         }
-        if (appRoleService.getRole(appid,"users") == null) {
+        if (appRoleService.getRole(appid, "users") == null) {
             appRoleService.addRole("users", "appUsers", appid, "普通用户");
         }
         return app.getAppId();
@@ -91,11 +97,12 @@ public class TenantAppService implements IAppService {
         example.createCriteria().andTenantIdEqualTo(tenantId).andAppNameEqualTo(appName);
         return tenantAppMapper.countByExample(example) > 0;
     }
+
     @CjTransaction
     @Override
     public void reissueAppSecret(String appid, long tokenExpire) {
         String appKey = Encript.md5(appid);
-        String appSecret = Encript.md5(String.format("%s.%s.%s", appid,appKey, UUID.randomUUID().toString()));
+        String appSecret = Encript.md5(String.format("%s.%s.%s", appid, appKey, UUID.randomUUID().toString()));
         tenantAppMapper.updateAppSecret(appid, appSecret, tokenExpire);
     }
 
