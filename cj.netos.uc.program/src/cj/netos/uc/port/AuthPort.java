@@ -165,6 +165,7 @@ public class AuthPort implements IAuthPort {
         map.put("accessToken", accessToken);
         map.put("refreshToken", appRefreshToken.getRefreshToken());
         map.put("pubTime", appRefreshToken.getPubTime());
+        map.put("expireTime", app.getTokenExpire());
         return map;
     }
 
