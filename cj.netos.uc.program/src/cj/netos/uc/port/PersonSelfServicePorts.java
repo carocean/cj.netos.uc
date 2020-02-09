@@ -117,13 +117,13 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     @Override
     public void addByIphone(ISecuritySession securitySession, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
-        this.appAccountService.addByPassword(account.getUserId(), account.getAppId(), phone, password, nickName, avatar, signature);
+        this.appAccountService.addByIphone(account.getUserId(), account.getAppId(), phone, password, nickName, avatar, signature);
     }
 
     @Override
     public void addByEmail(ISecuritySession securitySession, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
-        this.appAccountService.addByPassword(account.getUserId(), account.getAppId(), email, password, nickName, avatar, signature);
+        this.appAccountService.addByEmail(account.getUserId(), account.getAppId(), email, password, nickName, avatar, signature);
     }
 
     @Override
