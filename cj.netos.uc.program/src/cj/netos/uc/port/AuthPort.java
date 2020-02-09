@@ -10,8 +10,11 @@ import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
 import cj.ultimate.gson2.com.google.gson.Gson;
 import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
+import cj.ultimate.util.StringUtil;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @CjService(name = "/auth.service")
 public class AuthPort implements IAuthPort {
@@ -29,6 +32,19 @@ public class AuthPort implements IAuthPort {
     IAppRefreshTokenService appRefreshTokenService;
     @CjServiceRef(refByName = "ucplugin.appAccessTokenService")
     IAppAccessTokenService appAccessTokenService;
+    @CjServiceRef(refByName = "ucplugin.phoneVerifycodeService")
+    IPhoneVerifycodeService phoneVerifycodeService;
+
+    @Override
+    public Map<String, Object> sendVerifyCode(ISecuritySession securitySession, String phone) throws CircuitException {
+        return appAccountService.sendVerifyCode(securitySession.principal(), phone);
+    }
+
+    private boolean _isPhoneNo(String text) {
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
+        Matcher m = p.matcher(text);
+        return m.matches();
+    }
 
     @Override
     public Map<String, Object> auth(ISecuritySession securitySession, String device, String accountCode, String password) throws CircuitException {
@@ -41,7 +57,14 @@ public class AuthPort implements IAuthPort {
             throw new CircuitException("1032", "登录失败，原因：账号不存在");
         }
         if (!Encript.md5(password).equals(appAccount.getAccountPwd())) {
-            throw new CircuitException("1033", "登录失败，原因：密码不正确");
+            if (!_isPhoneNo(accountCode)) {
+                throw new CircuitException("1033", "登录失败，原因：密码不正确");
+            }
+            String verifycode = phoneVerifycodeService.get(appAccount.getAccountId());
+            if (!password.equals(verifycode)) {
+                throw new CircuitException("1033", "登录失败，原因：验证码或密码不正确");
+            }
+
         }
         //填充角色
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(appAccount.getUserId(), 0, Integer.MAX_VALUE);

@@ -144,6 +144,15 @@
             </TableInfo>
           </value>
         </entry>
+        <entry key="netos.uc#phone_verifycode">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="PhoneVerifycode" />
+              <option name="tableName" value="phone_verifycode" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.uc#tenant_app">
           <value>
             <TableInfo>
@@ -241,6 +250,15 @@
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcEmpl" />
               <option name="tableName" value="uc_empl" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#uc_properties">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="UcProperties" />
+              <option name="tableName" value="uc_properties" />
             </TableInfo>
           </value>
         </entry>

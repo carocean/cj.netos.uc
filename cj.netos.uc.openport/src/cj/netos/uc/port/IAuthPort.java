@@ -16,11 +16,17 @@ import java.util.Map;
 public interface IAuthPort extends IOpenportService {
     @CjOpenportAppSecurity(usage = "sign生成方法：md5(appKey+nonce+appSecret).toHexString();注：顺序不能变")
     @CjOpenport(usage = "认证,返回：{'accessToken':'xxx','refreshToken':'zzz',expireTime:'2222323'}。注：异常表：1002为非法令牌；1003为过期；", tokenIn = AccessTokenIn.nope)
-    Map<String,Object> auth(
+    Map<String, Object> auth(
             ISecuritySession securitySession,
             @CjOpenportParameter(usage = "设备号", name = "device") String device,
             @CjOpenportParameter(usage = "账户名，或统一用户名。可以是手机号、邮箱等", name = "accountCode") String accountCode,
-            @CjOpenportParameter(usage = "密码", name = "password") String password) throws CircuitException;
+            @CjOpenportParameter(usage = "密码,也可以是手机验证码", name = "password") String password) throws CircuitException;
+
+    @CjOpenportAppSecurity(usage = "")
+    @CjOpenport(usage = "发送手机验证码，返回状态码参考网易云手机验证码接口说明", tokenIn = AccessTokenIn.nope, responseStatus = {"200 OK"})
+    Map<String, Object> sendVerifyCode(ISecuritySession securitySession,
+                                       @CjOpenportParameter(usage = "手机号", name = "phone") String phone
+    ) throws CircuitException;
 
     @CjOpenportAppSecurity(usage = "sign生成方法：md5(appKey+nonce+appSecret).toHexString();注：顺序不能变")
     @CjOpenport(usage = "根据refreshToken生成新的accessToken", tokenIn = AccessTokenIn.nope)

@@ -5,6 +5,7 @@ import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IAppAccountService {
     String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException;
@@ -46,5 +47,7 @@ public interface IAppAccountService {
     void updateSignature(String accountId, String signature);
 
     void updateNickName(String accountId, String nickName);
+
+    Map<String, Object> sendVerifyCode(String principal, String phone) throws CircuitException;
 
 }

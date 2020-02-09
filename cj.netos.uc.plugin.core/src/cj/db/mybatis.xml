@@ -46,5 +46,7 @@
         <mapper resource="cj/db/mappings/UcRoleMapper.xml"/>
         <mapper resource="cj/db/mappings/UcTenantMapper.xml"/>
         <mapper resource="cj/db/mappings/UcUserMapper.xml"/>
+        <mapper resource="cj/db/mappings/UcPropertiesMapper.xml"/>
+        <mapper resource="cj/db/mappings/PhoneVerifycodeMapper.xml"/>
     </mappers>
 </configuration>
