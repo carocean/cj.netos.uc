@@ -33,4 +33,6 @@ public interface IAppRoleService {
 
     void removeRoleFromAccount(String roleid, String accountid);
 
+    void emptyAccountRoles(String accountid);
+
 }

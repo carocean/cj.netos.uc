@@ -26,16 +26,6 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     ITenantService tenantService;
 
     @Override
-    public void updatePassword(ISecuritySession securitySession, String oldpwd, String newpwd) throws CircuitException {
-        String accountid = securitySession.principal();
-        AppAccount account = appAccountService.getAccount(accountid);
-        if (!Encript.md5(oldpwd).equals(account.getAccountPwd())) {
-            throw new CircuitException("505", "原密码不正确");
-        }
-        appAccountService.updatePwd(accountid, newpwd);
-    }
-
-    @Override
     public List<Map<String, Object>> listMyAccount(ISecuritySession securitySession, String appid) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
             appid = securitySession.principal();
@@ -93,6 +83,16 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
+    public void updatePersonPassword(ISecuritySession securitySession, String oldpwd, String newpwd) throws CircuitException {
+        String accountid = securitySession.principal();
+        AppAccount account = appAccountService.getAccount(accountid);
+        if (!Encript.md5(oldpwd).equals(account.getAccountPwd())) {
+            throw new CircuitException("505", "原密码不正确");
+        }
+        appAccountService.updatePwd(accountid, newpwd);
+    }
+
+    @Override
     public void updatePersonAvatar(ISecuritySession securitySession, String avatar) throws CircuitException {
         this.appAccountService.updateAvatar(securitySession.principal(), avatar);
     }
@@ -107,6 +107,10 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
         this.appAccountService.updateNickName(securitySession.principal(), nickName);
     }
 
+    @Override
+    public void removePerson(ISecuritySession securitySession) throws CircuitException {
+        this.appAccountService.removeAccount(securitySession.principal());
+    }
 
     @Override
     public void addByPassword(ISecuritySession securitySession, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException {

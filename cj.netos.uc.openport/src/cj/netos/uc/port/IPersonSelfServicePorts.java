@@ -20,9 +20,9 @@ import java.util.Map;
 @CjOpenports(usage = "公众自助服务")
 public interface IPersonSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "修改密码")
-    void updatePassword(ISecuritySession securitySession,
-                        @CjOpenportParameter(usage = "旧密码", name = "oldpwd") String oldpwd,
-                        @CjOpenportParameter(usage = "新密码", name = "newpwd") String newpwd) throws CircuitException;
+    void updatePersonPassword(ISecuritySession securitySession,
+                              @CjOpenportParameter(usage = "旧密码", name = "oldpwd") String oldpwd,
+                              @CjOpenportParameter(usage = "新密码", name = "newpwd") String newpwd) throws CircuitException;
 
     @CjOpenport(usage = "更新头像")
     void updatePersonAvatar(ISecuritySession securitySession,
@@ -36,6 +36,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     void updatePersonNickName(ISecuritySession securitySession,
                               @CjOpenportParameter(usage = "昵称", name = "nickName") String nickName) throws CircuitException;
 
+
     @CjOpenport(usage = "获取公众信息")
     PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException;
 
@@ -43,6 +44,8 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     List<Map<String, Object>> listMyAccount(ISecuritySession securitySession,
                                             @CjOpenportParameter(usage = "如果appid为空则按令牌中的应用号获取", name = "appid") String appid) throws CircuitException;
 
+    @CjOpenport(usage = "删除当前访问者账号")
+    void removePerson(ISecuritySession securitySession) throws CircuitException;
 
     @CjOpenport(usage = "使用账号密码添加新登录账户", command = "post")
     void addByPassword(ISecuritySession securitySession,

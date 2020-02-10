@@ -135,4 +135,11 @@ public class TenantAppRoleService implements IAppRoleService {
     public void removeRoleFromAccount(String roleid, String accountid) {
         uaAppRolePersonMapper.deleteByPrimaryKey(roleid,accountid);
     }
+    @CjTransaction
+    @Override
+    public void emptyAccountRoles(String accountid) {
+        UaAppRolePersonExample example=new UaAppRolePersonExample();
+        example.createCriteria().andAccountIdEqualTo(accountid);
+        uaAppRolePersonMapper.deleteByExample(example);
+    }
 }

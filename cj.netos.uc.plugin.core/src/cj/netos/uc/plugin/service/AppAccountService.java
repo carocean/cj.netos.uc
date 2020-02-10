@@ -168,6 +168,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @Override
     public void removeAccount(String accountid) throws CircuitException {
         accountMapper.deleteByPrimaryKey(accountid);
+        this.appRoleService.emptyAccountRoles(accountid);
     }
 
     @CjTransaction
