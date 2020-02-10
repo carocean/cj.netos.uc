@@ -1,9 +1,7 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.model.*;
-import cj.netos.uc.service.IAppAccountService;
-import cj.netos.uc.service.IAppService;
-import cj.netos.uc.service.ITenantService;
+import cj.netos.uc.service.*;
 import cj.netos.uc.util.Encript;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -24,6 +22,10 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     IAppService appService;
     @CjServiceRef(refByName = "ucplugin.tenantService")
     ITenantService tenantService;
+    @CjServiceRef(refByName = "ucplugin.ucUserService")
+    IUcUserService ucUserService;
+    @CjServiceRef(refByName = "ucplugin.domainService")
+    IDomainService domainService;
 
     @Override
     public List<Map<String, Object>> listMyAccount(ISecuritySession securitySession, String appid) throws CircuitException {
@@ -108,36 +110,87 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
+    public void updatePersonRealName(ISecuritySession securitySession, String realName) throws CircuitException {
+        AppAccount account = this.appAccountService.getAccount(securitySession.principal());
+        this.ucUserService.updateRealName(account.getUserId(), realName);
+    }
+
+    @Override
+    public void updatePersonSex(ISecuritySession securitySession, String sex) throws CircuitException {
+        AppAccount account = this.appAccountService.getAccount(securitySession.principal());
+        this.ucUserService.updateSex(account.getUserId(), sex);
+    }
+
+    @Override
     public void removePerson(ISecuritySession securitySession) throws CircuitException {
         this.appAccountService.removeAccount(securitySession.principal());
     }
 
     @Override
-    public void addByPassword(ISecuritySession securitySession, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException {
+    public void addByPassword(ISecuritySession securitySession, String appid, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
-        this.appAccountService.addByPassword(account.getUserId(), account.getAppId(), accountCode, password, nickName, avatar, signature);
+        if (StringUtil.isEmpty(appid)) {
+            appid = account.getAppId();
+        }
+        this.appAccountService.addByPassword(account.getUserId(), appid, accountCode, password, nickName, avatar, signature);
     }
 
     @Override
-    public void addByIphone(ISecuritySession securitySession, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
+    public void addByIphone(ISecuritySession securitySession, String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
-        this.appAccountService.addByIphone(account.getUserId(), account.getAppId(), phone, password, nickName, avatar, signature);
+        if (StringUtil.isEmpty(appid)) {
+            appid = account.getAppId();
+        }
+        this.appAccountService.addByIphone(account.getUserId(), appid, phone, password, nickName, avatar, signature);
     }
 
     @Override
-    public void addByEmail(ISecuritySession securitySession, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
+    public void addByEmail(ISecuritySession securitySession, String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
-        this.appAccountService.addByEmail(account.getUserId(), account.getAppId(), email, password, nickName, avatar, signature);
+        if (StringUtil.isEmpty(appid)) {
+            appid = account.getAppId();
+        }
+        this.appAccountService.addByEmail(account.getUserId(), appid, email, password, nickName, avatar, signature);
     }
 
     @Override
     public PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
+        UcUser user = ucUserService.getUserById(account.getUserId());
         PersonInfo info = new PersonInfo(account.getAccountCode(), account.getAppId());
         info.setSignature(account.getSignature());
         info.setNickName(account.getNickName());
         info.setAvatar(account.getAvatar());
         info.setUid(account.getUserId());
+        info.setRealName(user.getRealName());
+        info.setSex(user.getSex());
+
+        List<DomainValue> values = domainService.listAllDomainValue(user.getUserId());
+        Map<String, DomainGroup> groups = new HashMap<>();
+        Map<String, DomainField> fields = new HashMap<>();
+        for (DomainValue value : values) {
+            DomainGroup group = groups.get(value.getGroupId());
+            if (group == null) {
+                group = domainService.getDomainGroup(value.getGroupId());
+                if (group == null) {
+                    continue;
+                }
+                groups.put(value.getGroupId(), group);
+            }
+            DomainField field = fields.get(value.getFieldId());
+            if (field == null) {
+                field = domainService.getDomainField(value.getFieldId());
+                if (field == null) {
+                    continue;
+                }
+                fields.put(value.getFieldId(), field);
+            }
+        }
+        Map<String, Object> domains = new HashMap<>();
+        domains.put("groups", groups);
+        domains.put("fields", fields);
+        domains.put("values", values);
+        info.setDomains(domains);
         return info;
     }
 
@@ -163,5 +216,44 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
         appinfo.setTenantName(tenant.getTenantName());
         appinfo.setTenantCTime(tenant.getCreateTime() != null ? tenant.getCreateTime().getTime() : 0);
         return appinfo;
+    }
+
+    @Override
+    public void setDomainValue(ISecuritySession securitySession, String fieldId, String content) throws CircuitException {
+        int pos=fieldId.lastIndexOf(".");
+        if (pos < 0) {
+            throw new CircuitException("500","fieldId缺少.分隔，前为字段代码，后为组代码");
+        }
+        String groupId=fieldId.substring(pos+1);
+        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        this.domainService.setDomainValue(account.getUserId(), groupId, fieldId, content);
+    }
+
+    @Override
+    public DomainValue getDomainValue(ISecuritySession securitySession, String fieldId) throws CircuitException {
+        int pos=fieldId.lastIndexOf(".");
+        if (pos < 0) {
+            throw new CircuitException("500","fieldId缺少.分隔，前为字段代码，后为组代码");
+        }
+        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        return domainService.getDomainValue(account.getUserId(),fieldId);
+    }
+
+    @Override
+    public void emptyDomainValue(ISecuritySession securitySession, String fieldId) throws CircuitException {
+        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        this.domainService.emptyDomainValue(account.getUserId(), fieldId);
+    }
+
+    @Override
+    public List<DomainValue> listDomainValueOfGroup(ISecuritySession securitySession, String groupId) throws CircuitException {
+        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        return this.domainService.listDomainValueOfGroup(account.getUserId(), groupId);
+    }
+
+    @Override
+    public List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException {
+        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        return this.domainService.listAllDomainValue(account.getUserId());
     }
 }

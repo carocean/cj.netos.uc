@@ -18,6 +18,7 @@ import java.util.List;
 public class UcCompanyService implements IUcCompanyService {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcCompanyMapper")
     UcCompanyMapper companyMapper;
+
     @CjTransaction
     @Override
     public String addCompany(UcCompany company) throws CircuitException {
@@ -67,7 +68,6 @@ public class UcCompanyService implements IUcCompanyService {
     public void emptyChildren(String pid) throws CircuitException {
         companyMapper.emptyChildren(pid);
     }
-
 
 
 }

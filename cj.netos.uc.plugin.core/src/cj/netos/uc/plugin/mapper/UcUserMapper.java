@@ -63,4 +63,8 @@ public interface UcUserMapper {
     int updateByPrimaryKey(UcUser record);
 
     List<UcUser> pageUser(@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+
+    void updateRealName(@Param(value = "userId") String userId, @Param(value = "realName") String realName);
+
+    void updateSex(@Param(value = "userId") String userId, @Param(value = "sex") String sex);
 }

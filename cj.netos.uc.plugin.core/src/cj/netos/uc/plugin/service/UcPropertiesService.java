@@ -5,6 +5,7 @@ import cj.netos.uc.model.UcPropertiesExample;
 import cj.netos.uc.plugin.mapper.UcPropertiesMapper;
 import cj.netos.uc.plugin.mapper.UcRoleMapper;
 import cj.netos.uc.service.IUcProperties;
+import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
@@ -12,7 +13,7 @@ import cj.studio.orm.mybatis.annotation.CjTransaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@CjBridge(aspects = "@transaction")
 @CjService(name = "ucProperties")
 public class UcPropertiesService implements IUcProperties {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcPropertiesMapper")

@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="cj.netos.uc.model.UcUser">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="idcard" jdbcType="VARCHAR" property="idcard" />
@@ -73,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    user_id, user_name, create_time, sex, email, mobile, idcard
+    user_id, real_name, create_time, sex, email, mobile, idcard
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.UcUserExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -111,11 +111,11 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.UcUser">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into uc_user (user_id, user_name, create_time, 
+    insert into uc_user (user_id, real_name, create_time, 
       sex, email, mobile, 
       idcard)
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{sex,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{idcard,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.UcUser">
@@ -125,8 +125,8 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="userName != null">
-        user_name,
+      <if test="realName != null">
+        real_name,
       </if>
       <if test="createTime != null">
         create_time,
@@ -148,14 +148,14 @@
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sex != null">
-        #{sex,jdbcType=TINYINT},
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -182,14 +182,14 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userName != null">
-        user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.sex != null">
-        sex = #{record.sex,jdbcType=TINYINT},
+        sex = #{record.sex,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
@@ -209,9 +209,9 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update uc_user
     set user_id = #{record.userId,jdbcType=VARCHAR},
-      user_name = #{record.userName,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      sex = #{record.sex,jdbcType=TINYINT},
+      sex = #{record.sex,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=VARCHAR},
       idcard = #{record.idcard,jdbcType=VARCHAR}
@@ -223,14 +223,14 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update uc_user
     <set>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sex != null">
-        sex = #{sex,jdbcType=TINYINT},
+        sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -247,9 +247,9 @@
   <update id="updateByPrimaryKey" parameterType="cj.netos.uc.model.UcUser">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update uc_user
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set real_name = #{realName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      sex = #{sex,jdbcType=TINYINT},
+      sex = #{sex,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       idcard = #{idcard,jdbcType=VARCHAR}
@@ -260,4 +260,15 @@
     select u.* from uc_user u
     limit #{currPage},#{pageSize}
   </select>
+
+  <update id="updateRealName" parameterType="cj.netos.uc.model.UcUser">
+    update uc_user
+    set real_name = #{realName,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateSex" parameterType="cj.netos.uc.model.UcUser">
+    update uc_user
+    set sex = #{sex,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
 </mapper>

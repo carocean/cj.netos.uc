@@ -3,13 +3,16 @@ package cj.netos.uc.plugin.service;
 import cj.netos.uc.service.*;
 import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.IServiceSite;
+import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.context.IElement;
 import cj.studio.ecm.context.IProperty;
 import cj.studio.ecm.net.CircuitException;
+import cj.studio.orm.mybatis.annotation.CjTransaction;
 import cj.ultimate.util.StringUtil;
 
+@CjBridge(aspects = "@transaction")
 @CjService(name = "ucInit")
 public class UCInit implements IDBInit {
     @CjServiceRef
@@ -27,6 +30,7 @@ public class UCInit implements IDBInit {
     @CjServiceRef(refByName = "tenantAppRoleService")
     IAppRoleService appRoleService;
 
+    @CjTransaction
     @Override
     public void init(IServiceSite site, IElement args) throws CircuitException {//添加超级管理员，及管理员角色，并为将管理角授予超级管理员
         String uid = ((IProperty) args.getNode("uid")).getValue().getName();
@@ -35,7 +39,7 @@ public class UCInit implements IDBInit {
             String email = ((IProperty) args.getNode("email")).getValue().getName();
             String mobile = ((IProperty) args.getNode("mobile")).getValue().getName();
             String idcard = ((IProperty) args.getNode("idcard")).getValue().getName();
-            ucUserService.addUser(uid, userName, (byte) 0, email, mobile, idcard);
+            ucUserService.addUser(uid, userName, null, email, mobile, idcard);
         }
         String tenantid = ((IProperty) args.getNode("tenantid")).getValue().getName();
         if (tenantService.getTenantById(tenantid) == null) {
@@ -44,7 +48,7 @@ public class UCInit implements IDBInit {
             tenantService.addTenant(tenantid, tenantName, tenantwebsite, uid);
         }
         String appCode = ((IProperty) args.getNode("appCode")).getValue().getName();
-        String appid=String.format("%s.%s",appCode,tenantid);
+        String appid = String.format("%s.%s", appCode, tenantid);
         if (appService.getApp(appid) == null) {
             String appName = ((IProperty) args.getNode("appName")).getValue().getName();
             String tokenExpire = ((IProperty) args.getNode("tokenExpire")).getValue().getName();
@@ -60,7 +64,7 @@ public class UCInit implements IDBInit {
         String avatar = ((IProperty) args.getNode("avatar")).getValue().getName();
         String signature = ((IProperty) args.getNode("signature")).getValue().getName();
         if (!appAccountService.existsAccount(appid, accountCode)) {
-            appAccountService.addAccount(accountCode, (byte) 0, uid, appid, password,nickName,avatar,signature);
+            appAccountService.addAccount(accountCode, (byte) 0, uid, appid, password, nickName, avatar, signature);
         }
         //初始化角色
         if (ucRoleService.getRole("administrators") == null) {
@@ -90,16 +94,16 @@ public class UCInit implements IDBInit {
         if (tenantRoleService.getRole("appUsers", tenantid) == null) {
             tenantRoleService.addRole("appUsers", "tenantUsers", tenantid, "应用的普通用户", true);
         }
-        if (appRoleService.getRole(appid,"administrators") == null) {
+        if (appRoleService.getRole(appid, "administrators") == null) {
             appRoleService.addRole("administrators", "appAdministrators", appid, "管理员");
         }
-        if (appRoleService.getRole(appid,"tests") == null) {
+        if (appRoleService.getRole(appid, "tests") == null) {
             appRoleService.addRole("tests", "appTests", appid, "测试员");
         }
-        if (appRoleService.getRole(appid,"develops") == null) {
+        if (appRoleService.getRole(appid, "develops") == null) {
             appRoleService.addRole("develops", "appDevelops", appid, "开发者");
         }
-        if (appRoleService.getRole(appid,"users") == null) {
+        if (appRoleService.getRole(appid, "users") == null) {
             appRoleService.addRole("users", "appUsers", appid, "普通用户");
         }
         if (!ucRoleService.hasRoleOfUser("administrators", uid)) {
@@ -108,8 +112,8 @@ public class UCInit implements IDBInit {
         if (!ucRoleService.hasRoleOfUser("tenantAdministrators", uid)) {
             ucRoleService.addRoleToUser("tenantAdministrators", uid);
         }
-        if (!tenantRoleService.hasRoleOfUser(String.format("appAdministrators@%s",tenantid), uid)) {
-            tenantRoleService.addRoleToUser(String.format("appAdministrators@%s",tenantid),uid);
+        if (!tenantRoleService.hasRoleOfUser(String.format("appAdministrators@%s", tenantid), uid)) {
+            tenantRoleService.addRoleToUser(String.format("appAdministrators@%s", tenantid), uid);
         }
         CJSystem.logging().info(getClass(), String.format("初始化UC完成。应用：%s, 账号：%s, 密码：%s", appid, accountCode, password));
     }

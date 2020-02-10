@@ -1,11 +1,11 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.model.TenantRole;
-import cj.netos.uc.model.UcRole;
-import cj.netos.uc.model.UcTenant;
-import cj.netos.uc.model.UcUser;
+import cj.netos.uc.model.*;
+import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
+import cj.studio.openport.annotations.CjOpenport;
+import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
 import java.util.List;
@@ -20,6 +20,37 @@ import java.util.List;
  */
 @CjOpenports(usage = "平台管理者自助服务")
 public interface IPlatformManangerSelfServicePorts extends IOpenportService {
+    @CjOpenport(usage = "添加用户信息的扩展域组，类似于加一个表")
+    void addDomainGroup(ISecuritySession securitySession,
+                        @CjOpenportParameter(name = "groupId", usage = "组标识，类似于表名，要指定为英文") String groupId,
+                        @CjOpenportParameter(name = "groupName", usage = "组名") String groupName) throws CircuitException;
+
+    @CjOpenport(usage = "移除用户信息的扩展域组")
+    void removeDomainGroup(ISecuritySession securitySession,
+                           @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+
+    @CjOpenport(usage = "列表用户信息的扩展域组")
+    List<DomainGroup> listDomainGroup(ISecuritySession securitySession) throws CircuitException;
+
+    @CjOpenport(usage = "添加用户信息扩展域字段")
+    void addDomainField(ISecuritySession securitySession,
+                        @CjOpenportParameter(name = "fieldCode", usage = "字段编号") String fieldCode,
+                        @CjOpenportParameter(name = "groupId", usage = "域组标识") String groupId,
+                        @CjOpenportParameter(name = "fieldName", usage = "字段中文名") String fieldName,
+                        @CjOpenportParameter(name = "fieldDesc", usage = "字段描述") String fieldDesc) throws CircuitException;
+
+    @CjOpenport(usage = "移除用户信息扩展域字段")
+    void removeDomainField(ISecuritySession securitySession,
+                           @CjOpenportParameter(name = "fieldId", usage = "字段标识") String fieldId) throws CircuitException;
+
+    @CjOpenport(usage = "列表用户信息扩展域字段")
+    List<DomainField> listDomainField(ISecuritySession securitySession,
+                                      @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+
+    @CjOpenport(usage = "清空用户信息扩展域字段")
+    void emptyDomainField(ISecuritySession securitySession,
+                          @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+
     void addTenant(ISecuritySession securitySession);
 
     void removeTenant(ISecuritySession securitySession);

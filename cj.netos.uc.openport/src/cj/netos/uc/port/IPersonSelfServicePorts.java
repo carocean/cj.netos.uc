@@ -1,6 +1,7 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.model.AppInfo;
+import cj.netos.uc.model.DomainValue;
 import cj.netos.uc.model.PersonInfo;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
@@ -36,6 +37,13 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     void updatePersonNickName(ISecuritySession securitySession,
                               @CjOpenportParameter(usage = "昵称", name = "nickName") String nickName) throws CircuitException;
 
+    @CjOpenport(usage = "更新真实姓名")
+    void updatePersonRealName(ISecuritySession securitySession,
+                              @CjOpenportParameter(usage = "真实姓名", name = "realName") String realName) throws CircuitException;
+
+    @CjOpenport(usage = "更新性别")
+    void updatePersonSex(ISecuritySession securitySession,
+                         @CjOpenportParameter(usage = "性别:男（male)；女(female)，空为未设置", name = "sex") String sex) throws CircuitException;
 
     @CjOpenport(usage = "获取公众信息")
     PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException;
@@ -49,6 +57,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
 
     @CjOpenport(usage = "使用账号密码添加新登录账户", command = "post")
     void addByPassword(ISecuritySession securitySession,
+                       @CjOpenportParameter(name = "appid", usage = "应用号，可以为空，如果为空则采用访问者的应用号") String appid,
                        @CjOpenportParameter(name = "accountCode", usage = "登录名") String accountCode,
                        @CjOpenportParameter(name = "password", usage = "密码") String password,
                        @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
@@ -57,6 +66,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
 
     @CjOpenport(usage = "使用手机号添加新登录账户", command = "post")
     void addByIphone(ISecuritySession securitySession,
+                     @CjOpenportParameter(name = "appid", usage = "应用号，可以为空，如果为空则采用访问者的应用号") String appid,
                      @CjOpenportParameter(name = "phone", usage = "手机号") String phone,
                      @CjOpenportParameter(name = "password", usage = "密码") String password,
                      @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
@@ -65,6 +75,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
 
     @CjOpenport(usage = "使用邮箱添加新登录账户", command = "post")
     void addByEmail(ISecuritySession securitySession,
+                    @CjOpenportParameter(name = "appid", usage = "应用号，可以为空，如果为空则采用访问者的应用号") String appid,
                     @CjOpenportParameter(name = "email", usage = "邮箱") String email,
                     @CjOpenportParameter(name = "password", usage = "密码") String password,
                     @CjOpenportParameter(name = "nickName", usage = "昵称") String nickName,
@@ -90,4 +101,24 @@ public interface IPersonSelfServicePorts extends IOpenportService {
 
     @CjOpenport(usage = "列出访问者所属的应用信息")
     AppInfo getAppInfo(ISecuritySession securitySession) throws CircuitException;
+
+    @CjOpenport(usage = "设置用户信息扩展域的值")
+    void setDomainValue(ISecuritySession securitySession,
+                        @CjOpenportParameter(name = "fieldId", usage = "字段编号") String fieldId,
+                        @CjOpenportParameter(name = "content", usage = "字段内容") String content) throws CircuitException;
+
+    @CjOpenport(usage = "获取用户信息扩展域的值")
+    DomainValue getDomainValue(ISecuritySession securitySession,
+                          @CjOpenportParameter(name = "fieldId", usage = "字段编号") String fieldId) throws CircuitException;
+
+    @CjOpenport(usage = "清除用户信息扩展域的值")
+    void emptyDomainValue(ISecuritySession securitySession,
+                          @CjOpenportParameter(name = "fieldId", usage = "字段标识") String fieldId) throws CircuitException;
+
+    @CjOpenport(usage = "列表用户信息扩展域的值")
+    List<DomainValue> listDomainValueOfGroup(ISecuritySession securitySession,
+                                             @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+
+    @CjOpenport(usage = "列表用户信息扩展域的值")
+    List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException;
 }

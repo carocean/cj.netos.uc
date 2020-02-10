@@ -13,10 +13,10 @@ public class UcUser {
     private String userId;
 
     /**
-     * Column: user_name
-     * Remark: 姓名
+     * Column: real_name
+     * Remark: 真实姓名
      */
-    private String userName;
+    private String realName;
 
     /**
      * Column: create_time
@@ -26,9 +26,9 @@ public class UcUser {
 
     /**
      * Column: sex
-     * Remark: 性别
+     * Remark: 性别:男（male)；女(female)，空为未设置
      */
-    private Byte sex;
+    private String sex;
 
     /**
      * Column: email
@@ -56,12 +56,12 @@ public class UcUser {
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getUserName() {
-        return userName;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setRealName(String realName) {
+        this.realName = realName == null ? null : realName.trim();
     }
 
     public Date getCreateTime() {
@@ -72,12 +72,12 @@ public class UcUser {
         this.createTime = createTime;
     }
 
-    public Byte getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
-        this.sex = sex;
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
     }
 
     public String getEmail() {

@@ -4,14 +4,17 @@ import cj.netos.uc.model.AppAccount;
 import cj.netos.uc.service.IAppAccountService;
 import cj.netos.uc.service.IPasswordService;
 import cj.netos.uc.util.Encript;
+import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
-
+import cj.studio.orm.mybatis.annotation.CjTransaction;
+@CjBridge(aspects = "@transaction")
 @CjService(name = "passwordService")
 public class PasswordService implements IPasswordService {
     @CjServiceRef
     IAppAccountService appAccountService;
+    @CjTransaction
     @Override
     public void updatePassword(String appid, String accountName, String oldpwd, String newpwd) throws CircuitException {
         AppAccount account=appAccountService.getAccountByCode(appid,accountName);

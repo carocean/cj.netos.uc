@@ -144,6 +144,33 @@
             </TableInfo>
           </value>
         </entry>
+        <entry key="netos.uc#domain_field">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="DomainField" />
+              <option name="tableName" value="domain_field" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#domain_group">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="DomainGroup" />
+              <option name="tableName" value="domain_group" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#domain_value">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="DomainValue" />
+              <option name="tableName" value="domain_value" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.uc#phone_verifycode">
           <value>
             <TableInfo>

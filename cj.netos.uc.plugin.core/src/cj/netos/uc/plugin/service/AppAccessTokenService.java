@@ -4,13 +4,14 @@ import cj.netos.uc.model.AppAccessToken;
 import cj.netos.uc.model.AppAccessTokenExample;
 import cj.netos.uc.plugin.mapper.AppAccessTokenMapper;
 import cj.netos.uc.service.IAppAccessTokenService;
+import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
 import cj.ultimate.util.StringUtil;
 
 import java.util.List;
-
+@CjBridge(aspects = "@transaction")
 @CjService(name = "appAccessTokenService")
 public class AppAccessTokenService implements IAppAccessTokenService {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppAccessTokenMapper")

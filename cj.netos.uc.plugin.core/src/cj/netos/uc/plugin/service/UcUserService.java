@@ -32,14 +32,14 @@ public class UcUserService implements IUcUserService {
 
     @CjTransaction
     @Override
-    public String addUser(String uid, String userName, byte sex, String email, String mobile, String idcard) throws CircuitException {
-        if (StringUtil.isEmpty(userName)) {
-            throw new CircuitException("404", "用户名为空");
+    public String addUser(String uid, String realName, String sex, String email, String mobile, String idcard) throws CircuitException {
+        if (StringUtil.isEmpty(realName)) {
+            throw new CircuitException("404", "真实名为空");
         }
         UcUser ucUser = new UcUser();
         ucUser.setUserId(StringUtil.isEmpty(uid) ? NumberGen.gen() : uid);
         ucUser.setCreateTime(new Date());
-        ucUser.setUserName(userName);
+        ucUser.setRealName(realName);
         ucUser.setEmail(email);
         ucUser.setIdcard(idcard);
         ucUser.setMobile(mobile);
@@ -76,7 +76,7 @@ public class UcUserService implements IUcUserService {
 
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
-        user.setUserName(accountCode);
+        user.setRealName(accountCode);
         user.setUserId(NumberGen.gen());
         userMapper.insert(user);
 
@@ -99,7 +99,7 @@ public class UcUserService implements IUcUserService {
 
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
-        user.setUserName(phone);
+        user.setRealName(phone);
         user.setUserId(NumberGen.gen());
         user.setMobile(phone);
         userMapper.insert(user);
@@ -123,7 +123,7 @@ public class UcUserService implements IUcUserService {
 
         UcUser user = new UcUser();
         user.setCreateTime(new Date());
-        user.setUserName(email);
+        user.setRealName(email);
         user.setUserId(NumberGen.gen());
         user.setEmail(email);
         userMapper.insert(user);
@@ -146,7 +146,16 @@ public class UcUserService implements IUcUserService {
         user.setUserId(uid);
         userMapper.updateByPrimaryKeySelective(user);
     }
-
+    @CjTransaction
+    @Override
+    public void updateRealName(String userId, String realName) throws CircuitException {
+        userMapper.updateRealName(userId,realName);
+    }
+    @CjTransaction
+    @Override
+    public void updateSex(String userId, String sex) {
+        userMapper.updateSex(userId,sex);
+    }
 
     @CjTransaction
     @Override

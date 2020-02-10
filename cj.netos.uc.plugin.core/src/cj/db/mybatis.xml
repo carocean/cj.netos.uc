@@ -48,5 +48,8 @@
         <mapper resource="cj/db/mappings/UcUserMapper.xml"/>
         <mapper resource="cj/db/mappings/UcPropertiesMapper.xml"/>
         <mapper resource="cj/db/mappings/PhoneVerifycodeMapper.xml"/>
+        <mapper resource="cj/db/mappings/DomainFieldMapper.xml"/>
+        <mapper resource="cj/db/mappings/DomainGroupMapper.xml"/>
+        <mapper resource="cj/db/mappings/DomainValueMapper.xml"/>
     </mappers>
 </configuration>

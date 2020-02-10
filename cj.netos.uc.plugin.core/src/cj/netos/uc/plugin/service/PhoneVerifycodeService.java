@@ -4,12 +4,14 @@ import cj.netos.uc.model.PhoneVerifycode;
 import cj.netos.uc.model.PhoneVerifycodeExample;
 import cj.netos.uc.plugin.mapper.PhoneVerifycodeMapper;
 import cj.netos.uc.service.IPhoneVerifycodeService;
+import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
 
 import java.util.List;
 
+@CjBridge(aspects = "@transaction")
 @CjService(name = "phoneVerifycodeService")
 public class PhoneVerifycodeService implements IPhoneVerifycodeService {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.PhoneVerifycodeMapper")

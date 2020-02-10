@@ -6,7 +6,7 @@ import cj.studio.ecm.net.CircuitException;
 import java.util.List;
 
 public interface IUcUserService {
-    String addUser(String uid,String userName, byte sex, String email, String mobile, String idcard) throws CircuitException;
+    String addUser(String uid,String userName, String sex, String email, String mobile, String idcard) throws CircuitException;
 
     List<UcUser> pageUser(int currPage, int pageSize) throws CircuitException;
 
@@ -27,5 +27,9 @@ public interface IUcUserService {
 
     boolean isEmployee(String uid) throws CircuitException;
 
+
+    void updateRealName(String userId, String realName)throws CircuitException;
+
+    void updateSex(String userId, String sex);
 
 }
