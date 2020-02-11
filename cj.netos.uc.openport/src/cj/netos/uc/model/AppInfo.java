@@ -6,6 +6,7 @@ public class AppInfo {
     String appid;
     String appCode;
     String appName;
+    String portal;
     String website;
     String tenantId;
     String tenantName;
@@ -14,6 +15,14 @@ public class AppInfo {
     String loginCbUrl;
     String logoutCbUrl;
     long appCTime;
+
+    public String getPortal() {
+        return portal;
+    }
+
+    public void setPortal(String portal) {
+        this.portal = portal;
+    }
 
     public String getAppid() {
         return appid;

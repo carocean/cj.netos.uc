@@ -21,6 +21,7 @@ public interface IAppManangerSelfServicePorts extends IOpenportService {
     String createApp(ISecuritySession securitySession,
                      @CjOpenportParameter(name = "appCode", usage = "应用编号，英文") String appCode,
                      @CjOpenportParameter(name = "appName", usage = "应用名，一般为中文") String appName,
+                     @CjOpenportParameter(name = "portal", usage = "终端支持的渲染框架名，默认为gbera") String portal,
                      @CjOpenportParameter(name = "tokenExpire", usage = "应用访问令牌的过期时间间隔,单位毫秒") long tokenExpire,
                      @CjOpenportParameter(name = "appLogo", usage = "应用logo") String appLogo,
                      @CjOpenportParameter(name = "website", usage = "应用站点地址，如果有") String website,

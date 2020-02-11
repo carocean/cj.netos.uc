@@ -24,10 +24,10 @@ public class AppManangerSelfServicePorts implements IAppManangerSelfServicePorts
     IAppRoleService appRoleService;
 
     @Override
-    public String createApp(ISecuritySession securitySession, String appCode, String appName, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
+    public String createApp(ISecuritySession securitySession, String appCode, String appName,  String portal, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
         //必须是平台超级管理员、租户管理员或租户开发者权限
         String tenantId = checkRighs(securitySession);
-        return appService.addApp(appCode, appName, tenantId, tokenExpire, appLogo, website, loginCBUrl, logoutCBUrl);
+        return appService.addApp(appCode, appName,portal, tenantId, tokenExpire, appLogo, website, loginCBUrl, logoutCBUrl);
     }
 
     private String checkRighs(ISecuritySession securitySession) throws CircuitException {

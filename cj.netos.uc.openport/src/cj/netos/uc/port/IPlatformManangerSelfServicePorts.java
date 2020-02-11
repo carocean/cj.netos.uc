@@ -2,13 +2,16 @@ package cj.netos.uc.port;
 
 import cj.netos.uc.model.*;
 import cj.studio.ecm.net.CircuitException;
+import cj.studio.openport.AccessTokenIn;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
+import cj.studio.openport.annotations.CjOpenportAppSecurity;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
 import java.util.List;
+import java.util.Map;
 
 /***
  *
@@ -50,6 +53,11 @@ public interface IPlatformManangerSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "清空用户信息扩展域字段")
     void emptyDomainField(ISecuritySession securitySession,
                           @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+
+    @CjOpenportAppSecurity(usage = "需要超级权限")
+    @CjOpenport(usage = "获取应用信息", responseStatus = {"200 OK", "404 应用号不存在", "801 拒绝访问"},tokenIn = AccessTokenIn.nope)
+    Map<String, Object> getAppKeyStore(ISecuritySession securitySession,
+                                       @CjOpenportParameter(name = "appid", usage = "应用号") String appid) throws CircuitException;
 
     void addTenant(ISecuritySession securitySession);
 

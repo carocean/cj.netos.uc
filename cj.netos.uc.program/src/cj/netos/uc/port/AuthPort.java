@@ -110,6 +110,8 @@ public class AuthPort implements IAuthPort {
         info.setSignature(appAccount.getSignature());
         info.setUid(appAccount.getUserId());
         response.put("subject", info);
+        //渲染框架
+        response.put("portal", app.getPortal());
         return response;
     }
 
@@ -162,6 +164,7 @@ public class AuthPort implements IAuthPort {
         Map<String, Object> map = new HashMap<>();
         map.put("person", appRefreshToken.getPerson());
         map.put("device", appRefreshToken.getDevice());
+        map.put("portal", app.getPortal());
         map.put("accessToken", accessToken);
         map.put("refreshToken", appRefreshToken.getRefreshToken());
         map.put("pubTime", appRefreshToken.getPubTime());
@@ -182,6 +185,7 @@ public class AuthPort implements IAuthPort {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("person", appAccessToken.getPerson());
         map.put("device", appAccessToken.getDevice());
+        map.put("portal", app.getPortal());
         map.put("pubTime", appAccessToken.getPubTime());
         map.put("expireTime", appAccessToken.getExpireTime());
         map.put("isExpired", System.currentTimeMillis() > appAccessToken.getPubTime() + appAccessToken.getExpireTime());

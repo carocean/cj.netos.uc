@@ -1,18 +1,23 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.model.*;
+import cj.netos.uc.service.IAppService;
 import cj.netos.uc.service.IDomainService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CjService(name = "/platform/self.service")
 public class PlatformManangerSelfServicePorts implements IPlatformManangerSelfServicePorts {
     @CjServiceRef(refByName = "ucplugin.domainService")
     IDomainService domainService;
+    @CjServiceRef(refByName = "ucplugin.tenantAppService")
+    IAppService appService;
 
     @Override
     public void addDomainGroup(ISecuritySession securitySession, String groupId, String groupName) throws CircuitException {
@@ -38,9 +43,9 @@ public class PlatformManangerSelfServicePorts implements IPlatformManangerSelfSe
     }
 
     @Override
-    public void addDomainField(ISecuritySession securitySession, String fieldCode,String groupId, String fieldName, String fieldDesc) throws CircuitException {
+    public void addDomainField(ISecuritySession securitySession, String fieldCode, String groupId, String fieldName, String fieldDesc) throws CircuitException {
         _checkDomainRights(securitySession);
-        domainService.addDomainField(fieldCode,groupId, fieldName, fieldDesc);
+        domainService.addDomainField(fieldCode, groupId, fieldName, fieldDesc);
     }
 
     @Override
@@ -58,6 +63,27 @@ public class PlatformManangerSelfServicePorts implements IPlatformManangerSelfSe
     public void emptyDomainField(ISecuritySession securitySession, String groupId) throws CircuitException {
         _checkDomainRights(securitySession);
         domainService.emptyDomainField(groupId);
+    }
+
+    @Override
+    public Map<String, Object> getAppKeyStore(ISecuritySession securitySession, String appid) throws CircuitException {
+        if(!securitySession.principal().equals("system.netos")){
+            throw new CircuitException("801", "拒绝访问");
+        }
+        TenantApp app = appService.getApp(appid);
+        if (app == null) {
+            throw new CircuitException("404", "应用不存在:"+appid);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("appid", app.getAppId());
+        map.put("tenantid", app.getTenantId());
+        map.put("portal", app.getPortal());
+        map.put("appName", app.getAppName());
+        map.put("appCode", app.getAppCode());
+        map.put("appKey", app.getAppKey());
+        map.put("appSecret", app.getAppSecret());
+        map.put("tokenExpire", app.getTokenExpire());
+        return map;
     }
 
     @Override

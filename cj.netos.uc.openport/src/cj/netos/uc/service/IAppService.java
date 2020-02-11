@@ -8,7 +8,7 @@ import cj.studio.openport.ISecuritySession;
 import java.util.List;
 
 public interface IAppService {
-    String addApp(String appcode, String appName, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException;
+    String addApp(String appcode, String appName,String portal, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException;
 
     void removeApp(String appid) throws CircuitException;
 

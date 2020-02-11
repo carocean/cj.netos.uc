@@ -53,6 +53,12 @@ public class TenantApp {
     private String appLogo;
 
     /**
+     * Column: portal
+     * Remark: 应用使用的在终端上的渲染框架
+     */
+    private String portal;
+
+    /**
      * Column: website
      * Remark: 应用的网站地址
      */
@@ -138,6 +144,14 @@ public class TenantApp {
 
     public void setAppLogo(String appLogo) {
         this.appLogo = appLogo == null ? null : appLogo.trim();
+    }
+
+    public String getPortal() {
+        return portal;
+    }
+
+    public void setPortal(String portal) {
+        this.portal = portal == null ? null : portal.trim();
     }
 
     public String getWebsite() {

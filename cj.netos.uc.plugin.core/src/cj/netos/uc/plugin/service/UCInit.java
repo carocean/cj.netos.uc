@@ -56,7 +56,7 @@ public class UCInit implements IDBInit {
             String callbackUrl = ((IProperty) args.getNode("callbackUrl")).getValue().getName();
             String logoutUrl = ((IProperty) args.getNode("logoutUrl")).getValue().getName();
             String homeUrl = ((IProperty) args.getNode("homeUrl")).getValue().getName();
-            appService.addApp(appCode, appName, tenantid, Long.valueOf(tokenExpire), appLogo, callbackUrl, logoutUrl, homeUrl);
+            appService.addApp(appCode, appName,null, tenantid, Long.valueOf(tokenExpire), appLogo, callbackUrl, logoutUrl, homeUrl);
         }
         String accountCode = ((IProperty) args.getNode("accountCode")).getValue().getName();
         String password = ((IProperty) args.getNode("password")).getValue().getName();

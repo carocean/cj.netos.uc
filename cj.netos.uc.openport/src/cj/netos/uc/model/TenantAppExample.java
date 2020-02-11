@@ -687,6 +687,76 @@ public class TenantAppExample {
             return (Criteria) this;
         }
 
+        public Criteria andPortalIsNull() {
+            addCriterion("portal is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalIsNotNull() {
+            addCriterion("portal is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalEqualTo(String value) {
+            addCriterion("portal =", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalNotEqualTo(String value) {
+            addCriterion("portal <>", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalGreaterThan(String value) {
+            addCriterion("portal >", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalGreaterThanOrEqualTo(String value) {
+            addCriterion("portal >=", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalLessThan(String value) {
+            addCriterion("portal <", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalLessThanOrEqualTo(String value) {
+            addCriterion("portal <=", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalLike(String value) {
+            addCriterion("portal like", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalNotLike(String value) {
+            addCriterion("portal not like", value, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalIn(List<String> values) {
+            addCriterion("portal in", values, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalNotIn(List<String> values) {
+            addCriterion("portal not in", values, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalBetween(String value1, String value2) {
+            addCriterion("portal between", value1, value2, "portal");
+            return (Criteria) this;
+        }
+
+        public Criteria andPortalNotBetween(String value1, String value2) {
+            addCriterion("portal not between", value1, value2, "portal");
+            return (Criteria) this;
+        }
+
         public Criteria andWebsiteIsNull() {
             addCriterion("website is null");
             return (Criteria) this;

@@ -69,6 +69,7 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
             appinfo.setAppLogo(app.getAppLogo());
             appinfo.setAppName(app.getAppName());
             appinfo.setLoginCbUrl(app.getLoginCbUrl());
+            appinfo.setPortal(app.getPortal());
             appinfo.setLogoutCbUrl(app.getLogoutCbUrl());
             appinfo.setWebsite(app.getWebsite());
             appinfo.setTenantId(app.getTenantId());
@@ -209,6 +210,7 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
         }
         appinfo.setAppLogo(app.getAppLogo());
         appinfo.setAppName(app.getAppName());
+        appinfo.setPortal(app.getPortal());
         appinfo.setLoginCbUrl(app.getLoginCbUrl());
         appinfo.setLogoutCbUrl(app.getLogoutCbUrl());
         appinfo.setWebsite(app.getWebsite());

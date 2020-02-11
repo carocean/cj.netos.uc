@@ -11,6 +11,7 @@
     <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
     <result column="token_expire" jdbcType="BIGINT" property="tokenExpire" />
     <result column="app_logo" jdbcType="VARCHAR" property="appLogo" />
+    <result column="portal" jdbcType="VARCHAR" property="portal" />
     <result column="website" jdbcType="VARCHAR" property="website" />
     <result column="login_cb_url" jdbcType="VARCHAR" property="loginCbUrl" />
     <result column="logout_cb_url" jdbcType="VARCHAR" property="logoutCbUrl" />
@@ -79,7 +80,7 @@
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     app_id, app_code, app_name, tenant_id, app_key, app_secret, token_expire, app_logo, 
-    website, login_cb_url, logout_cb_url, ctime
+    portal, website, login_cb_url, logout_cb_url, ctime
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.TenantAppExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -119,14 +120,14 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into tenant_app (app_id, app_code, app_name, 
       tenant_id, app_key, app_secret, 
-      token_expire, app_logo, website, 
-      login_cb_url, logout_cb_url, ctime
-      )
+      token_expire, app_logo, portal, 
+      website, login_cb_url, logout_cb_url, 
+      ctime)
     values (#{appId,jdbcType=VARCHAR}, #{appCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
       #{tenantId,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR}, 
-      #{tokenExpire,jdbcType=BIGINT}, #{appLogo,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
-      #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}
-      )
+      #{tokenExpire,jdbcType=BIGINT}, #{appLogo,jdbcType=VARCHAR}, #{portal,jdbcType=VARCHAR}, 
+      #{website,jdbcType=VARCHAR}, #{loginCbUrl,jdbcType=VARCHAR}, #{logoutCbUrl,jdbcType=VARCHAR}, 
+      #{ctime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.TenantApp">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -155,6 +156,9 @@
       </if>
       <if test="appLogo != null">
         app_logo,
+      </if>
+      <if test="portal != null">
+        portal,
       </if>
       <if test="website != null">
         website,
@@ -193,6 +197,9 @@
       </if>
       <if test="appLogo != null">
         #{appLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="portal != null">
+        #{portal,jdbcType=VARCHAR},
       </if>
       <if test="website != null">
         #{website,jdbcType=VARCHAR},
@@ -243,6 +250,9 @@
       <if test="record.appLogo != null">
         app_logo = #{record.appLogo,jdbcType=VARCHAR},
       </if>
+      <if test="record.portal != null">
+        portal = #{record.portal,jdbcType=VARCHAR},
+      </if>
       <if test="record.website != null">
         website = #{record.website,jdbcType=VARCHAR},
       </if>
@@ -271,6 +281,7 @@
       app_secret = #{record.appSecret,jdbcType=VARCHAR},
       token_expire = #{record.tokenExpire,jdbcType=BIGINT},
       app_logo = #{record.appLogo,jdbcType=VARCHAR},
+      portal = #{record.portal,jdbcType=VARCHAR},
       website = #{record.website,jdbcType=VARCHAR},
       login_cb_url = #{record.loginCbUrl,jdbcType=VARCHAR},
       logout_cb_url = #{record.logoutCbUrl,jdbcType=VARCHAR},
@@ -304,6 +315,9 @@
       <if test="appLogo != null">
         app_logo = #{appLogo,jdbcType=VARCHAR},
       </if>
+      <if test="portal != null">
+        portal = #{portal,jdbcType=VARCHAR},
+      </if>
       <if test="website != null">
         website = #{website,jdbcType=VARCHAR},
       </if>
@@ -329,6 +343,7 @@
       app_secret = #{appSecret,jdbcType=VARCHAR},
       token_expire = #{tokenExpire,jdbcType=BIGINT},
       app_logo = #{appLogo,jdbcType=VARCHAR},
+      portal = #{portal,jdbcType=VARCHAR},
       website = #{website,jdbcType=VARCHAR},
       login_cb_url = #{loginCbUrl,jdbcType=VARCHAR},
       logout_cb_url = #{logoutCbUrl,jdbcType=VARCHAR},
