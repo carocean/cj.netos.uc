@@ -109,7 +109,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
 
     @CjOpenport(usage = "获取用户信息扩展域的值")
     DomainValue getDomainValue(ISecuritySession securitySession,
-                          @CjOpenportParameter(name = "fieldId", usage = "字段编号") String fieldId) throws CircuitException;
+                               @CjOpenportParameter(name = "fieldId", usage = "字段编号") String fieldId) throws CircuitException;
 
     @CjOpenport(usage = "清除用户信息扩展域的值")
     void emptyDomainValue(ISecuritySession securitySession,
@@ -121,4 +121,10 @@ public interface IPersonSelfServicePorts extends IOpenportService {
 
     @CjOpenport(usage = "列表用户信息扩展域的值")
     List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException;
+
+    @CjOpenport(usage = "按关键字搜索公众")
+    List<PersonInfo> searchPersons(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(name = "keywords", usage = "公号/统一号/手机号/邮箱等") String keywords
+    ) throws CircuitException;
 }

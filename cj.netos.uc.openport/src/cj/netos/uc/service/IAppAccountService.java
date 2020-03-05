@@ -50,4 +50,6 @@ public interface IAppAccountService {
 
     Map<String, Object> sendVerifyCode(String principal, String phone) throws CircuitException;
 
+    List<AppAccount> findAccounts(String keywords);
+
 }

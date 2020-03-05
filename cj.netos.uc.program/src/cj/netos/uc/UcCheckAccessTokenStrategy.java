@@ -20,7 +20,7 @@ public class UcCheckAccessTokenStrategy implements ICheckAccessTokenStrategy {
     }
 
     @Override
-    public ISecuritySession checkAccessToken(String portsurl, String methodName, String accessToken) throws CheckAccessTokenException {
+    public ISecuritySession checkAccessToken(ISecuritySession _securitySession,String portsurl, String methodName, String accessToken) throws CheckAccessTokenException {
         AppAccessToken appAccessToken= appAccessTokenService.getAccessToken(accessToken);
         if (appAccessToken == null) {
             throw new CheckAccessTokenException("10001","验证访问令牌失败，原因：非法的令牌");
@@ -39,5 +39,4 @@ public class UcCheckAccessTokenStrategy implements ICheckAccessTokenStrategy {
         securitySession.property("device", appAccessToken.getDevice());
         return securitySession;
     }
-
 }

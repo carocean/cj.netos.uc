@@ -221,24 +221,72 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
-    public void setDomainValue(ISecuritySession securitySession, String fieldId, String content) throws CircuitException {
-        int pos=fieldId.lastIndexOf(".");
-        if (pos < 0) {
-            throw new CircuitException("500","fieldId缺少.分隔，前为字段代码，后为组代码");
+    public List<PersonInfo> searchPersons(ISecuritySession securitySession, String keywords) throws CircuitException {
+        if (StringUtil.isEmpty(keywords)) {
+            return new ArrayList<>();
         }
-        String groupId=fieldId.substring(pos+1);
+        List<AppAccount> accounts = this.appAccountService.findAccounts(keywords);
+        List<PersonInfo> personInfos = new ArrayList<>();
+        for (AppAccount account : accounts) {
+            UcUser user = ucUserService.getUserById(account.getUserId());
+            PersonInfo info = new PersonInfo(account.getAccountCode(), account.getAppId());
+            info.setSignature(account.getSignature());
+            info.setNickName(account.getNickName());
+            info.setAvatar(account.getAvatar());
+            info.setUid(account.getUserId());
+            info.setRealName(user.getRealName());
+            info.setSex(user.getSex());
+
+            List<DomainValue> values = domainService.listAllDomainValue(user.getUserId());
+            Map<String, DomainGroup> groups = new HashMap<>();
+            Map<String, DomainField> fields = new HashMap<>();
+            for (DomainValue value : values) {
+                DomainGroup group = groups.get(value.getGroupId());
+                if (group == null) {
+                    group = domainService.getDomainGroup(value.getGroupId());
+                    if (group == null) {
+                        continue;
+                    }
+                    groups.put(value.getGroupId(), group);
+                }
+                DomainField field = fields.get(value.getFieldId());
+                if (field == null) {
+                    field = domainService.getDomainField(value.getFieldId());
+                    if (field == null) {
+                        continue;
+                    }
+                    fields.put(value.getFieldId(), field);
+                }
+            }
+            Map<String, Object> domains = new HashMap<>();
+            domains.put("groups", groups);
+            domains.put("fields", fields);
+            domains.put("values", values);
+            info.setDomains(domains);
+            personInfos.add(info);
+        }
+        return personInfos;
+    }
+
+    @Override
+    public void setDomainValue(ISecuritySession securitySession, String fieldId, String content) throws CircuitException {
+        int pos = fieldId.lastIndexOf(".");
+        if (pos < 0) {
+            throw new CircuitException("500", "fieldId缺少.分隔，前为字段代码，后为组代码");
+        }
+        String groupId = fieldId.substring(pos + 1);
         AppAccount account = appAccountService.getAccount(securitySession.principal());
         this.domainService.setDomainValue(account.getUserId(), groupId, fieldId, content);
     }
 
     @Override
     public DomainValue getDomainValue(ISecuritySession securitySession, String fieldId) throws CircuitException {
-        int pos=fieldId.lastIndexOf(".");
+        int pos = fieldId.lastIndexOf(".");
         if (pos < 0) {
-            throw new CircuitException("500","fieldId缺少.分隔，前为字段代码，后为组代码");
+            throw new CircuitException("500", "fieldId缺少.分隔，前为字段代码，后为组代码");
         }
         AppAccount account = appAccountService.getAccount(securitySession.principal());
-        return domainService.getDomainValue(account.getUserId(),fieldId);
+        return domainService.getDomainValue(account.getUserId(), fieldId);
     }
 
     @Override

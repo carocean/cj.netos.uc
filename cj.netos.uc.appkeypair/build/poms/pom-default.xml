@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cj.netos.uc</groupId>
   <artifactId>cj.netos.uc.appkeypair</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <name>cj.netos.uc.appkeypair</name>
   <description></description>
   <licenses>
@@ -24,25 +24,25 @@
     <dependency>
       <groupId>cj.studio.ecm</groupId>
       <artifactId>cj.ultimate</artifactId>
-      <version>2.3.6</version>
+      <version>2.3.8</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cj.studio.ecm</groupId>
       <artifactId>cj.studio.ecm.corelib</artifactId>
-      <version>2.3.6</version>
+      <version>2.3.8</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cj.studio.gateway2</groupId>
       <artifactId>cj.studio.ecm.net</artifactId>
-      <version>2.3.9</version>
+      <version>2.4.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cj.studio.gateway2</groupId>
       <artifactId>cj.studio.gateway.socket</artifactId>
-      <version>2.3.9</version>
+      <version>2.4.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

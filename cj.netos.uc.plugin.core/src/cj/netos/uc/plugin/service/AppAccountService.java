@@ -34,6 +34,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     OkHttpClient okHttpClient;
     @CjServiceRef
     IPhoneVerifycodeService phoneVerifycodeService;
+
     public AppAccountService() {
         okHttpClient = new OkHttpClient();
     }
@@ -201,6 +202,16 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
+    public List<AppAccount> findAccounts(String _keywords) {
+        String keywords = _keywords + "%";
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andAccountIdLike(keywords);
+        example.or().andUserIdLike(keywords);
+        return accountMapper.selectByExample(example);
+    }
+
+    @CjTransaction
+    @Override
     public void setAccountEnable(String accountid, boolean enable) throws CircuitException {
         accountMapper.updateAccountEnable(accountid, (byte) (enable ? 1 : 0));
     }
@@ -286,7 +297,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         }
         String fullUrl = String.format("%s?mobile=%s&codeLen=%s", url, phone, codeLen);
 
-        RequestBody body = RequestBody.create("",MediaType.parse("application/x-www-form-urlencoded;charset=utf-8"));
+        RequestBody body = RequestBody.create("", MediaType.parse("application/x-www-form-urlencoded;charset=utf-8"));
         Request request = new Request.Builder()
                 .url(fullUrl)
                 .post(body)
@@ -303,10 +314,10 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
                 throw new CircuitException(response.code() + "", response.message());
             }
             String json = response.body().string();
-            CJSystem.logging().info(getClass(),json);
-            Map<String,Object> map=new Gson().fromJson(json,HashMap.class);
-            String principal=String.format("%s@%s",phone,appid);
-            this.phoneVerifycodeService.set(principal, map.get("obj")+"");
+            CJSystem.logging().info(getClass(), json);
+            Map<String, Object> map = new Gson().fromJson(json, HashMap.class);
+            String principal = String.format("%s@%s", phone, appid);
+            this.phoneVerifycodeService.set(principal, map.get("obj") + "");
             return new Gson().fromJson(json, HashMap.class);
         } catch (IOException e) {
             throw new CircuitException("500", e);
