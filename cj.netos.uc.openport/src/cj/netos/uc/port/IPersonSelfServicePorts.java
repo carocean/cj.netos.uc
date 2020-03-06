@@ -45,8 +45,12 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     void updatePersonSex(ISecuritySession securitySession,
                          @CjOpenportParameter(usage = "性别:男（male)；女(female)，空为未设置", name = "sex") String sex) throws CircuitException;
 
-    @CjOpenport(usage = "获取公众信息")
+    @CjOpenport(usage = "获取访问者的信息")
     PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException;
+
+    @CjOpenport(usage = "查看任何人的公开信息")
+    PersonInfo findPerson(ISecuritySession securitySession,
+                          @CjOpenportParameter(name = "person", usage = "公号") String person) throws CircuitException;
 
     @CjOpenport(usage = "获取当前用户号下所有的账号")
     List<Map<String, Object>> listMyAccount(ISecuritySession securitySession,
