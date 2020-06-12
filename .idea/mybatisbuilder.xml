@@ -110,6 +110,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="AppAccessToken" />
+              <option name="tableComment" value="App账户的访问令牌表，根据访问令牌能获取到应用、账户及角色信息" />
               <option name="tableName" value="app_access_token" />
             </TableInfo>
           </value>
@@ -122,6 +123,7 @@
               </option>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="AppAccount" />
+              <option name="tableComment" value="登录账户表" />
               <option name="tableName" value="app_account" />
             </TableInfo>
           </value>
@@ -131,6 +133,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="AppRefreshToken" />
+              <option name="tableComment" value="应用的账户刷新令牌表" />
               <option name="tableName" value="app_refresh_token" />
             </TableInfo>
           </value>
@@ -140,6 +143,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="AppRole" />
+              <option name="tableComment" value="应用角色" />
               <option name="tableName" value="app_role" />
             </TableInfo>
           </value>
@@ -149,6 +153,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="DomainField" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="domain_field" />
             </TableInfo>
           </value>
@@ -158,6 +163,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="DomainGroup" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="domain_group" />
             </TableInfo>
           </value>
@@ -167,6 +173,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="DomainValue" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="domain_value" />
             </TableInfo>
           </value>
@@ -176,6 +183,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="PhoneVerifycode" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="phone_verifycode" />
             </TableInfo>
           </value>
@@ -188,6 +196,7 @@
               </option>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="TenantApp" />
+              <option name="tableComment" value="应用表（oauth2客户端)" />
               <option name="tableName" value="tenant_app" />
             </TableInfo>
           </value>
@@ -197,6 +206,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="TenantRole" />
+              <option name="tableComment" value="租户角色：用于让租户分配其公共资源给各应用系统，以及查看或管理租户下的各个应用系统" />
               <option name="tableName" value="tenant_role" />
             </TableInfo>
           </value>
@@ -206,6 +216,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UaAppRolePerson" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="ua_app_role_person" />
             </TableInfo>
           </value>
@@ -228,6 +239,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UaRoleEmpl" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="ua_role_empl" />
             </TableInfo>
           </value>
@@ -237,6 +249,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UaRoleUser" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="ua_role_user" />
             </TableInfo>
           </value>
@@ -249,6 +262,7 @@
               </option>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UaTenantRoleUser" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="ua_tenant_role_user" />
             </TableInfo>
           </value>
@@ -258,6 +272,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcCompany" />
+              <option name="tableComment" value="公司表" />
               <option name="tableName" value="uc_company" />
             </TableInfo>
           </value>
@@ -267,6 +282,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcDept" />
+              <option name="tableComment" value="部门表" />
               <option name="tableName" value="uc_dept" />
             </TableInfo>
           </value>
@@ -276,6 +292,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcEmpl" />
+              <option name="tableComment" value="公司员工表" />
               <option name="tableName" value="uc_empl" />
             </TableInfo>
           </value>
@@ -285,6 +302,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcProperties" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="uc_properties" />
             </TableInfo>
           </value>
@@ -294,6 +312,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcRole" />
+              <option name="tableComment" value="uc角色：用于让uc中心向租户分配平台资源以及查看或管理各个租户下的资源" />
               <option name="tableName" value="uc_role" />
             </TableInfo>
           </value>
@@ -303,6 +322,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcTenant" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="uc_tenant" />
             </TableInfo>
           </value>
@@ -312,6 +332,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="UcUser" />
+              <option name="tableComment" value="用户表" />
               <option name="tableName" value="uc_user" />
             </TableInfo>
           </value>

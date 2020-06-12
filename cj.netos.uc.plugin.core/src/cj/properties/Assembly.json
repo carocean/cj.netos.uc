@@ -27,8 +27,8 @@
 					"mobile": "18023457655",
 					"idcard": "",
 					"tenantid": "netos",
-					"tenantName": "Unlucky Information Technology Co., Ltd.",
-					"tenantWebsite": "https://iscjcj.com/supertenant",
+					"tenantName": "郑州节点动力信息科技有限公司",
+					"tenantWebsite": "http://www.nodepower.cn",
 					"appCode": "system",
 					"appName": "超管系统",
 					"tokenExpire": "86400000",
@@ -40,7 +40,7 @@
 					"password": "123456",
 					"nickName": "超管",
 					"avatar": "",
-					"signature": "金证集团，发展状大"
+					"signature": "节点动力"
 				}
 			}
 		]

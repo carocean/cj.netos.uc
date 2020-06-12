@@ -3,6 +3,7 @@ package cj.netos.uc.port;
 import cj.netos.uc.model.*;
 import cj.netos.uc.service.IAppService;
 import cj.netos.uc.service.IDomainService;
+import cj.netos.uc.service.ITenantService;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
@@ -18,7 +19,8 @@ public class PlatformManangerSelfServicePorts implements IPlatformManangerSelfSe
     IDomainService domainService;
     @CjServiceRef(refByName = "ucplugin.tenantAppService")
     IAppService appService;
-
+    @CjServiceRef(refByName = "ucplugin.tenantService")
+    ITenantService tenantService;
     @Override
     public void addDomainGroup(ISecuritySession securitySession, String groupId, String groupName) throws CircuitException {
         _checkDomainRights(securitySession);
@@ -87,18 +89,18 @@ public class PlatformManangerSelfServicePorts implements IPlatformManangerSelfSe
     }
 
     @Override
-    public void addTenant(ISecuritySession securitySession) {
-
+    public void addTenant(ISecuritySession securitySession, String tenantId, String tenantName,String creator, String icon, String website) throws CircuitException {
+        tenantService.addTenant(tenantId,tenantName,website,creator,icon);
     }
 
     @Override
-    public void removeTenant(ISecuritySession securitySession) {
-
+    public void removeTenant(ISecuritySession securitySession, String tenantId) throws CircuitException {
+        tenantService.removeTenant(tenantId);
     }
 
     @Override
-    public List<UcTenant> pageTenant(ISecuritySession securitySession, int limit, long offset) {
-        return null;
+    public List<UcTenant> pageTenant(ISecuritySession securitySession, int limit, long offset) throws CircuitException {
+        return tenantService.pageTenant(offset,limit);
     }
 
     @Override

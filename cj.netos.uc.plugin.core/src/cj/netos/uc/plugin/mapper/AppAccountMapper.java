@@ -68,10 +68,9 @@ public interface AppAccountMapper {
 
     void updatePwd(@Param(value = "accountid") String accountid, @Param(value = "newpwd") String newpwd);
 
-    void updateAvatar(@Param(value = "accountid")String accountid, @Param(value = "avatar")String avatar);
+    void updateAvatar(@Param(value = "accountid") String accountid, @Param(value = "avatar") String avatar);
 
-    void updateSignature(@Param(value = "accountid")String accountid,@Param(value = "signature") String signature);
+    void updateSignature(@Param(value = "accountid") String accountid, @Param(value = "signature") String signature);
 
-    void updateNickName(@Param(value = "accountid")String accountid, @Param(value = "nickName")String nickName);
-
+    void updateNickName(@Param(value = "accountid") String accountid, @Param(value = "nickName") String nickName);
 }

@@ -1,15 +1,18 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.model.*;
+import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
+import cj.studio.openport.annotations.CjOpenport;
+import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
 import java.util.List;
 
 /***
  *
- * - 应用管理
+ * - 租户管理
  * - 租户角色管理
  *
  */
@@ -17,7 +20,9 @@ import java.util.List;
 public interface ITenantManangerSelfServicePorts extends IOpenportService {
 
 
-    UcTenant getTenant(ISecuritySession securitySession);
+    @CjOpenport(usage = "获取租户")
+    UcTenant getTenant(ISecuritySession securitySession,
+                       @CjOpenportParameter(name = "tenantId", usage = "租户标识") String tenantId) throws CircuitException;
 
     void addApp(ISecuritySession securitySession, String appid, String appName, String applogo, String website, String loginCallbackUrl, String logoutCallbackUrl);
 

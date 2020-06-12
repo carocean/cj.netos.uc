@@ -22,7 +22,7 @@ public class TenantService implements ITenantService {
 
     @CjTransaction
     @Override
-    public String addTenant(String tenantid,String name, String website, String creator) throws CircuitException {
+    public String addTenant(String tenantid, String name, String website, String creator, String icon) throws CircuitException {
         if(StringUtil.isEmpty(tenantid)){
             tenantid=NumberGen.gen();
         }
@@ -42,6 +42,7 @@ public class TenantService implements ITenantService {
         tenant.setUserId(creator);
         tenant.setTenantName(name);
         tenant.setWebsite(website);
+        tenant.setIcon(icon);
         tenantMapper.insertSelective(tenant);
         return tenant.getTenantId();
     }
@@ -60,7 +61,7 @@ public class TenantService implements ITenantService {
 
     @CjTransaction
     @Override
-    public List<UcTenant> pageTenant(int currPage, int pageSize) throws CircuitException {
+    public List<UcTenant> pageTenant(long currPage, int pageSize) throws CircuitException {
         return tenantMapper.pageTenant(currPage, pageSize);
     }
 

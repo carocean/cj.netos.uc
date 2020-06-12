@@ -65,5 +65,4 @@ public interface DomainValueMapper {
     void updateDomainValue(String userId, String fieldId, String content);
 
     void emptyDomainValue(String userId, String fieldId);
-
 }

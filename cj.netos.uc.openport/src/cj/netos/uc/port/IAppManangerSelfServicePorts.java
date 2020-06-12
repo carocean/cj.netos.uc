@@ -32,6 +32,7 @@ public interface IAppManangerSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "应用管理员冻结指定账号")
     void freezenAccount(ISecuritySession securitySession,
                         @CjOpenportParameter(name = "accountCode", usage = "为用户登录名") String accountCode) throws CircuitException;
+
     @CjOpenport(usage = "应用管理员解冻指定账号")
     void unfreezenAccount(ISecuritySession securitySession,
                           @CjOpenportParameter(name = "accountCode", usage = "为用户登录名") String accountCode) throws CircuitException;
@@ -86,6 +87,7 @@ public interface IAppManangerSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "应用管理员获取指定角色的应用账户列表", elementType = PersonInfo.class)
     List<AppAccount> getAccountInRole(ISecuritySession securitySession,
                                       @CjOpenportParameter(name = "roleid", usage = "角色标识") String roleid) throws CircuitException;
+
     @CjOpenport(usage = "获取当前租户信息")
-    UcTenant getTenant(ISecuritySession securitySession)throws CircuitException;
+    UcTenant getTenant(ISecuritySession securitySession) throws CircuitException;
 }

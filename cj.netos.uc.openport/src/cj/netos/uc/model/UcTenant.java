@@ -40,6 +40,11 @@ public class UcTenant {
      */
     private Date createTime;
 
+    /**
+     * Column: icon
+     */
+    private String icon;
+
     public String getTenantId() {
         return tenantId;
     }
@@ -86,5 +91,13 @@ public class UcTenant {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon == null ? null : icon.trim();
     }
 }

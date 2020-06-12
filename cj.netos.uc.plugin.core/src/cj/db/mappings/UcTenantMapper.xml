@@ -9,6 +9,7 @@
     <result column="is_enable" jdbcType="TINYINT" property="isEnable" />
     <result column="website" jdbcType="VARCHAR" property="website" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    tenant_id, tenant_name, user_id, is_enable, website, create_time
+    tenant_id, tenant_name, user_id, is_enable, website, create_time, icon
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.UcTenantExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -111,11 +112,11 @@
   <insert id="insert" parameterType="cj.netos.uc.model.UcTenant">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into uc_tenant (tenant_id, tenant_name, user_id, 
-      is_enable, website, create_time
-      )
+      is_enable, website, create_time, 
+      icon)
     values (#{tenantId,jdbcType=VARCHAR}, #{tenantName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{isEnable,jdbcType=TINYINT}, #{website,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{isEnable,jdbcType=TINYINT}, #{website,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{icon,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.UcTenant">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -139,6 +140,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="icon != null">
+        icon,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tenantId != null">
@@ -158,6 +162,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -190,6 +197,9 @@
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -203,7 +213,8 @@
       user_id = #{record.userId,jdbcType=VARCHAR},
       is_enable = #{record.isEnable,jdbcType=TINYINT},
       website = #{record.website,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      icon = #{record.icon,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +238,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
     </set>
     where tenant_id = #{tenantId,jdbcType=VARCHAR}
   </update>
@@ -237,7 +251,8 @@
       user_id = #{userId,jdbcType=VARCHAR},
       is_enable = #{isEnable,jdbcType=TINYINT},
       website = #{website,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      icon = #{icon,jdbcType=VARCHAR}
     where tenant_id = #{tenantId,jdbcType=VARCHAR}
   </update>
 

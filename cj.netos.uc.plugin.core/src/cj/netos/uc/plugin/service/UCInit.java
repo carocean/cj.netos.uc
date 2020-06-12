@@ -10,7 +10,6 @@ import cj.studio.ecm.context.IElement;
 import cj.studio.ecm.context.IProperty;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
-import cj.ultimate.util.StringUtil;
 
 @CjBridge(aspects = "@transaction")
 @CjService(name = "ucInit")
@@ -45,7 +44,8 @@ public class UCInit implements IDBInit {
         if (tenantService.getTenantById(tenantid) == null) {
             String tenantName = ((IProperty) args.getNode("tenantName")).getValue().getName();
             String tenantwebsite = ((IProperty) args.getNode("tenantWebsite")).getValue().getName();
-            tenantService.addTenant(tenantid, tenantName, tenantwebsite, uid);
+            String tenanticon = ((IProperty) args.getNode("tenantIcon")).getValue().getName();
+            tenantService.addTenant(tenantid, tenantName, tenantwebsite, uid, tenanticon);
         }
         String appCode = ((IProperty) args.getNode("appCode")).getValue().getName();
         String appid = String.format("%s.%s", appCode, tenantid);

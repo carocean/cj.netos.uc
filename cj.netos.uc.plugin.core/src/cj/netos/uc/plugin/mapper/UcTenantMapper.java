@@ -62,5 +62,5 @@ public interface UcTenantMapper {
      */
     int updateByPrimaryKey(UcTenant record);
 
-    List<UcTenant> pageTenant(@Param(value = "currPage") int currPage, @Param(value = "pageSize") int pageSize);
+    List<UcTenant> pageTenant(@Param(value = "currPage") long currPage, @Param(value = "pageSize") int pageSize);
 }

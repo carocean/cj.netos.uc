@@ -55,15 +55,29 @@ public interface IPlatformManangerSelfServicePorts extends IOpenportService {
                           @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
 
     @CjOpenportAppSecurity(usage = "需要超级权限")
-    @CjOpenport(usage = "获取应用信息", responseStatus = {"200 OK", "404 应用号不存在", "801 拒绝访问"},tokenIn = AccessTokenIn.nope)
+    @CjOpenport(usage = "获取应用信息", responseStatus = {"200 OK", "404 应用号不存在", "801 拒绝访问"}, tokenIn = AccessTokenIn.nope)
     Map<String, Object> getAppKeyStore(ISecuritySession securitySession,
                                        @CjOpenportParameter(name = "appid", usage = "应用号") String appid) throws CircuitException;
 
-    void addTenant(ISecuritySession securitySession);
+    @CjOpenportAppSecurity(usage = "需要超级权限")
+    @CjOpenport(usage = "添加租户", responseStatus = {"200 OK", "801 拒绝访问"}, tokenIn = AccessTokenIn.nope)
+    void addTenant(ISecuritySession securitySession,
+                   @CjOpenportParameter(name = "tenantId", usage = "租户标识") String tenantId,
+                   @CjOpenportParameter(name = "tenantName", usage = "租户名") String tenantName,
+                   @CjOpenportParameter(name = "creator", usage = "创建者") String creator,
+                   @CjOpenportParameter(name = "icon", usage = "租户的图标") String icon,
+                   @CjOpenportParameter(name = "website", usage = "租户的官网可为空") String website
+    ) throws CircuitException;
 
-    void removeTenant(ISecuritySession securitySession);
+    @CjOpenportAppSecurity(usage = "需要超级权限")
+    @CjOpenport(usage = "移除租户", responseStatus = {"200 OK", "801 拒绝访问"}, tokenIn = AccessTokenIn.nope)
+    void removeTenant(ISecuritySession securitySession,
+                      @CjOpenportParameter(name = "tenantId", usage = "租户标识") String tenantId
+    ) throws CircuitException;
 
-    List<UcTenant> pageTenant(ISecuritySession securitySession, int limit, long offset);
+    @CjOpenportAppSecurity(usage = "需要超级权限")
+    @CjOpenport(usage = "分页租户", responseStatus = {"200 OK", "801 拒绝访问"}, tokenIn = AccessTokenIn.nope)
+    List<UcTenant> pageTenant(ISecuritySession securitySession, int limit, long offset) throws CircuitException;
 
     void addRole(ISecuritySession securitySession, String roleid, String roleName, String extendUcRole);
 

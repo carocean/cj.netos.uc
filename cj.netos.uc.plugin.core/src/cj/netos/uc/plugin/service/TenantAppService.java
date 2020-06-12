@@ -43,7 +43,7 @@ public class TenantAppService implements IAppService {
 
     @CjTransaction
     @Override
-    public String addApp(String appCode, String appName, String portal, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
+    public String addApp(String appCode, String appName, String portal,String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
         if (StringUtil.isEmpty(tenantId)) {
             throw new CircuitException("404", "租户标识为空");
         }

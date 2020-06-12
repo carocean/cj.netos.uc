@@ -3,6 +3,7 @@ package cj.netos.uc.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 public class NumberGen {
 
@@ -18,6 +19,16 @@ public class NumberGen {
 		return no;
 	}
 	public static void main(String...strings) {
-		System.out.println(gen());
+		System.out.println(genVerifyCode());
+	}
+
+	public  static String genVerifyCode(){
+		int a= Math.abs((UUID.randomUUID()+""+System.nanoTime()).hashCode()) %10;
+		int b=Math.abs((UUID.randomUUID()+""+System.nanoTime()).hashCode())%10;
+		int c=Math.abs((UUID.randomUUID()+""+System.nanoTime()).hashCode())%10;
+		int d=Math.abs((UUID.randomUUID()+""+System.nanoTime()).hashCode())%10;
+		int e=Math.abs((UUID.randomUUID()+""+System.nanoTime()).hashCode())%10;
+		int f=Math.abs((UUID.randomUUID()+""+System.nanoTime()).hashCode())%10;
+		return String.format("%d%d%d%d%d%d",a,b,c,d,e,f);
 	}
 }

@@ -6,6 +6,7 @@ import cj.netos.uc.model.UcUser;
 import cj.netos.uc.plugin.mapper.AppAccountMapper;
 import cj.netos.uc.service.*;
 import cj.netos.uc.util.Encript;
+import cj.netos.uc.util.NumberGen;
 import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.IServiceSetter;
 import cj.studio.ecm.annotation.CjBridge;
@@ -29,11 +30,12 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @CjServiceRef(refByName = "tenantAppRoleService")
     IAppRoleService appRoleService;
 
-    @CjServiceRef(refByName = "ucProperties")
-    IUcProperties ucProperties;
+
     OkHttpClient okHttpClient;
     @CjServiceRef
     IPhoneVerifycodeService phoneVerifycodeService;
+    @CjServiceRef
+    IUcpaasSMSService ucpaasSMSService;
 
     public AppAccountService() {
         okHttpClient = new OkHttpClient();
@@ -270,58 +272,14 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     @CjTransaction
     @Override
     public Map<String, Object> sendVerifyCode(String appid, String phone) throws CircuitException {
-        String appKey = ucProperties.get("@.prop.api.netease.im.appKey");
-        if (StringUtil.isEmpty(appKey)) {
-            throw new CircuitException("404", "没有配置网易云短信平台的:@.prop.api.netease.im.appKey");
-        }
-        String appSecret =
-                ucProperties.get("@.prop.api.netease.im.appSecret");
-        if (StringUtil.isEmpty(appSecret)) {
-            throw new CircuitException("404", "没有配置网易云短信平台的:@.prop.api.netease.im.appSecret");
-        }
-        String nonce = Encript.md5(UUID.randomUUID().toString());
-        long curTime = System.currentTimeMillis();
-        //SHA1(AppSecret + Nonce + CurTime)
-        String combine = String.format("%s%s%s", appSecret, nonce, curTime);
-        String checkSum = Encript.sha1(combine);
-        String codeLen =
-                ucProperties.get("@.prop.api.netease.im.codeLen");
-        if (StringUtil.isEmpty(codeLen)) {
-            codeLen = "6";
-        }
-
-        String url =
-                ucProperties.get("@.prop.api.netease.im.url.sendcode");
-        if (StringUtil.isEmpty(url)) {
-            throw new CircuitException("404", "没有配置网易云短信平台的:@.prop.api.netease.im.url.sendcode");
-        }
-        String fullUrl = String.format("%s?mobile=%s&codeLen=%s", url, phone, codeLen);
-
-        RequestBody body = RequestBody.create("", MediaType.parse("application/x-www-form-urlencoded;charset=utf-8"));
-        Request request = new Request.Builder()
-                .url(fullUrl)
-                .post(body)
-                .addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
-                .addHeader("AppKey", appKey)
-                .addHeader("CurTime", curTime + "")
-                .addHeader("CheckSum", checkSum)
-                .addHeader("Nonce", nonce)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        try {
-            Response response = call.execute();
-            if (response.code() != 200) {
-                throw new CircuitException(response.code() + "", response.message());
-            }
-            String json = response.body().string();
-            CJSystem.logging().info(getClass(), json);
-            Map<String, Object> map = new Gson().fromJson(json, HashMap.class);
-            String principal = String.format("%s@%s", phone, appid);
-            this.phoneVerifycodeService.set(principal, map.get("obj") + "");
-            return new Gson().fromJson(json, HashMap.class);
-        } catch (IOException e) {
-            throw new CircuitException("500", e);
-        }
+        String param = NumberGen.genVerifyCode();//param就是自定义的验证码
+        ucpaasSMSService.sendSms(param, phone, null);
+        String principal = String.format("%s@%s", phone, appid);
+        this.phoneVerifycodeService.set(principal, param);
+        Map<String, Object> map = new HashMap<>();
+        map.put("person", principal);
+        map.put("verifyCode", param);
+        return map;
     }
 
 }
