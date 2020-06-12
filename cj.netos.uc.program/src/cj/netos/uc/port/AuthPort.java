@@ -3,6 +3,7 @@ package cj.netos.uc.port;
 import cj.netos.uc.model.*;
 import cj.netos.uc.service.*;
 import cj.netos.uc.util.Encript;
+import cj.netos.uc.util.NumberGen;
 import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -53,6 +54,19 @@ public class AuthPort implements IAuthPort {
             throw new CircuitException("1031", "登录失败，原因：非法应用");
         }
         AppAccount appAccount = appAccountService.getAccountByCode(securitySession.principal(), accountCode);
+        if ("#_anonymous".equals(accountCode)) {
+            appAccount = new AppAccount();
+            appAccount.setAccountCode("#_anonymous");
+            appAccount.setNickName("匿名用户");
+            appAccount.setAccountId(UUID.randomUUID().toString());
+            appAccount.setAccountPwd(Encript.md5("*_anonymous"));
+            appAccount.setAppId(securitySession.principal());
+            appAccount.setIsEnable((byte)0);
+            appAccount.setCreateTime(new Date());
+            appAccount.setUserId(NumberGen.gen());
+        }else{
+            appAccount = appAccountService.getAccountByCode(securitySession.principal(), accountCode);
+        }
         if (appAccount == null) {
             throw new CircuitException("1032", "登录失败，原因：账号不存在");
         }
