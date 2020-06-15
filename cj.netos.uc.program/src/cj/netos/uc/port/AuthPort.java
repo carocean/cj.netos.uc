@@ -41,6 +41,11 @@ public class AuthPort implements IAuthPort {
         return appAccountService.sendVerifyCode(securitySession.principal(), phone);
     }
 
+    @Override
+    public boolean verifyCode(ISecuritySession securitySession, String phone, String verifyCode) throws CircuitException {
+        return appAccountService.verifyCode(securitySession.principal(), phone, verifyCode);
+    }
+
     private boolean _isPhoneNo(String text) {
         Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
         Matcher m = p.matcher(text);
@@ -61,10 +66,10 @@ public class AuthPort implements IAuthPort {
             appAccount.setAccountId(UUID.randomUUID().toString());
             appAccount.setAccountPwd(Encript.md5("*_anonymous"));
             appAccount.setAppId(securitySession.principal());
-            appAccount.setIsEnable((byte)0);
+            appAccount.setIsEnable((byte) 0);
             appAccount.setCreateTime(new Date());
             appAccount.setUserId(NumberGen.gen());
-        }else{
+        } else {
             appAccount = appAccountService.getAccountByCode(securitySession.principal(), accountCode);
         }
         if (appAccount == null) {

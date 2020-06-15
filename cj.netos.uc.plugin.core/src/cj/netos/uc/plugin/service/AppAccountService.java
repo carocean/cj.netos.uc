@@ -282,4 +282,11 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         return map;
     }
 
+    @CjTransaction
+    @Override
+    public boolean verifyCode(String appid, String phone, String verifyCode) throws CircuitException {
+        String principal = String.format("%s@%s", phone, appid);
+        String storeValue = this.phoneVerifycodeService.get(principal);
+        return verifyCode.equals(storeValue);
+    }
 }

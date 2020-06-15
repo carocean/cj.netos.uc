@@ -52,4 +52,5 @@ public interface IAppAccountService {
 
     List<AppAccount> findAccounts(String keywords);
 
+    boolean verifyCode(String appid, String phone, String verifyCode) throws CircuitException;
 }
