@@ -44,7 +44,7 @@ public interface IAppManangerSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "应用管理员查看app信息")
     TenantApp getApp(ISecuritySession securitySession) throws CircuitException;
 
-    @CjOpenport(usage = "应用管理员查看账户列表")
+    @CjOpenport(usage = "查看应用账户列表。当前访问者仅能查看其应用中的账号")
     List<AppAccount> pageAccount(ISecuritySession securitySession,
                                  @CjOpenportParameter(name = "limit", usage = "页大小") int limit,
                                  @CjOpenportParameter(name = "offset", usage = "页偏移") long offset) throws CircuitException;

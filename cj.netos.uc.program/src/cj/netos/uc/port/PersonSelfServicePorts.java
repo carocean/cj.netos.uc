@@ -310,6 +310,56 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
+    public List<PersonInfo> searchPersonsInMyApp(ISecuritySession securitySession, String keywords) throws CircuitException {
+        if (StringUtil.isEmpty(keywords)) {
+            return new ArrayList<>();
+        }
+        String principal = securitySession.principal();
+        String appid = principal.substring(principal.indexOf("@") + 1, principal.length());
+        List<AppAccount> accounts = this.appAccountService.findAccountsInApp(appid,keywords);
+        List<PersonInfo> personInfos = new ArrayList<>();
+        for (AppAccount account : accounts) {
+            UcUser user = ucUserService.getUserById(account.getUserId());
+            PersonInfo info = new PersonInfo(account.getAccountCode(), account.getAppId());
+            info.setSignature(account.getSignature());
+            info.setNickName(account.getNickName());
+            info.setAvatar(account.getAvatar());
+            info.setUid(account.getUserId());
+            info.setRealName(user.getRealName());
+            info.setSex(user.getSex());
+
+            List<DomainValue> values = domainService.listAllDomainValue(user.getUserId());
+            Map<String, DomainGroup> groups = new HashMap<>();
+            Map<String, DomainField> fields = new HashMap<>();
+            for (DomainValue value : values) {
+                DomainGroup group = groups.get(value.getGroupId());
+                if (group == null) {
+                    group = domainService.getDomainGroup(value.getGroupId());
+                    if (group == null) {
+                        continue;
+                    }
+                    groups.put(value.getGroupId(), group);
+                }
+                DomainField field = fields.get(value.getFieldId());
+                if (field == null) {
+                    field = domainService.getDomainField(value.getFieldId());
+                    if (field == null) {
+                        continue;
+                    }
+                    fields.put(value.getFieldId(), field);
+                }
+            }
+            Map<String, Object> domains = new HashMap<>();
+            domains.put("groups", groups);
+            domains.put("fields", fields);
+            domains.put("values", values);
+            info.setDomains(domains);
+            personInfos.add(info);
+        }
+        return personInfos;
+    }
+
+    @Override
     public void setDomainValue(ISecuritySession securitySession, String fieldId, String content) throws CircuitException {
         int pos = fieldId.lastIndexOf(".");
         if (pos < 0) {

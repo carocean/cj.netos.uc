@@ -131,4 +131,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
             ISecuritySession securitySession,
             @CjOpenportParameter(name = "keywords", usage = "公号/统一号/手机号/邮箱等") String keywords
     ) throws CircuitException;
+
+
+    @CjOpenport(usage = "按关键字搜索公众在当前app中搜")
+    List<PersonInfo> searchPersonsInMyApp(
+            ISecuritySession securitySession,
+            @CjOpenportParameter(name = "keywords", usage = "公号/统一号/手机号/邮箱等") String keywords
+    ) throws CircuitException;
 }

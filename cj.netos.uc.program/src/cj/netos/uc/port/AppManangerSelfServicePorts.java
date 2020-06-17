@@ -75,7 +75,7 @@ public class AppManangerSelfServicePorts implements IAppManangerSelfServicePorts
 
     @Override
     public List<AppAccount> pageAccount(ISecuritySession securitySession, int limit, long offset) throws CircuitException {
-        checkRighs(securitySession);
+//        checkRighs(securitySession);
         String principal = securitySession.principal();
         String appid = principal.substring(principal.indexOf("@") + 1, principal.length());
         return appAccountService.pageAccount(appid, offset, limit);

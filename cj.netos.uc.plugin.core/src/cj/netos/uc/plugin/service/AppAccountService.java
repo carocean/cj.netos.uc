@@ -214,6 +214,15 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
 
     @CjTransaction
     @Override
+    public List<AppAccount> findAccountsInApp(String appid, String _keywords) {
+        String keywords = _keywords + "%";
+        AppAccountExample example = new AppAccountExample();
+        example.createCriteria().andAppIdEqualTo(appid).andAccountIdLike(keywords);
+        return accountMapper.selectByExample(example);
+    }
+
+    @CjTransaction
+    @Override
     public void setAccountEnable(String accountid, boolean enable) throws CircuitException {
         accountMapper.updateAccountEnable(accountid, (byte) (enable ? 1 : 0));
     }

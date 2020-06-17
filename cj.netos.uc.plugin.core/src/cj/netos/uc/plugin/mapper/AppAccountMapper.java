@@ -64,7 +64,7 @@ public interface AppAccountMapper {
 
     void updateAccountEnable(@Param(value = "accountid") String accountid, @Param(value = "enable") byte enable);
 
-    List<AppAccount> pageAccount(@Param(value = "appid") String tenantid, @Param(value = "currPage") long currPage, @Param(value = "pageSize") int pageSize);
+    List<AppAccount> pageAccount(@Param(value = "appid") String appid, @Param(value = "currPage") long currPage, @Param(value = "pageSize") int pageSize);
 
     void updatePwd(@Param(value = "accountid") String accountid, @Param(value = "newpwd") String newpwd);
 
