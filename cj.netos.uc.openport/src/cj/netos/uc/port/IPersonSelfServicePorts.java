@@ -56,6 +56,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     List<Map<String, Object>> listMyAccount(ISecuritySession securitySession,
                                             @CjOpenportParameter(usage = "如果appid为空则按令牌中的应用号获取", name = "appid") String appid) throws CircuitException;
 
+    @CjOpenport(usage = "获取指定用户号下所有的账号")
+    List<Map<String, Object>> listAccountOfPerson(ISecuritySession securitySession,
+                                                  @CjOpenportParameter(usage = "公号", name = "person") String person,
+                                                  @CjOpenportParameter(usage = "如果appid为空则按令牌中的应用号获取", name = "appid") String appid) throws CircuitException;
+
     @CjOpenport(usage = "删除当前访问者账号")
     void removePerson(ISecuritySession securitySession) throws CircuitException;
 

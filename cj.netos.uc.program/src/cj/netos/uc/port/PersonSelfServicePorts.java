@@ -29,11 +29,16 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
 
     @Override
     public List<Map<String, Object>> listMyAccount(ISecuritySession securitySession, String appid) throws CircuitException {
+        return listAccountOfPerson(securitySession, securitySession.principal(), appid);
+    }
+
+    @Override
+    public List<Map<String, Object>> listAccountOfPerson(ISecuritySession securitySession, String person, String appid) throws CircuitException {
         if (StringUtil.isEmpty(appid)) {
             appid = securitySession.principal();
             appid = appid.substring(appid.indexOf("@") + 1);
         }
-        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        AppAccount account = appAccountService.getAccount(person);
         List<AppAccount> list = appService.listMyAccount(account.getUserId(), appid);
         List<Map<String, Object>> ret = new ArrayList<>();
         for (AppAccount a : list) {
@@ -316,7 +321,7 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
         }
         String principal = securitySession.principal();
         String appid = principal.substring(principal.indexOf("@") + 1, principal.length());
-        List<AppAccount> accounts = this.appAccountService.findAccountsInApp(appid,keywords);
+        List<AppAccount> accounts = this.appAccountService.findAccountsInApp(appid, keywords);
         List<PersonInfo> personInfos = new ArrayList<>();
         for (AppAccount account : accounts) {
             UcUser user = ucUserService.getUserById(account.getUserId());
