@@ -201,8 +201,11 @@ public class AuthPort implements IAuthPort {
         if (appAccessToken == null) {
             throw new CircuitException("1012", "验证失败，原因：令牌无效");
         }
+        String person = appAccessToken.getPerson();
+        AppAccount appAccount = appAccountService.getAccount(person);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("person", appAccessToken.getPerson());
+        map.put("person", person);
+        map.put("nickName", appAccount != null ? appAccount.getNickName() : null);
         map.put("device", appAccessToken.getDevice());
         map.put("portal", app.getPortal());
         map.put("pubTime", appAccessToken.getPubTime());
