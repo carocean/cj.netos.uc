@@ -4,10 +4,12 @@ import cj.netos.uc.model.AppInfo;
 import cj.netos.uc.model.DomainValue;
 import cj.netos.uc.model.PersonInfo;
 import cj.studio.ecm.net.CircuitException;
+import cj.studio.openport.AccessTokenIn;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
+import cj.studio.openport.annotations.CjOpenportAppSecurity;
 import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
@@ -51,6 +53,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "查看任何人的公开信息")
     PersonInfo findPerson(ISecuritySession securitySession,
                           @CjOpenportParameter(name = "person", usage = "公号") String person) throws CircuitException;
+
+    @CjOpenportAppSecurity
+    @CjOpenport(usage = "查看任何人的公开信息在安全模式下", tokenIn = AccessTokenIn.nope)
+    PersonInfo findPersonOnSecurity(ISecuritySession securitySession,
+                                    @CjOpenportParameter(name = "person", usage = "公号") String person) throws CircuitException;
 
     @CjOpenport(usage = "获取当前用户号下所有的账号")
     List<Map<String, Object>> listMyAccount(ISecuritySession securitySession,
