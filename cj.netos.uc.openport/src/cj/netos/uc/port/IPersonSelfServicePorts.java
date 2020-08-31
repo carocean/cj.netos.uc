@@ -136,6 +136,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
                                              @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
 
     @CjOpenport(usage = "列表用户信息扩展域的值")
+    List<DomainValue> listDomainValueOfPerson(ISecuritySession securitySession,
+                                              @CjOpenportParameter(name = "person", usage = "公号") String person,
+                                             @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+
+    @CjOpenport(usage = "列表用户信息扩展域的值")
     List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException;
 
     @CjOpenport(usage = "按关键字搜索公众")

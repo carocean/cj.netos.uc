@@ -439,6 +439,12 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
+    public List<DomainValue> listDomainValueOfPerson(ISecuritySession securitySession, String person, String groupId) throws CircuitException {
+        AppAccount account = appAccountService.getAccount(person);
+        return this.domainService.listDomainValueOfGroup(account.getUserId(), groupId);
+    }
+
+    @Override
     public List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
         return this.domainService.listAllDomainValue(account.getUserId());
