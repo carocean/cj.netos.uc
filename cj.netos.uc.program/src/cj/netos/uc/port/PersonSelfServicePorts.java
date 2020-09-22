@@ -162,6 +162,9 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     @Override
     public PersonInfo getPersonInfo(ISecuritySession securitySession) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
+        if (account == null) {
+            return null;
+        }
         UcUser user = ucUserService.getUserById(account.getUserId());
         PersonInfo info = new PersonInfo(account.getAccountCode(), account.getAppId());
         info.setSignature(account.getSignature());
@@ -203,6 +206,9 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     @Override
     public PersonInfo findPersonOnSecurity(ISecuritySession securitySession, String person) throws CircuitException {
         AppAccount account = appAccountService.getAccount(person);
+        if (account == null) {
+            return null;
+        }
         UcUser user = ucUserService.getUserById(account.getUserId());
         PersonInfo info = new PersonInfo(account.getAccountCode(), account.getAppId());
         info.setSignature(account.getSignature());
@@ -244,6 +250,9 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     @Override
     public PersonInfo findPerson(ISecuritySession securitySession, String person) throws CircuitException {
         AppAccount account = appAccountService.getAccount(person);
+        if (account == null) {
+            return null;
+        }
         UcUser user = ucUserService.getUserById(account.getUserId());
         PersonInfo info = new PersonInfo(account.getAccountCode(), account.getAppId());
         info.setSignature(account.getSignature());
