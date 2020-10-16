@@ -55,6 +55,12 @@ public interface IPersonSelfServicePorts extends IOpenportService {
                           @CjOpenportParameter(name = "person", usage = "公号") String person) throws CircuitException;
 
     @CjOpenportAppSecurity
+    @CjOpenport(usage = "判断账号是否存在", tokenIn = AccessTokenIn.nope)
+    boolean existsAccount(
+            @CjOpenportParameter(name = "appid", usage = "应用标识") String appid,
+            @CjOpenportParameter(name = "accountCode", usage = "账号编码") String accountCode) throws CircuitException;
+
+    @CjOpenportAppSecurity
     @CjOpenport(usage = "查看任何人的公开信息在安全模式下", tokenIn = AccessTokenIn.nope)
     PersonInfo findPersonOnSecurity(ISecuritySession securitySession,
                                     @CjOpenportParameter(name = "person", usage = "公号") String person) throws CircuitException;
@@ -138,7 +144,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "列表用户信息扩展域的值")
     List<DomainValue> listDomainValueOfPerson(ISecuritySession securitySession,
                                               @CjOpenportParameter(name = "person", usage = "公号") String person,
-                                             @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
+                                              @CjOpenportParameter(name = "groupId", usage = "组标识") String groupId) throws CircuitException;
 
     @CjOpenport(usage = "列表用户信息扩展域的值")
     List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException;

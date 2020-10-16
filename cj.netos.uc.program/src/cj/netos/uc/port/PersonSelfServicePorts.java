@@ -292,6 +292,11 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
+    public boolean existsAccount(String appid, String accountCode) throws CircuitException {
+        return appAccountService.existsAccount(appid,accountCode);
+    }
+
+    @Override
     public AppInfo getAppInfo(ISecuritySession securitySession) throws CircuitException {
         String principal = securitySession.principal();
         String appid = principal.substring(principal.indexOf("@") + 1, principal.length());
