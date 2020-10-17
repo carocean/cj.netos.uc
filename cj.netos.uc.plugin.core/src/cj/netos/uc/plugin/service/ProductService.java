@@ -13,7 +13,9 @@ import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
 import cj.ultimate.util.StringUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CjBridge(aspects = "@transaction")
 @CjService(name = "productService")
@@ -97,5 +99,47 @@ public class ProductService implements IProductService {
                 appPrefix
         );
         return url;
+    }
+
+    @CjTransaction
+    @Override
+    public Map<String, String> getNewestVersionDownloadUrls(String product) {
+        ProductInfo info = getProduct(product);
+        if (info == null || StringUtil.isEmpty(info.getCurrentVersion())) {
+            return null;
+        }
+        ProductVersionExample example = new ProductVersionExample();
+        example.createCriteria().andProductEqualTo(product).andVersionEqualTo(info.getCurrentVersion());
+        List<ProductVersion> versions = productVersionMapper.selectByExample(example);
+        Map<String, String> map = new HashMap<>();
+        String root = info.getRootPath();
+        if (!root.endsWith("/")) {
+            root = root + "/";
+        }
+        for (ProductVersion version : versions) {
+            //例：http://www.nodespower.com/product/downloads/microgeo/android/1.0.0/microgeo-1.0.0.apk
+            String appPrefix = "";
+            switch (version.getOs()) {
+                case "android":
+                    appPrefix = "apk";
+                    break;
+                case "ios":
+                    appPrefix = "ipa";
+                    break;
+                default:
+                    break;
+            }
+            String url = String.format("%s%s/%s/%s/%s-%s.%s",
+                    root,
+                    info.getId(),
+                    version.getOs(),
+                    version.getVersion(),
+                    info.getId(),
+                    version.getVersion(),
+                    appPrefix
+            );
+            map.put(version.getOs(), url);
+        }
+        return map;
     }
 }

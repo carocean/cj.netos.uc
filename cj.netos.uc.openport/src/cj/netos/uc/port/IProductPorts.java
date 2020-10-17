@@ -11,6 +11,7 @@ import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
 import java.util.List;
+import java.util.Map;
 
 @CjOpenports(usage = "产品配置中心")
 public interface IProductPorts extends IOpenportService {
@@ -27,10 +28,15 @@ public interface IProductPorts extends IOpenportService {
                            @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空",tokenIn = AccessTokenIn.nope )
+    @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空", tokenIn = AccessTokenIn.nope)
     String getNewestVersionDownloadUrl(ISecuritySession securitySession,
                                        @CjOpenportParameter(name = "product", usage = "产品标识") String product,
                                        @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "获取产品最新版本下载地址", tokenIn = AccessTokenIn.nope)
+    Map<String, String> getNewestVersionDownloadUrls(ISecuritySession securitySession,
+                                                     @CjOpenportParameter(name = "product", usage = "产品标识") String product
     ) throws CircuitException;
 
     @CjOpenport(usage = "分页产品")

@@ -4,6 +4,7 @@ import cj.netos.uc.model.ProductInfo;
 import cj.netos.uc.model.ProductVersion;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IProductService {
     void addProduct(ProductInfo info);
@@ -19,5 +20,7 @@ public interface IProductService {
     List<ProductVersion> pageVersion(String product,long limit, long offset);
 
     String getNewestVersionDownloadUrl(String product, String os);
+
+    Map<String, String> getNewestVersionDownloadUrls(String product);
 
 }

@@ -11,6 +11,7 @@ import cj.ultimate.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CjService(name = "/product.ports")
 public class ProductPorts implements IProductPorts {
@@ -63,6 +64,10 @@ public class ProductPorts implements IProductPorts {
         return productService.getNewestVersionDownloadUrl(product, os);
     }
 
+    @Override
+    public Map<String, String> getNewestVersionDownloadUrls(ISecuritySession securitySession, String product) throws CircuitException {
+        return productService.getNewestVersionDownloadUrls(product);
+    }
 
     @Override
     public void publishVersion(ISecuritySession securitySession, String product, String os, String version, int type, String readmeFile, String note) throws CircuitException {
