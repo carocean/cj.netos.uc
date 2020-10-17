@@ -9,7 +9,7 @@
           <option name="driverClass" value="" />
           <option name="driverLibrary" value="" />
           <option name="driverType" value="MySQL" />
-          <option name="host" value="47.104.128.137" />
+          <option name="host" value="120.27.15.205" />
           <option name="id" value="9daf2c4228bf4b57a52d594bf54d482d" />
           <option name="name" value="netos.uc" />
           <option name="port" value="3306" />
@@ -185,6 +185,26 @@
               <option name="domainName" value="PhoneVerifycode" />
               <option name="tableComment" value="" />
               <option name="tableName" value="phone_verifycode" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#product_info">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="ProductInfo" />
+              <option name="tableComment" value="产品信息&#10;用于描述公司物理app的版本下载路径等信息" />
+              <option name="tableName" value="product_info" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.uc#product_version">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="ProductVersion" />
+              <option name="tableComment" value="产品版本" />
+              <option name="tableName" value="product_version" />
             </TableInfo>
           </value>
         </entry>
