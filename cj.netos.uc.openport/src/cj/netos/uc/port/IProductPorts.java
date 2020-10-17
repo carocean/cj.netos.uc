@@ -3,6 +3,7 @@ package cj.netos.uc.port;
 import cj.netos.uc.model.ProductInfo;
 import cj.netos.uc.model.ProductVersion;
 import cj.studio.ecm.net.CircuitException;
+import cj.studio.openport.AccessTokenIn;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
@@ -26,7 +27,7 @@ public interface IProductPorts extends IOpenportService {
                            @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空")
+    @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空",tokenIn = AccessTokenIn.nope )
     String getNewestVersionDownloadUrl(ISecuritySession securitySession,
                                        @CjOpenportParameter(name = "product", usage = "产品标识") String product,
                                        @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os
