@@ -2,6 +2,7 @@ package cj.netos.uc.plugin.service;
 
 import cj.netos.uc.model.ProductInfo;
 import cj.netos.uc.model.ProductVersion;
+import cj.netos.uc.model.ProductVersionExample;
 import cj.netos.uc.plugin.mapper.PhoneVerifycodeMapper;
 import cj.netos.uc.plugin.mapper.ProductInfoMapper;
 import cj.netos.uc.plugin.mapper.ProductVersionMapper;
@@ -10,6 +11,7 @@ import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
+import cj.ultimate.util.StringUtil;
 
 import java.util.List;
 
@@ -48,13 +50,52 @@ public class ProductService implements IProductService {
 
     @CjTransaction
     @Override
-    public ProductVersion getVersion(String product, String version) {
-        return productVersionMapper.selectByPrimaryKey(product, version);
+    public ProductVersion getVersion(String product, String os, String version) {
+        return productVersionMapper.selectByPrimaryKey(product, os, version);
     }
 
     @CjTransaction
     @Override
     public List<ProductVersion> pageVersion(String product, long limit, long offset) {
         return productVersionMapper.page(product, limit, offset);
+    }
+
+    @CjTransaction
+    @Override
+    public String getNewestVersionDownloadUrl(String product, String os) {
+        ProductInfo info = getProduct(product);
+        if (info == null || StringUtil.isEmpty(info.getCurrentVersion())) {
+            return null;
+        }
+        ProductVersion version = getVersion(product, os, info.getCurrentVersion());
+        if (version == null) {
+            return null;
+        }
+        String root = info.getRootPath();
+        if (!root.endsWith("/")) {
+            root = root + "/";
+        }
+        //例：http://www.nodespower.com/product/downloads/microgeo/android/1.0.0/microgeo-1.0.0.apk
+        String appPrefix = "";
+        switch (os) {
+            case "android":
+                appPrefix = "apk";
+                break;
+            case "ios":
+                appPrefix = "ipa";
+                break;
+            default:
+                break;
+        }
+        String url = String.format("%s%s/%s/%s/%s-%s.%s",
+                root,
+                info.getId(),
+                version.getOs(),
+                version.getVersion(),
+                info.getId(),
+                version.getVersion(),
+                appPrefix
+        );
+        return url;
     }
 }

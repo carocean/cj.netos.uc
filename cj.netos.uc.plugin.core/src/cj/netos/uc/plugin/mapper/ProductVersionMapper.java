@@ -20,7 +20,7 @@ public interface ProductVersionMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int deleteByPrimaryKey(@Param("product") String product, @Param("version") String version);
+    int deleteByPrimaryKey(@Param("product") String product, @Param("os") String os, @Param("version") String version);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -40,7 +40,7 @@ public interface ProductVersionMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    ProductVersion selectByPrimaryKey(@Param("product") String product, @Param("version") String version);
+    ProductVersion selectByPrimaryKey(@Param("product") String product, @Param("os") String os, @Param("version") String version);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -62,6 +62,5 @@ public interface ProductVersionMapper {
      */
     int updateByPrimaryKey(ProductVersion record);
 
-    List<ProductVersion> page(@Param(value = "product")String product, @Param(value = "limit") long limit, @Param(value = "offset") long offset);
-
+    List<ProductVersion> page(@Param(value = "product") String product, @Param(value = "limit") long limit, @Param(value = "offset") long offset);
 }

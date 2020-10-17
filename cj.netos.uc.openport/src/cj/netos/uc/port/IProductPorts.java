@@ -26,6 +26,12 @@ public interface IProductPorts extends IOpenportService {
                            @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
+    @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空")
+    String getNewestVersionDownloadUrl(ISecuritySession securitySession,
+                                       @CjOpenportParameter(name = "product", usage = "产品标识") String product,
+                                       @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os
+    ) throws CircuitException;
+
     @CjOpenport(usage = "分页产品")
     List<ProductInfo> pageProduct(ISecuritySession securitySession,
                                   @CjOpenportParameter(name = "limit", usage = "页大小") long limit,
@@ -35,6 +41,7 @@ public interface IProductPorts extends IOpenportService {
     @CjOpenport(usage = "发布产品")
     void publishVersion(ISecuritySession securitySession,
                         @CjOpenportParameter(name = "product", usage = "产品标识") String product,
+                        @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
                         @CjOpenportParameter(name = "version", usage = "版本号") String version,
                         @CjOpenportParameter(name = "type", usage = "0调试版；1正式版") int type,
                         @CjOpenportParameter(name = "readmeFile", usage = "版本说明文件") String readmeFile,
@@ -44,6 +51,7 @@ public interface IProductPorts extends IOpenportService {
     @CjOpenport(usage = "获取版本号")
     ProductVersion getVersion(ISecuritySession securitySession,
                               @CjOpenportParameter(name = "product", usage = "产品标识") String product,
+                              @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
                               @CjOpenportParameter(name = "version", usage = "版本号") String version
     ) throws CircuitException;
 

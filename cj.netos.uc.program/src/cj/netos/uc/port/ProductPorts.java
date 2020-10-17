@@ -59,10 +59,19 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public void publishVersion(ISecuritySession securitySession, String product, String version, int type, String readmeFile, String note) throws CircuitException {
+    public String getNewestVersionDownloadUrl(ISecuritySession securitySession, String product, String os) throws CircuitException {
+        return productService.getNewestVersionDownloadUrl(product, os);
+    }
+
+
+    @Override
+    public void publishVersion(ISecuritySession securitySession, String product, String os, String version, int type, String readmeFile, String note) throws CircuitException {
         _checkRights(securitySession);
         if (StringUtil.isEmpty(product)) {
             throw new CircuitException("404", "缺少参数:product");
+        }
+        if (StringUtil.isEmpty(os)) {
+            throw new CircuitException("404", "缺少参数:os");
         }
         if (StringUtil.isEmpty(version)) {
             throw new CircuitException("404", "缺少参数:version");
@@ -76,20 +85,24 @@ public class ProductPorts implements IProductPorts {
         productVersion.setProduct(product);
         productVersion.setPubTime(System.currentTimeMillis() + "");
         productVersion.setReadmeFile(readmeFile);
-        productVersion.setType(type);
+        productVersion.setPubType(type);
         productVersion.setVersion(version);
+        productVersion.setOs(os);
         productService.publishVersion(productVersion);
     }
 
     @Override
-    public ProductVersion getVersion(ISecuritySession securitySession, String product, String version) throws CircuitException {
+    public ProductVersion getVersion(ISecuritySession securitySession, String product, String os, String version) throws CircuitException {
         if (StringUtil.isEmpty(product)) {
+            return null;
+        }
+        if (StringUtil.isEmpty(os)) {
             return null;
         }
         if (StringUtil.isEmpty(version)) {
             return null;
         }
-        return productService.getVersion(product, version);
+        return productService.getVersion(product, os, version);
     }
 
     @Override

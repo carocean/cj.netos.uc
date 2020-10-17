@@ -207,6 +207,76 @@ public class ProductVersionExample {
             return (Criteria) this;
         }
 
+        public Criteria andOsIsNull() {
+            addCriterion("os is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsIsNotNull() {
+            addCriterion("os is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsEqualTo(String value) {
+            addCriterion("os =", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsNotEqualTo(String value) {
+            addCriterion("os <>", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsGreaterThan(String value) {
+            addCriterion("os >", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsGreaterThanOrEqualTo(String value) {
+            addCriterion("os >=", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsLessThan(String value) {
+            addCriterion("os <", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsLessThanOrEqualTo(String value) {
+            addCriterion("os <=", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsLike(String value) {
+            addCriterion("os like", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsNotLike(String value) {
+            addCriterion("os not like", value, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsIn(List<String> values) {
+            addCriterion("os in", values, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsNotIn(List<String> values) {
+            addCriterion("os not in", values, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsBetween(String value1, String value2) {
+            addCriterion("os between", value1, value2, "os");
+            return (Criteria) this;
+        }
+
+        public Criteria andOsNotBetween(String value1, String value2) {
+            addCriterion("os not between", value1, value2, "os");
+            return (Criteria) this;
+        }
+
         public Criteria andVersionIsNull() {
             addCriterion("version is null");
             return (Criteria) this;
@@ -417,6 +487,66 @@ public class ProductVersionExample {
             return (Criteria) this;
         }
 
+        public Criteria andPubTypeIsNull() {
+            addCriterion("pub_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeIsNotNull() {
+            addCriterion("pub_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeEqualTo(Integer value) {
+            addCriterion("pub_type =", value, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeNotEqualTo(Integer value) {
+            addCriterion("pub_type <>", value, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeGreaterThan(Integer value) {
+            addCriterion("pub_type >", value, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pub_type >=", value, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeLessThan(Integer value) {
+            addCriterion("pub_type <", value, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("pub_type <=", value, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeIn(List<Integer> values) {
+            addCriterion("pub_type in", values, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeNotIn(List<Integer> values) {
+            addCriterion("pub_type not in", values, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeBetween(Integer value1, Integer value2) {
+            addCriterion("pub_type between", value1, value2, "pubType");
+            return (Criteria) this;
+        }
+
+        public Criteria andPubTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("pub_type not between", value1, value2, "pubType");
+            return (Criteria) this;
+        }
+
         public Criteria andNoteIsNull() {
             addCriterion("note is null");
             return (Criteria) this;
@@ -484,66 +614,6 @@ public class ProductVersionExample {
 
         public Criteria andNoteNotBetween(String value1, String value2) {
             addCriterion("note not between", value1, value2, "note");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeIsNull() {
-            addCriterion("`type` is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeIsNotNull() {
-            addCriterion("`type` is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeEqualTo(Integer value) {
-            addCriterion("`type` =", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeNotEqualTo(Integer value) {
-            addCriterion("`type` <>", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeGreaterThan(Integer value) {
-            addCriterion("`type` >", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("`type` >=", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeLessThan(Integer value) {
-            addCriterion("`type` <", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("`type` <=", value, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeIn(List<Integer> values) {
-            addCriterion("`type` in", values, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeNotIn(List<Integer> values) {
-            addCriterion("`type` not in", values, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeBetween(Integer value1, Integer value2) {
-            addCriterion("`type` between", value1, value2, "type");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("`type` not between", value1, value2, "type");
             return (Criteria) this;
         }
     }

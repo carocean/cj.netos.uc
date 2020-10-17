@@ -64,6 +64,5 @@ public interface ProductInfoMapper {
 
     List<ProductInfo> page(@Param(value = "limit") long limit, @Param(value = "offset") long offset);
 
-    void updateCurrentVersion(@Param(value = "id") String id,@Param(value = "currentVersion") String currentVersion);
-
+    void updateCurrentVersion(@Param(value = "id") String id, @Param(value = "currentVersion") String currentVersion);
 }

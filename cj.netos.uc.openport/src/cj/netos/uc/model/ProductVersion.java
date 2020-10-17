@@ -11,6 +11,12 @@ public class ProductVersion {
     private String product;
 
     /**
+     * Column: os
+     * Remark: 系统 android ios
+     */
+    private String os;
+
+    /**
      * Column: version
      * Remark: 版本号
      */
@@ -29,16 +35,16 @@ public class ProductVersion {
     private String pubTime;
 
     /**
+     * Column: pub_type
+     * Remark: 发布类型 0测试版 1发布版
+     */
+    private Integer pubType;
+
+    /**
      * Column: note
      * Remark: 备注
      */
     private String note;
-
-    /**
-     * Column: type
-     * Remark: 0测试版 1发布版
-     */
-    private Integer type;
 
     public String getProduct() {
         return product;
@@ -46,6 +52,14 @@ public class ProductVersion {
 
     public void setProduct(String product) {
         this.product = product == null ? null : product.trim();
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os == null ? null : os.trim();
     }
 
     public String getVersion() {
@@ -72,19 +86,19 @@ public class ProductVersion {
         this.pubTime = pubTime == null ? null : pubTime.trim();
     }
 
+    public Integer getPubType() {
+        return pubType;
+    }
+
+    public void setPubType(Integer pubType) {
+        this.pubType = pubType;
+    }
+
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 }

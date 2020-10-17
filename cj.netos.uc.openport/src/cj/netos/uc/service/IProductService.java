@@ -14,8 +14,10 @@ public interface IProductService {
 
     void publishVersion(ProductVersion productVersion);
 
-    ProductVersion getVersion(String product, String version);
+    ProductVersion getVersion(String product,String os, String version);
 
     List<ProductVersion> pageVersion(String product,long limit, long offset);
+
+    String getNewestVersionDownloadUrl(String product, String os);
 
 }
