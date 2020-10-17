@@ -51,5 +51,7 @@
         <mapper resource="cj/db/mappings/DomainFieldMapper.xml"/>
         <mapper resource="cj/db/mappings/DomainGroupMapper.xml"/>
         <mapper resource="cj/db/mappings/DomainValueMapper.xml"/>
+        <mapper resource="cj/db/mappings/ProductInfoMapper.xml"/>
+        <mapper resource="cj/db/mappings/ProductVersionMapper.xml"/>
     </mappers>
 </configuration>
