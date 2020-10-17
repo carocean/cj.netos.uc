@@ -43,6 +43,7 @@ public class ProductService implements IProductService {
     @Override
     public void publishVersion(ProductVersion productVersion) {
         productVersionMapper.insert(productVersion);
+        productInfoMapper.updateCurrentVersion(productVersion.getProduct(), productVersion.getVersion());
     }
 
     @CjTransaction
@@ -53,7 +54,7 @@ public class ProductService implements IProductService {
 
     @CjTransaction
     @Override
-    public List<ProductVersion> pageVersion(String product,long limit, long offset) {
-        return productVersionMapper.page(product,limit,offset);
+    public List<ProductVersion> pageVersion(String product, long limit, long offset) {
+        return productVersionMapper.page(product, limit, offset);
     }
 }

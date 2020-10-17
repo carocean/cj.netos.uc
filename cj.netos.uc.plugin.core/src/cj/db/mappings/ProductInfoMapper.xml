@@ -247,4 +247,10 @@
     order by ctime desc
     limit #{offset},#{limit}
   </select>
+  <update id="updateCurrentVersion" parameterType="cj.netos.uc.model.ProductInfo">
+    update product_info
+    set
+    current_version = #{currentVersion,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>
