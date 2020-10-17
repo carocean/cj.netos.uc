@@ -67,6 +67,10 @@ public class ProductPorts implements IProductPorts {
         if (StringUtil.isEmpty(version)) {
             throw new CircuitException("404", "缺少参数:version");
         }
+        ProductInfo info = productService.getProduct(product);
+        if (info == null) {
+            throw new CircuitException("404", "没有产品:" + product);
+        }
         ProductVersion productVersion = new ProductVersion();
         productVersion.setNote(note);
         productVersion.setProduct(product);
@@ -89,10 +93,10 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public List<ProductVersion> pageVersion(ISecuritySession securitySession, String product,long limit, long offset) throws CircuitException {
+    public List<ProductVersion> pageVersion(ISecuritySession securitySession, String product, long limit, long offset) throws CircuitException {
         if (StringUtil.isEmpty(product)) {
             return new ArrayList<>();
         }
-        return productService.pageVersion(product,limit,offset);
+        return productService.pageVersion(product, limit, offset);
     }
 }
