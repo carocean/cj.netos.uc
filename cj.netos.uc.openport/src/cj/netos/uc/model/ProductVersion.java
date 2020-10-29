@@ -41,6 +41,12 @@ public class ProductVersion {
     private Integer pubType;
 
     /**
+     * Column: force_upgrade
+     * Remark: 是否强制升级 0为非 1为强制
+     */
+    private Integer forceUpgrade;
+
+    /**
      * Column: note
      * Remark: 备注
      */
@@ -92,6 +98,14 @@ public class ProductVersion {
 
     public void setPubType(Integer pubType) {
         this.pubType = pubType;
+    }
+
+    public Integer getForceUpgrade() {
+        return forceUpgrade;
+    }
+
+    public void setForceUpgrade(Integer forceUpgrade) {
+        this.forceUpgrade = forceUpgrade;
     }
 
     public String getNote() {

@@ -547,6 +547,66 @@ public class ProductVersionExample {
             return (Criteria) this;
         }
 
+        public Criteria andForceUpgradeIsNull() {
+            addCriterion("force_upgrade is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeIsNotNull() {
+            addCriterion("force_upgrade is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeEqualTo(Integer value) {
+            addCriterion("force_upgrade =", value, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeNotEqualTo(Integer value) {
+            addCriterion("force_upgrade <>", value, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeGreaterThan(Integer value) {
+            addCriterion("force_upgrade >", value, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("force_upgrade >=", value, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeLessThan(Integer value) {
+            addCriterion("force_upgrade <", value, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeLessThanOrEqualTo(Integer value) {
+            addCriterion("force_upgrade <=", value, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeIn(List<Integer> values) {
+            addCriterion("force_upgrade in", values, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeNotIn(List<Integer> values) {
+            addCriterion("force_upgrade not in", values, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeBetween(Integer value1, Integer value2) {
+            addCriterion("force_upgrade between", value1, value2, "forceUpgrade");
+            return (Criteria) this;
+        }
+
+        public Criteria andForceUpgradeNotBetween(Integer value1, Integer value2) {
+            addCriterion("force_upgrade not between", value1, value2, "forceUpgrade");
+            return (Criteria) this;
+        }
+
         public Criteria andNoteIsNull() {
             addCriterion("note is null");
             return (Criteria) this;

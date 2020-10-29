@@ -85,7 +85,7 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public void publishVersion(ISecuritySession securitySession, String product, String os, String version, int type, String readmeFile, String note) throws CircuitException {
+    public void publishVersion(ISecuritySession securitySession, String product, String os, String version, int type, int forceUpgrade, String readmeFile, String note) throws CircuitException {
         _checkRights(securitySession);
         if (StringUtil.isEmpty(product)) {
             throw new CircuitException("404", "缺少参数:product");
@@ -108,6 +108,7 @@ public class ProductPorts implements IProductPorts {
         productVersion.setPubType(type);
         productVersion.setVersion(version);
         productVersion.setOs(os);
+        productVersion.setForceUpgrade(forceUpgrade);
         productService.publishVersion(productVersion);
     }
 

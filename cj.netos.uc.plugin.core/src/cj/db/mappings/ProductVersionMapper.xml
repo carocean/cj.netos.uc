@@ -9,6 +9,7 @@
     <result column="readme_file" jdbcType="VARCHAR" property="readmeFile" />
     <result column="pub_time" jdbcType="VARCHAR" property="pubTime" />
     <result column="pub_type" jdbcType="INTEGER" property="pubType" />
+    <result column="force_upgrade" jdbcType="INTEGER" property="forceUpgrade" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    product, os, version, readme_file, pub_time, pub_type, note
+    product, os, version, readme_file, pub_time, pub_type, force_upgrade, note
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.ProductVersionExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -117,10 +118,10 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into product_version (product, os, version, 
       readme_file, pub_time, pub_type, 
-      note)
+      force_upgrade, note)
     values (#{product,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
       #{readmeFile,jdbcType=VARCHAR}, #{pubTime,jdbcType=VARCHAR}, #{pubType,jdbcType=INTEGER}, 
-      #{note,jdbcType=VARCHAR})
+      #{forceUpgrade,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.ProductVersion">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -144,6 +145,9 @@
       <if test="pubType != null">
         pub_type,
       </if>
+      <if test="forceUpgrade != null">
+        force_upgrade,
+      </if>
       <if test="note != null">
         note,
       </if>
@@ -166,6 +170,9 @@
       </if>
       <if test="pubType != null">
         #{pubType,jdbcType=INTEGER},
+      </if>
+      <if test="forceUpgrade != null">
+        #{forceUpgrade,jdbcType=INTEGER},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
@@ -201,6 +208,9 @@
       <if test="record.pubType != null">
         pub_type = #{record.pubType,jdbcType=INTEGER},
       </if>
+      <if test="record.forceUpgrade != null">
+        force_upgrade = #{record.forceUpgrade,jdbcType=INTEGER},
+      </if>
       <if test="record.note != null">
         note = #{record.note,jdbcType=VARCHAR},
       </if>
@@ -218,6 +228,7 @@
       readme_file = #{record.readmeFile,jdbcType=VARCHAR},
       pub_time = #{record.pubTime,jdbcType=VARCHAR},
       pub_type = #{record.pubType,jdbcType=INTEGER},
+      force_upgrade = #{record.forceUpgrade,jdbcType=INTEGER},
       note = #{record.note,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,6 +247,9 @@
       <if test="pubType != null">
         pub_type = #{pubType,jdbcType=INTEGER},
       </if>
+      <if test="forceUpgrade != null">
+        force_upgrade = #{forceUpgrade,jdbcType=INTEGER},
+      </if>
       <if test="note != null">
         note = #{note,jdbcType=VARCHAR},
       </if>
@@ -250,6 +264,7 @@
     set readme_file = #{readmeFile,jdbcType=VARCHAR},
       pub_time = #{pubTime,jdbcType=VARCHAR},
       pub_type = #{pubType,jdbcType=INTEGER},
+      force_upgrade = #{forceUpgrade,jdbcType=INTEGER},
       note = #{note,jdbcType=VARCHAR}
     where product = #{product,jdbcType=VARCHAR}
       and os = #{os,jdbcType=VARCHAR}

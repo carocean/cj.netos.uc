@@ -56,6 +56,7 @@ public interface IProductPorts extends IOpenportService {
                         @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
                         @CjOpenportParameter(name = "version", usage = "版本号") String version,
                         @CjOpenportParameter(name = "type", usage = "0调试版；1正式版") int type,
+                        @CjOpenportParameter(name = "forceUpgrade", usage = "是否强制升级：0不强制；1强制") int forceUpgrade,
                         @CjOpenportParameter(name = "readmeFile", usage = "版本说明文件") String readmeFile,
                         @CjOpenportParameter(name = "note", usage = "备注") String note
     ) throws CircuitException;

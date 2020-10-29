@@ -24,7 +24,7 @@ public class ProductInfo {
 
     /**
      * Column: current_version
-     * Remark: 当前版本
+     * Remark: 当前版本 如:  {"android":"1.0.0","ios":"1.0.2"}
      */
     private String currentVersion;
 
