@@ -28,7 +28,7 @@ public interface IProductPorts extends IOpenportService {
                            @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取产品")
+    @CjOpenport(usage = "获取产品", tokenIn = AccessTokenIn.nope)
     Map<String,String> getNewestVersion(ISecuritySession securitySession,
                            @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
