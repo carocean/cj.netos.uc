@@ -28,6 +28,11 @@ public interface IProductPorts extends IOpenportService {
                            @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
+    @CjOpenport(usage = "获取产品")
+    Map<String,String> getNewestVersion(ISecuritySession securitySession,
+                           @CjOpenportParameter(name = "id", usage = "产品标识") String id
+    ) throws CircuitException;
+
     @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空", tokenIn = AccessTokenIn.nope)
     String getNewestVersionDownloadUrl(ISecuritySession securitySession,
                                        @CjOpenportParameter(name = "product", usage = "产品标识") String product,

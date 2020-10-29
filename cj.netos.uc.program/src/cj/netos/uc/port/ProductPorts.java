@@ -7,9 +7,12 @@ import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
+import cj.ultimate.gson2.com.google.gson.Gson;
+import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
 import cj.ultimate.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +55,18 @@ public class ProductPorts implements IProductPorts {
             return null;
         }
         return productService.getProduct(id);
+    }
+
+    @Override
+    public Map<String, String> getNewestVersion(ISecuritySession securitySession, String id) throws CircuitException {
+        Map<String, String> map = new HashMap<>();
+        ProductInfo info = productService.getProduct(id);
+        if (info == null || info.getCurrentVersion() == null) {
+            return map;
+        }
+        map = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
+        }.getType());
+        return map;
     }
 
     @Override
