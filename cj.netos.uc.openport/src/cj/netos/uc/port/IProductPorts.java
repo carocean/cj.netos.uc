@@ -61,7 +61,7 @@ public interface IProductPorts extends IOpenportService {
                         @CjOpenportParameter(name = "note", usage = "功能清单，每一行以;号隔开") String note
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取版本号")
+    @CjOpenport(usage = "获取版本号",tokenIn = AccessTokenIn.nope)
     ProductVersion getVersion(ISecuritySession securitySession,
                               @CjOpenportParameter(name = "product", usage = "产品标识") String product,
                               @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
