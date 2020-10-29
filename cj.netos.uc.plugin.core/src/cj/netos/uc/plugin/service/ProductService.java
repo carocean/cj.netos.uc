@@ -3,7 +3,6 @@ package cj.netos.uc.plugin.service;
 import cj.netos.uc.model.ProductInfo;
 import cj.netos.uc.model.ProductVersion;
 import cj.netos.uc.model.ProductVersionExample;
-import cj.netos.uc.plugin.mapper.PhoneVerifycodeMapper;
 import cj.netos.uc.plugin.mapper.ProductInfoMapper;
 import cj.netos.uc.plugin.mapper.ProductVersionMapper;
 import cj.netos.uc.service.IProductService;
@@ -11,8 +10,11 @@ import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.orm.mybatis.annotation.CjTransaction;
+import cj.ultimate.gson2.com.google.gson.Gson;
+import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
 import cj.ultimate.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +49,17 @@ public class ProductService implements IProductService {
     @Override
     public void publishVersion(ProductVersion productVersion) {
         productVersionMapper.insert(productVersion);
-        productInfoMapper.updateCurrentVersion(productVersion.getProduct(), productVersion.getVersion());
+        ProductInfo info = productInfoMapper.selectByPrimaryKey(productVersion.getProduct());
+        String json = info.getCurrentVersion();
+        Map<String, String> map = new HashMap<>();
+        if (!StringUtil.isEmpty(json)) {
+            Map<String, String> kv = new Gson().fromJson(json, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+            map.putAll(kv);
+        }
+        map.put(productVersion.getOs(), productVersion.getVersion());
+        json = new Gson().toJson(map);
+        productInfoMapper.updateCurrentVersion(productVersion.getProduct(), json);
     }
 
     @CjTransaction
@@ -69,17 +81,52 @@ public class ProductService implements IProductService {
         if (info == null || StringUtil.isEmpty(info.getCurrentVersion())) {
             return null;
         }
-        ProductVersion version = getVersion(product, os, info.getCurrentVersion());
+        Map<String, String> versions = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
+        }.getType());
+        String currentVersion = versions.get(os);
+        if (StringUtil.isEmpty(currentVersion)) {
+            return null;
+        }
+        ProductVersion version = getVersion(product, os, currentVersion);
         if (version == null) {
             return null;
         }
+        return _loadUrl(info, version);
+    }
+
+
+    @CjTransaction
+    @Override
+    public Map<String, String> getNewestVersionDownloadUrls(String product) {
+        ProductInfo info = getProduct(product);
+        Map<String, String> map = new HashMap<>();
+        if (info == null || StringUtil.isEmpty(info.getCurrentVersion())) {
+            return map;
+        }
+        Map<String, String> versionMap = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
+        }.getType());
+        for (Map.Entry<String,String> entry:versionMap.entrySet()) {
+            ProductVersionExample example = new ProductVersionExample();
+            example.createCriteria().andProductEqualTo(product).andOsEqualTo(entry.getKey()).andVersionEqualTo(entry.getValue());
+            List<ProductVersion> versions = productVersionMapper.selectByExample(example);
+            if (versions.isEmpty()) {
+                continue;
+            }
+            ProductVersion version=versions.get(0);
+            map.put(version.getOs(), _loadUrl(info, version));
+        }
+        return map;
+    }
+
+
+    private String _loadUrl(ProductInfo info, ProductVersion version) {
         String root = info.getRootPath();
         if (!root.endsWith("/")) {
             root = root + "/";
         }
         //例：http://www.nodespower.com/product/downloads/microgeo/android/1.0.0/microgeo-1.0.0.apk
         String appPrefix = "";
-        switch (os) {
+        switch (version.getOs()) {
             case "android":
                 appPrefix = "apk";
                 break;
@@ -99,47 +146,5 @@ public class ProductService implements IProductService {
                 appPrefix
         );
         return url;
-    }
-
-    @CjTransaction
-    @Override
-    public Map<String, String> getNewestVersionDownloadUrls(String product) {
-        ProductInfo info = getProduct(product);
-        if (info == null || StringUtil.isEmpty(info.getCurrentVersion())) {
-            return null;
-        }
-        ProductVersionExample example = new ProductVersionExample();
-        example.createCriteria().andProductEqualTo(product).andVersionEqualTo(info.getCurrentVersion());
-        List<ProductVersion> versions = productVersionMapper.selectByExample(example);
-        Map<String, String> map = new HashMap<>();
-        String root = info.getRootPath();
-        if (!root.endsWith("/")) {
-            root = root + "/";
-        }
-        for (ProductVersion version : versions) {
-            //例：http://www.nodespower.com/product/downloads/microgeo/android/1.0.0/microgeo-1.0.0.apk
-            String appPrefix = "";
-            switch (version.getOs()) {
-                case "android":
-                    appPrefix = "apk";
-                    break;
-                case "ios":
-                    appPrefix = "ipa";
-                    break;
-                default:
-                    break;
-            }
-            String url = String.format("%s%s/%s/%s/%s-%s.%s",
-                    root,
-                    info.getId(),
-                    version.getOs(),
-                    version.getVersion(),
-                    info.getId(),
-                    version.getVersion(),
-                    appPrefix
-            );
-            map.put(version.getOs(), url);
-        }
-        return map;
     }
 }
