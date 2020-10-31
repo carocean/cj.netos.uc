@@ -37,7 +37,6 @@ public class UcCheckAccessTokenStrategy implements ICheckAccessTokenStrategy {
             securitySession.addRole(r);
         }
         securitySession.property("device", appAccessToken.getDevice());
-        securitySession.property("appid",_securitySession.principal());
         return securitySession;
     }
 }

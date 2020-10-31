@@ -248,8 +248,8 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
-    public boolean existsPerson(ISecuritySession securitySession, String accountCode) throws CircuitException {
-        return appAccountService.existsAccount((String) securitySession.property("appid"), accountCode);
+    public boolean existsPerson(ISecuritySession securitySession, String appid,String accountCode) throws CircuitException {
+        return appAccountService.existsAccount(appid, accountCode);
     }
 
     @Override
