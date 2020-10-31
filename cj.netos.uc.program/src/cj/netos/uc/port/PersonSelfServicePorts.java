@@ -248,6 +248,11 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
+    public boolean existsPerson(ISecuritySession securitySession, String accountCode) throws CircuitException {
+        return appAccountService.existsAccount((String) securitySession.property("appid"), accountCode);
+    }
+
+    @Override
     public PersonInfo findPerson(ISecuritySession securitySession, String person) throws CircuitException {
         AppAccount account = appAccountService.getAccount(person);
         if (account == null) {
@@ -293,8 +298,8 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
 
     @Override
     public boolean existsAccount(ISecuritySession securitySession, String accountCode) throws CircuitException {
-        String appid= securitySession.principal();
-        return appAccountService.existsAccount(appid,accountCode);
+        String appid = securitySession.principal();
+        return appAccountService.existsAccount(appid, accountCode);
     }
 
     @Override

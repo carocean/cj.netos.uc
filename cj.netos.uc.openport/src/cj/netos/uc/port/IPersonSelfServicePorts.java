@@ -54,6 +54,10 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     PersonInfo findPerson(ISecuritySession securitySession,
                           @CjOpenportParameter(name = "person", usage = "公号") String person) throws CircuitException;
 
+    @CjOpenport(usage = "判断用户是否存在")
+    boolean existsPerson(ISecuritySession securitySession,
+                          @CjOpenportParameter(name = "accountCode", usage = "账号代码") String accountCode) throws CircuitException;
+
     @CjOpenportAppSecurity
     @CjOpenport(usage = "判断账号是否存在", tokenIn = AccessTokenIn.nope)
     boolean existsAccount(
