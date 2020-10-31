@@ -57,7 +57,7 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     @CjOpenport(usage = "判断用户是否存在")
     boolean existsPerson(ISecuritySession securitySession,
                          @CjOpenportParameter(name = "appid", usage = "应用") String appid,
-                          @CjOpenportParameter(name = "accountCode", usage = "账号代码") String accountCode) throws CircuitException;
+                         @CjOpenportParameter(name = "accountCode", usage = "账号代码") String accountCode) throws CircuitException;
 
     @CjOpenportAppSecurity
     @CjOpenport(usage = "判断账号是否存在", tokenIn = AccessTokenIn.nope)
@@ -165,5 +165,11 @@ public interface IPersonSelfServicePorts extends IOpenportService {
     List<PersonInfo> searchPersonsInMyApp(
             ISecuritySession securitySession,
             @CjOpenportParameter(name = "keywords", usage = "公号/统一号/手机号/邮箱等") String keywords
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "发送短信邀请通知", responseStatus = {"200 OK"})
+    void sendSmsInviteNotify(ISecuritySession securitySession,
+                             @CjOpenportParameter(usage = "码片标识", name = "sliceId") String sliceId,
+                             @CjOpenportParameter(usage = "手机号", name = "phone") String phone
     ) throws CircuitException;
 }

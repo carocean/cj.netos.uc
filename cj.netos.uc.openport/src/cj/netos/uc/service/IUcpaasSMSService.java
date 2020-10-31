@@ -11,4 +11,6 @@ public interface IUcpaasSMSService {
 
     void sendSms(String param, String mobile, String uid) throws CircuitException;
 
+    void sendSmsInviteNotify(String param, String phone, String uid) throws CircuitException;
+
 }

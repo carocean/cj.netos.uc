@@ -26,6 +26,8 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     IUcUserService ucUserService;
     @CjServiceRef(refByName = "ucplugin.domainService")
     IDomainService domainService;
+    @CjServiceRef
+    IUcpaasSMSService ucpaasSMSService;
 
     @Override
     public List<Map<String, Object>> listMyAccount(ISecuritySession securitySession, String appid) throws CircuitException {
@@ -248,7 +250,7 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     }
 
     @Override
-    public boolean existsPerson(ISecuritySession securitySession, String appid,String accountCode) throws CircuitException {
+    public boolean existsPerson(ISecuritySession securitySession, String appid, String accountCode) throws CircuitException {
         return appAccountService.existsAccount(appid, accountCode);
     }
 
@@ -468,5 +470,12 @@ public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     public List<DomainValue> listAllDomainValue(ISecuritySession securitySession) throws CircuitException {
         AppAccount account = appAccountService.getAccount(securitySession.principal());
         return this.domainService.listAllDomainValue(account.getUserId());
+    }
+
+    @Override
+    public void sendSmsInviteNotify(ISecuritySession securitySession, String sliceId, String phone) throws CircuitException {
+        AppAccount account = appAccountService.getAccount(securitySession.principal());
+        String param = String.format("%s,%s", account.getNickName(), sliceId);
+        ucpaasSMSService.sendSmsInviteNotify(param, phone, null);
     }
 }
