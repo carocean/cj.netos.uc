@@ -33,7 +33,7 @@ public class AppManangerSelfServicePorts implements IAppManangerSelfServicePorts
     private String checkRighs(ISecuritySession securitySession) throws CircuitException {
         String principal = securitySession.principal();
         String tenantId = principal.substring(principal.lastIndexOf(".") + 1, principal.length());
-        if (!securitySession.roleIn(String.format("platform:administrators@%s", tenantId)) && !securitySession.roleIn(String.format("tenant:appAdministrators@%s", tenantId)) && !securitySession.roleIn(String.format("tenant:appDevelops@%s", tenantId))) {
+        if (!securitySession.roleIn("platform:administrators") && !securitySession.roleIn(String.format("tenant:appAdministrators@%s", tenantId)) && !securitySession.roleIn(String.format("tenant:appDevelops@%s", tenantId))) {
             throw new CircuitException("801", "无权限。");
         }
         return tenantId;
