@@ -22,6 +22,12 @@ public class ProductMarket {
      */
     private String href;
 
+    /**
+     * Column: state
+     * Remark: 是否启用 0是停用 1为启用
+     */
+    private Integer state;
+
     public String getGrand() {
         return grand;
     }
@@ -44,5 +50,13 @@ public class ProductMarket {
 
     public void setHref(String href) {
         this.href = href == null ? null : href.trim();
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

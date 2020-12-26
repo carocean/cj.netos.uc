@@ -29,7 +29,8 @@ public interface IProductPorts extends IOpenportService {
     void addMarket(ISecuritySession securitySession,
                    @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand,
                    @CjOpenportParameter(name = "title", usage = "手机品牌名") String title,
-                   @CjOpenportParameter(name = "href", usage = "地微应用在市场中的地址") String href
+                   @CjOpenportParameter(name = "href", usage = "地微应用在市场中的地址") String href,
+                   @CjOpenportParameter(name = "state", usage = "是否已上应用市场,0是未上，1为已上") int state
     ) throws CircuitException;
 
     @CjOpenport(usage = "移除支持的应用市场")
@@ -37,8 +38,18 @@ public interface IProductPorts extends IOpenportService {
                       @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取支持的应用市场", tokenIn = AccessTokenIn.nope)
-    List<ProductMarket> listMarket(ISecuritySession securitySession
+    @CjOpenport(usage = "更新应用市场状态")
+    void updateMarketState(ISecuritySession securitySession,
+                      @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand,
+                           @CjOpenportParameter(name = "state", usage = "是否已上应用市场,0是未上，1为已上") int state
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "获取已打开的应用市场", tokenIn = AccessTokenIn.nope)
+    List<ProductMarket> listOpenedMarket(ISecuritySession securitySession
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "获取所有配置的应用市场", tokenIn = AccessTokenIn.nope)
+    List<ProductMarket> listAllMarket(ISecuritySession securitySession
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取产品")

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ProductMarketMapper {
+
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -60,4 +61,7 @@ public interface ProductMarketMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     int updateByPrimaryKey(ProductMarket record);
+
+    void updateState(@Param(value = "brand") String brand,@Param(value = "state") int state);
+
 }

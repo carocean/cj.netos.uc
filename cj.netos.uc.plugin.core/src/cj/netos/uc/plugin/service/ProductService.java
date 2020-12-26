@@ -163,9 +163,23 @@ public class ProductService implements IProductService {
 
     @CjTransaction
     @Override
-    public List<ProductMarket> listMarket() {
+    public List<ProductMarket> listAllMarket() {
         ProductMarketExample example = new ProductMarketExample();
         example.createCriteria();
+        return productMarketMapper.selectByExample(example);
+    }
+
+    @CjTransaction
+    @Override
+    public void updateMarketState(String brand, int state) {
+        productMarketMapper.updateState(brand,state);
+    }
+
+    @CjTransaction
+    @Override
+    public List<ProductMarket> listOpenedMarket() {
+        ProductMarketExample example = new ProductMarketExample();
+        example.createCriteria().andStateEqualTo(1);
         return productMarketMapper.selectByExample(example);
     }
 }
