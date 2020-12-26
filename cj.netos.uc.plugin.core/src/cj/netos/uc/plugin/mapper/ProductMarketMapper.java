@@ -62,6 +62,5 @@ public interface ProductMarketMapper {
      */
     int updateByPrimaryKey(ProductMarket record);
 
-    void updateState(@Param(value = "brand") String brand,@Param(value = "state") int state);
-
+    void updateState(@Param(value = "brand") String brand, @Param(value = "state") int state);
 }

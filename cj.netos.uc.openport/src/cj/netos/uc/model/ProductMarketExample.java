@@ -277,6 +277,76 @@ public class ProductMarketExample {
             return (Criteria) this;
         }
 
+        public Criteria andProductIsNull() {
+            addCriterion("product is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductIsNotNull() {
+            addCriterion("product is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductEqualTo(String value) {
+            addCriterion("product =", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductNotEqualTo(String value) {
+            addCriterion("product <>", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductGreaterThan(String value) {
+            addCriterion("product >", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductGreaterThanOrEqualTo(String value) {
+            addCriterion("product >=", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductLessThan(String value) {
+            addCriterion("product <", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductLessThanOrEqualTo(String value) {
+            addCriterion("product <=", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductLike(String value) {
+            addCriterion("product like", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductNotLike(String value) {
+            addCriterion("product not like", value, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductIn(List<String> values) {
+            addCriterion("product in", values, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductNotIn(List<String> values) {
+            addCriterion("product not in", values, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductBetween(String value1, String value2) {
+            addCriterion("product between", value1, value2, "product");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductNotBetween(String value1, String value2) {
+            addCriterion("product not between", value1, value2, "product");
+            return (Criteria) this;
+        }
+
         public Criteria andHrefIsNull() {
             addCriterion("href is null");
             return (Criteria) this;

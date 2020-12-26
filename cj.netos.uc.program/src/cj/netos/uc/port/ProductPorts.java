@@ -51,7 +51,7 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public void addMarket(ISecuritySession securitySession, String brand, String title, String href,int state) throws CircuitException {
+    public void addMarket(ISecuritySession securitySession, String brand, String title, String product,String href,int state) throws CircuitException {
         _checkRights(securitySession);
         if (StringUtil.isEmpty(brand)) {
             throw new CircuitException("404", "缺少参数:brand");
@@ -62,11 +62,15 @@ public class ProductPorts implements IProductPorts {
         if (StringUtil.isEmpty(href)) {
             throw new CircuitException("404", "缺少参数:href");
         }
+        if (StringUtil.isEmpty(product)) {
+            throw new CircuitException("404", "缺少参数:product");
+        }
         ProductMarket market = new ProductMarket();
         market.setGrand(brand);
         market.setHref(href);
         market.setTitle(title);
         market.setState(state);
+        market.setProduct(product);
         productService.addMarket(market);
     }
 
@@ -77,8 +81,8 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public List<ProductMarket> listAllMarket(ISecuritySession securitySession) throws CircuitException {
-        return productService.listAllMarket();
+    public List<ProductMarket> listAllMarket(ISecuritySession securitySession,String product) throws CircuitException {
+        return productService.listAllMarket(product);
     }
 
     @Override
@@ -88,8 +92,8 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public List<ProductMarket> listOpenedMarket(ISecuritySession securitySession) throws CircuitException {
-        return productService.listOpenedMarket();
+    public List<ProductMarket> listOpenedMarket(ISecuritySession securitySession,String product) throws CircuitException {
+        return productService.listOpenedMarket(product);
     }
 
     @Override

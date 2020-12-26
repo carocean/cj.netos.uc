@@ -13,7 +13,6 @@ import cj.ultimate.gson2.com.google.gson.Gson;
 import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
 import cj.ultimate.util.StringUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,9 +162,9 @@ public class ProductService implements IProductService {
 
     @CjTransaction
     @Override
-    public List<ProductMarket> listAllMarket() {
+    public List<ProductMarket> listAllMarket(String product) {
         ProductMarketExample example = new ProductMarketExample();
-        example.createCriteria();
+        example.createCriteria().andProductEqualTo(product);
         return productMarketMapper.selectByExample(example);
     }
 
@@ -177,9 +176,9 @@ public class ProductService implements IProductService {
 
     @CjTransaction
     @Override
-    public List<ProductMarket> listOpenedMarket() {
+    public List<ProductMarket> listOpenedMarket(String product) {
         ProductMarketExample example = new ProductMarketExample();
-        example.createCriteria().andStateEqualTo(1);
+        example.createCriteria().andProductEqualTo(product).andStateEqualTo(1);
         return productMarketMapper.selectByExample(example);
     }
 }

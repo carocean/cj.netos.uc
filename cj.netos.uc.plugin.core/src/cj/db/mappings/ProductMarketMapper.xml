@@ -5,6 +5,7 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     <id column="grand" jdbcType="VARCHAR" property="grand" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
     <result column="href" jdbcType="VARCHAR" property="href" />
     <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
@@ -70,7 +71,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    grand, title, href, `state`
+    grand, title, product, href, `state`
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.ProductMarketExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -108,10 +109,10 @@
   </delete>
   <insert id="insert" parameterType="cj.netos.uc.model.ProductMarket">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    insert into product_market (grand, title, href, 
-      `state`)
-    values (#{grand,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER})
+    insert into product_market (grand, title, product, 
+      href, `state`)
+    values (#{grand,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, 
+      #{href,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.ProductMarket">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -122,6 +123,9 @@
       </if>
       <if test="title != null">
         title,
+      </if>
+      <if test="product != null">
+        product,
       </if>
       <if test="href != null">
         href,
@@ -136,6 +140,9 @@
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
       </if>
       <if test="href != null">
         #{href,jdbcType=VARCHAR},
@@ -162,6 +169,9 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.product != null">
+        product = #{record.product,jdbcType=VARCHAR},
+      </if>
       <if test="record.href != null">
         href = #{record.href,jdbcType=VARCHAR},
       </if>
@@ -178,6 +188,7 @@
     update product_market
     set grand = #{record.grand,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
+      product = #{record.product,jdbcType=VARCHAR},
       href = #{record.href,jdbcType=VARCHAR},
       `state` = #{record.state,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -190,6 +201,9 @@
     <set>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        product = #{product,jdbcType=VARCHAR},
       </if>
       <if test="href != null">
         href = #{href,jdbcType=VARCHAR},
@@ -204,6 +218,7 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update product_market
     set title = #{title,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
       href = #{href,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER}
     where grand = #{grand,jdbcType=VARCHAR}

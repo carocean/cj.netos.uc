@@ -28,10 +28,10 @@ public interface IProductService {
 
     void removeMarket(String brand);
 
-    List<ProductMarket> listAllMarket();
+    List<ProductMarket> listAllMarket(String product);
 
     void updateMarketState(String brand, int state);
 
-    List<ProductMarket> listOpenedMarket();
+    List<ProductMarket> listOpenedMarket(String product);
 
 }

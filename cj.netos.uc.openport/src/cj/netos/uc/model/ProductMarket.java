@@ -17,6 +17,12 @@ public class ProductMarket {
     private String title;
 
     /**
+     * Column: product
+     * Remark: 归属产品
+     */
+    private String product;
+
+    /**
      * Column: href
      * Remark: 市场地址
      */
@@ -42,6 +48,14 @@ public class ProductMarket {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product == null ? null : product.trim();
     }
 
     public String getHref() {
