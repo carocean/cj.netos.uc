@@ -1,9 +1,8 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.model.ProductInfo;
-import cj.netos.uc.model.ProductVersion;
-import cj.netos.uc.model.ProductVersionExample;
+import cj.netos.uc.model.*;
 import cj.netos.uc.plugin.mapper.ProductInfoMapper;
+import cj.netos.uc.plugin.mapper.ProductMarketMapper;
 import cj.netos.uc.plugin.mapper.ProductVersionMapper;
 import cj.netos.uc.service.IProductService;
 import cj.studio.ecm.annotation.CjBridge;
@@ -26,6 +25,8 @@ public class ProductService implements IProductService {
     ProductInfoMapper productInfoMapper;
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.ProductVersionMapper")
     ProductVersionMapper productVersionMapper;
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.ProductMarketMapper")
+    ProductMarketMapper productMarketMapper;
 
     @CjTransaction
     @Override
@@ -105,14 +106,14 @@ public class ProductService implements IProductService {
         }
         Map<String, String> versionMap = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
         }.getType());
-        for (Map.Entry<String,String> entry:versionMap.entrySet()) {
+        for (Map.Entry<String, String> entry : versionMap.entrySet()) {
             ProductVersionExample example = new ProductVersionExample();
             example.createCriteria().andProductEqualTo(product).andOsEqualTo(entry.getKey()).andVersionEqualTo(entry.getValue());
             List<ProductVersion> versions = productVersionMapper.selectByExample(example);
             if (versions.isEmpty()) {
                 continue;
             }
-            ProductVersion version=versions.get(0);
+            ProductVersion version = versions.get(0);
             map.put(version.getOs(), _loadUrl(info, version));
         }
         return map;
@@ -146,5 +147,25 @@ public class ProductService implements IProductService {
                 appPrefix
         );
         return url;
+    }
+
+    @CjTransaction
+    @Override
+    public void addMarket(ProductMarket market) {
+        productMarketMapper.insert(market);
+    }
+
+    @CjTransaction
+    @Override
+    public void removeMarket(String brand) {
+        productMarketMapper.deleteByPrimaryKey(brand);
+    }
+
+    @CjTransaction
+    @Override
+    public List<ProductMarket> listMarket() {
+        ProductMarketExample example = new ProductMarketExample();
+        example.createCriteria();
+        return productMarketMapper.selectByExample(example);
     }
 }

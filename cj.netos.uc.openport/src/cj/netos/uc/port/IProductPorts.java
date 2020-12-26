@@ -1,6 +1,7 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.model.ProductInfo;
+import cj.netos.uc.model.ProductMarket;
 import cj.netos.uc.model.ProductVersion;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
@@ -20,7 +21,24 @@ public interface IProductPorts extends IOpenportService {
                     @CjOpenportParameter(name = "id", usage = "产品标识") String id,
                     @CjOpenportParameter(name = "name", usage = "产品名") String name,
                     @CjOpenportParameter(name = "rootPath", usage = "产品下载根路径") String rootPath,
+                    @CjOpenportParameter(name = "defaultMarket", usage = "默认的应用市场地微下载路径") String defaultMarket,
                     @CjOpenportParameter(name = "note", usage = "备注") String note
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "添加支持的应用市场")
+    void addMarket(ISecuritySession securitySession,
+                   @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand,
+                   @CjOpenportParameter(name = "title", usage = "手机品牌名") String title,
+                   @CjOpenportParameter(name = "href", usage = "地微应用在市场中的地址") String href
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "移除支持的应用市场")
+    void removeMarket(ISecuritySession securitySession,
+                      @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "获取支持的应用市场", tokenIn = AccessTokenIn.nope)
+    List<ProductMarket> listMarket(ISecuritySession securitySession
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取产品")
@@ -29,8 +47,8 @@ public interface IProductPorts extends IOpenportService {
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取产品", tokenIn = AccessTokenIn.nope)
-    Map<String,String> getNewestVersion(ISecuritySession securitySession,
-                           @CjOpenportParameter(name = "id", usage = "产品标识") String id
+    Map<String, String> getNewestVersion(ISecuritySession securitySession,
+                                         @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
     @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空", tokenIn = AccessTokenIn.nope)
@@ -61,7 +79,7 @@ public interface IProductPorts extends IOpenportService {
                         @CjOpenportParameter(name = "note", usage = "功能清单，每一行以;号隔开") String note
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取版本号",tokenIn = AccessTokenIn.nope)
+    @CjOpenport(usage = "获取版本号", tokenIn = AccessTokenIn.nope)
     ProductVersion getVersion(ISecuritySession securitySession,
                               @CjOpenportParameter(name = "product", usage = "产品标识") String product,
                               @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,

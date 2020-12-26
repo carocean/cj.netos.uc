@@ -198,6 +198,16 @@
             </TableInfo>
           </value>
         </entry>
+        <entry key="netos.uc#product_market">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="ProductMarket" />
+              <option name="tableComment" value="产品应用市场配转走" />
+              <option name="tableName" value="product_market" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.uc#product_version">
           <value>
             <TableInfo>

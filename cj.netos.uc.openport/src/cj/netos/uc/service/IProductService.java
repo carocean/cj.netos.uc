@@ -1,6 +1,7 @@
 package cj.netos.uc.service;
 
 import cj.netos.uc.model.ProductInfo;
+import cj.netos.uc.model.ProductMarket;
 import cj.netos.uc.model.ProductVersion;
 
 import java.util.List;
@@ -22,5 +23,11 @@ public interface IProductService {
     String getNewestVersionDownloadUrl(String product, String os);
 
     Map<String, String> getNewestVersionDownloadUrls(String product);
+
+    void addMarket(ProductMarket market);
+
+    void removeMarket(String brand);
+
+    List<ProductMarket> listMarket();
 
 }

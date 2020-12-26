@@ -1,6 +1,7 @@
 package cj.netos.uc.port;
 
 import cj.netos.uc.model.ProductInfo;
+import cj.netos.uc.model.ProductMarket;
 import cj.netos.uc.model.ProductVersion;
 import cj.netos.uc.service.IProductService;
 import cj.studio.ecm.annotation.CjService;
@@ -28,7 +29,7 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
-    public void addProduct(ISecuritySession securitySession, String id, String name, String rootPath, String note) throws CircuitException {
+    public void addProduct(ISecuritySession securitySession, String id, String name, String rootPath,String defaultMarket, String note) throws CircuitException {
         _checkRights(securitySession);
         if (StringUtil.isEmpty(id)) {
             throw new CircuitException("404", "缺少参数:id");
@@ -44,10 +45,39 @@ public class ProductPorts implements IProductPorts {
         info.setId(id);
         info.setName(name);
         info.setRootPath(rootPath);
+        info.setDefaultMarket(defaultMarket);
         info.setNote(note);
         productService.addProduct(info);
     }
 
+    @Override
+    public void addMarket(ISecuritySession securitySession, String brand, String title, String href) throws CircuitException {
+        _checkRights(securitySession);
+        if (StringUtil.isEmpty(brand)) {
+            throw new CircuitException("404", "缺少参数:brand");
+        }
+        if (StringUtil.isEmpty(title)) {
+            throw new CircuitException("404", "缺少参数:title");
+        }
+        if (StringUtil.isEmpty(href)) {
+            throw new CircuitException("404", "缺少参数:href");
+        }
+        ProductMarket market = new ProductMarket();
+        market.setGrand(brand);
+        market.setHref(href);
+        market.setTitle(title);
+        productService.addMarket(market);
+    }
+
+    @Override
+    public void removeMarket(ISecuritySession securitySession, String brand) throws CircuitException {
+        productService.removeMarket(brand);
+    }
+
+    @Override
+    public List<ProductMarket> listMarket(ISecuritySession securitySession) throws CircuitException {
+        return productService.listMarket();
+    }
 
     @Override
     public ProductInfo getProduct(ISecuritySession securitySession, String id) throws CircuitException {

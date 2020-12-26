@@ -487,6 +487,76 @@ public class ProductInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andDefaultMarketIsNull() {
+            addCriterion("default_market is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketIsNotNull() {
+            addCriterion("default_market is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketEqualTo(String value) {
+            addCriterion("default_market =", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketNotEqualTo(String value) {
+            addCriterion("default_market <>", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketGreaterThan(String value) {
+            addCriterion("default_market >", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketGreaterThanOrEqualTo(String value) {
+            addCriterion("default_market >=", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketLessThan(String value) {
+            addCriterion("default_market <", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketLessThanOrEqualTo(String value) {
+            addCriterion("default_market <=", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketLike(String value) {
+            addCriterion("default_market like", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketNotLike(String value) {
+            addCriterion("default_market not like", value, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketIn(List<String> values) {
+            addCriterion("default_market in", values, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketNotIn(List<String> values) {
+            addCriterion("default_market not in", values, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketBetween(String value1, String value2) {
+            addCriterion("default_market between", value1, value2, "defaultMarket");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultMarketNotBetween(String value1, String value2) {
+            addCriterion("default_market not between", value1, value2, "defaultMarket");
+            return (Criteria) this;
+        }
+
         public Criteria andNoteIsNull() {
             addCriterion("note is null");
             return (Criteria) this;

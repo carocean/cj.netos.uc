@@ -8,6 +8,7 @@
     <result column="root_path" jdbcType="VARCHAR" property="rootPath" />
     <result column="current_version" jdbcType="VARCHAR" property="currentVersion" />
     <result column="ctime" jdbcType="VARCHAR" property="ctime" />
+    <result column="default_market" jdbcType="VARCHAR" property="defaultMarket" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    id, `name`, root_path, current_version, ctime, note
+    id, `name`, root_path, current_version, ctime, default_market, note
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.ProductInfoExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -111,11 +112,11 @@
   <insert id="insert" parameterType="cj.netos.uc.model.ProductInfo">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into product_info (id, `name`, root_path, 
-      current_version, ctime, note
-      )
+      current_version, ctime, default_market, 
+      note)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{rootPath,jdbcType=VARCHAR}, 
-      #{currentVersion,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
-      )
+      #{currentVersion,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{defaultMarket,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.ProductInfo">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -136,6 +137,9 @@
       <if test="ctime != null">
         ctime,
       </if>
+      <if test="defaultMarket != null">
+        default_market,
+      </if>
       <if test="note != null">
         note,
       </if>
@@ -155,6 +159,9 @@
       </if>
       <if test="ctime != null">
         #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultMarket != null">
+        #{defaultMarket,jdbcType=VARCHAR},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
@@ -187,6 +194,9 @@
       <if test="record.ctime != null">
         ctime = #{record.ctime,jdbcType=VARCHAR},
       </if>
+      <if test="record.defaultMarket != null">
+        default_market = #{record.defaultMarket,jdbcType=VARCHAR},
+      </if>
       <if test="record.note != null">
         note = #{record.note,jdbcType=VARCHAR},
       </if>
@@ -203,6 +213,7 @@
       root_path = #{record.rootPath,jdbcType=VARCHAR},
       current_version = #{record.currentVersion,jdbcType=VARCHAR},
       ctime = #{record.ctime,jdbcType=VARCHAR},
+      default_market = #{record.defaultMarket,jdbcType=VARCHAR},
       note = #{record.note,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,6 +235,9 @@
       <if test="ctime != null">
         ctime = #{ctime,jdbcType=VARCHAR},
       </if>
+      <if test="defaultMarket != null">
+        default_market = #{defaultMarket,jdbcType=VARCHAR},
+      </if>
       <if test="note != null">
         note = #{note,jdbcType=VARCHAR},
       </if>
@@ -237,6 +251,7 @@
       root_path = #{rootPath,jdbcType=VARCHAR},
       current_version = #{currentVersion,jdbcType=VARCHAR},
       ctime = #{ctime,jdbcType=VARCHAR},
+      default_market = #{defaultMarket,jdbcType=VARCHAR},
       note = #{note,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

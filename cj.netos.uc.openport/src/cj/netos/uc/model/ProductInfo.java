@@ -34,6 +34,12 @@ public class ProductInfo {
     private String ctime;
 
     /**
+     * Column: default_market
+     * Remark: 默认应用市场的地微应用下载地址
+     */
+    private String defaultMarket;
+
+    /**
      * Column: note
      * Remark: 备注
      */
@@ -77,6 +83,14 @@ public class ProductInfo {
 
     public void setCtime(String ctime) {
         this.ctime = ctime == null ? null : ctime.trim();
+    }
+
+    public String getDefaultMarket() {
+        return defaultMarket;
+    }
+
+    public void setDefaultMarket(String defaultMarket) {
+        this.defaultMarket = defaultMarket == null ? null : defaultMarket.trim();
     }
 
     public String getNote() {
