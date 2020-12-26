@@ -105,6 +105,15 @@ public class ProductPorts implements IProductPorts {
     }
 
     @Override
+    public String getDefaultMarket(ISecuritySession securitySession, String product) throws CircuitException {
+       ProductInfo productInfo= productService.getProduct(product);
+        if (productInfo == null) {
+            return null;
+        }
+        return productInfo.getDefaultMarket();
+    }
+
+    @Override
     public Map<String, String> getNewestVersion(ISecuritySession securitySession, String id) throws CircuitException {
         Map<String, String> map = new HashMap<>();
         ProductInfo info = productService.getProduct(id);

@@ -41,16 +41,21 @@ public interface IProductPorts extends IOpenportService {
 
     @CjOpenport(usage = "更新应用市场状态")
     void updateMarketState(ISecuritySession securitySession,
-                      @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand,
+                           @CjOpenportParameter(name = "brand", usage = "手机品牌标识") String brand,
                            @CjOpenportParameter(name = "state", usage = "是否已上应用市场,0是未上，1为已上") int state
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取已打开的应用市场", tokenIn = AccessTokenIn.nope)
+    @CjOpenport(usage = "获取已打开的应用市场", tokenIn = AccessTokenIn.nope, elementType = ProductMarket.class)
     List<ProductMarket> listOpenedMarket(ISecuritySession securitySession,
                                          @CjOpenportParameter(name = "product", usage = "归属产品") String product
     ) throws CircuitException;
 
-    @CjOpenport(usage = "获取所有配置的应用市场", tokenIn = AccessTokenIn.nope)
+    @CjOpenport(usage = "获取默认的市场", tokenIn = AccessTokenIn.nope)
+    String getDefaultMarket(ISecuritySession securitySession,
+                            @CjOpenportParameter(name = "product", usage = "归属产品") String product
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "获取所有配置的应用市场", tokenIn = AccessTokenIn.nope, elementType = ProductMarket.class)
     List<ProductMarket> listAllMarket(ISecuritySession securitySession,
                                       @CjOpenportParameter(name = "product", usage = "归属产品") String product
     ) throws CircuitException;
