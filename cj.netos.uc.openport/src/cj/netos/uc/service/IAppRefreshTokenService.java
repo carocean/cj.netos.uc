@@ -6,4 +6,7 @@ public interface IAppRefreshTokenService {
     AppRefreshToken updateRefreshToken(String person,String device);
 
     AppRefreshToken getRefreshToken(String refreshToken);
+
+    void updateDevice(String principal, String oldDevice, String newDevice);
+
 }

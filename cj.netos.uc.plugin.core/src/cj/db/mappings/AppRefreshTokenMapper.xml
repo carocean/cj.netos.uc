@@ -208,4 +208,10 @@
     where person = #{person,jdbcType=VARCHAR}
       and device = #{device,jdbcType=VARCHAR}
   </update>
+  <update id="updateDevice" parameterType="cj.netos.uc.model.AppRefreshToken">
+    update app_refresh_token
+    set device = #{newDevice,jdbcType=VARCHAR}
+    where person = #{person,jdbcType=VARCHAR}
+    and device = #{oldDevice,jdbcType=VARCHAR}
+  </update>
 </mapper>

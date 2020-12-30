@@ -7,4 +7,6 @@ public interface IAppAccessTokenService {
 
     void updateAccessToken(String person,String device, AppAccessToken appAccessToken);
 
+    void updateDevice(String principal, String oldDevice, String newDevice);
+
 }

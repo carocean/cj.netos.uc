@@ -61,4 +61,7 @@ public interface AppAccessTokenMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     int updateByPrimaryKey(AppAccessToken record);
+
+    void updateDevice(@Param(value = "person") String person, @Param(value = "oldDevice") String oldDevice,@Param(value = "newDevice")  String newDevice);
+
 }

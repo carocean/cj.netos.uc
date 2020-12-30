@@ -11,6 +11,7 @@ import cj.studio.orm.mybatis.annotation.CjTransaction;
 import cj.ultimate.util.StringUtil;
 
 import java.util.List;
+
 @CjBridge(aspects = "@transaction")
 @CjService(name = "appAccessTokenService")
 public class AppAccessTokenService implements IAppAccessTokenService {
@@ -31,8 +32,14 @@ public class AppAccessTokenService implements IAppAccessTokenService {
 
     @CjTransaction
     @Override
-    public void updateAccessToken(String person,String device, AppAccessToken appAccessToken) {
-        AppAccessToken token = appAccessTokenMapper.selectByPrimaryKey(person,device);
+    public void updateDevice(String principal, String oldDevice, String newDevice) {
+        this.appAccessTokenMapper.updateDevice(principal,oldDevice,newDevice);
+    }
+
+    @CjTransaction
+    @Override
+    public void updateAccessToken(String person, String device, AppAccessToken appAccessToken) {
+        AppAccessToken token = appAccessTokenMapper.selectByPrimaryKey(person, device);
         if (token == null) {
             appAccessTokenMapper.insertSelective(appAccessToken);
             return;

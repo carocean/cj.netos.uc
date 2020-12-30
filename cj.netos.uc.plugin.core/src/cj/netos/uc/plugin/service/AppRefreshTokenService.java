@@ -53,4 +53,9 @@ public class AppRefreshTokenService implements IAppRefreshTokenService {
         }
         return list.get(0);
     }
+    @CjTransaction
+    @Override
+    public void updateDevice(String principal, String oldDevice, String newDevice) {
+        appRefreshTokenMapper.updateDevice(principal,oldDevice,newDevice);
+    }
 }

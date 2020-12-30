@@ -4,6 +4,7 @@ import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
 import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
+import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportAppSecurity;
 import cj.studio.openport.annotations.CjOpenportParameter;
@@ -46,4 +47,9 @@ public interface IAuthPort extends IOpenportService {
     @CjOpenport(usage = "验证", tokenIn = AccessTokenIn.nope, type = HashMap.class, elementType = {String.class, Object.class})
     Map<String, Object> verification(ISecuritySession securitySession,
                                      @CjOpenportParameter(usage = "令牌", name = "token") String token) throws CircuitException;
+
+    @CjOpenport(usage = "更新设备号", command = "post",responseStatus = {"200 OK"})
+    void updateDevice(ISecuritySession securitySession,
+                      @CjOpenportParameter(usage = "设备号", name = "oldDevice",in = PKeyInRequest.content) String oldDevice,
+                      @CjOpenportParameter(usage = "设备号", name = "newDevice",in = PKeyInRequest.content) String newDevice) throws CircuitException;
 }

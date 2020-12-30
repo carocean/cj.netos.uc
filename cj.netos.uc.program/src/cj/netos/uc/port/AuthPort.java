@@ -53,6 +53,12 @@ public class AuthPort implements IAuthPort {
     }
 
     @Override
+    public void updateDevice(ISecuritySession securitySession, String oldDevice, String newDevice) throws CircuitException {
+        appAccessTokenService.updateDevice(securitySession.principal(),oldDevice,newDevice);
+        appRefreshTokenService.updateDevice(securitySession.principal(),oldDevice,newDevice);
+    }
+
+    @Override
     public Map<String, Object> auth(ISecuritySession securitySession, String device, String accountCode, String password) throws CircuitException {
         TenantApp app = appService.getApp(securitySession.principal());
         if (app == null) {

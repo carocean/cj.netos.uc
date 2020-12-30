@@ -61,4 +61,7 @@ public interface AppRefreshTokenMapper {
      * @mbg.generated generated automatically, do not modify!
      */
     int updateByPrimaryKey(AppRefreshToken record);
+
+    void updateDevice(@Param(value = "person") String person, @Param(value = "oldDevice") String oldDevice,@Param(value = "newDevice")  String newDevice);
+
 }
