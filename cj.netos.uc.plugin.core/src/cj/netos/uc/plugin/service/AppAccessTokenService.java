@@ -34,12 +34,6 @@ public class AppAccessTokenService implements IAppAccessTokenService {
     @CjTransaction
     @Override
     public void updateDevice(String principal, String oldDevice, String newDevice) {
-        int pos=oldDevice.indexOf("://");
-        if (pos > -1) {
-            String brand = oldDevice.substring(0, pos);
-            appAccessTokenMapper.updateBrand(principal,brand,newDevice);
-            return;
-        }
         this.appAccessTokenMapper.updateDevice(principal,oldDevice,newDevice);
     }
 
