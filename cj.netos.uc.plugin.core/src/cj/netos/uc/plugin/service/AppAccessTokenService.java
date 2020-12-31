@@ -37,13 +37,8 @@ public class AppAccessTokenService implements IAppAccessTokenService {
         int pos=oldDevice.indexOf("://");
         if (pos > -1) {
             String brand = oldDevice.substring(0, pos);
-            AppAccessTokenExample example = new AppAccessTokenExample();
-            example.createCriteria().andPersonEqualTo(principal).andDeviceLike(brand+"://%");
-            try{
-            this.appAccessTokenMapper.deleteByExample(example);
-            }catch (Exception e){
-                CJSystem.logging().error(getClass(),e);
-            }
+            appAccessTokenMapper.updateBrand(principal,brand,newDevice);
+            return;
         }
         this.appAccessTokenMapper.updateDevice(principal,oldDevice,newDevice);
     }

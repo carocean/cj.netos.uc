@@ -64,4 +64,5 @@ public interface AppRefreshTokenMapper {
 
     void updateDevice(@Param(value = "person") String person, @Param(value = "oldDevice") String oldDevice,@Param(value = "newDevice")  String newDevice);
 
+    void updateBrand(@Param(value = "person") String person, @Param(value = "brand") String brand, @Param(value = "newDevice")  String newDevice);
 }

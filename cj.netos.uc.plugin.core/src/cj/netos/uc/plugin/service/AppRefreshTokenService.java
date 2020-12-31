@@ -61,13 +61,8 @@ public class AppRefreshTokenService implements IAppRefreshTokenService {
         int pos=oldDevice.indexOf("://");
         if (pos > -1) {
             String brand = oldDevice.substring(0, pos);
-            AppRefreshTokenExample example = new AppRefreshTokenExample();
-            example.createCriteria().andPersonEqualTo(principal).andDeviceLike(brand+"://%");
-            try {
-                this.appRefreshTokenMapper.deleteByExample(example);
-            }catch (Exception e){
-                CJSystem.logging().error(getClass(),e);
-            }
+            appRefreshTokenMapper.updateBrand(principal,brand,newDevice);
+            return;
         }
         appRefreshTokenMapper.updateDevice(principal,oldDevice,newDevice);
     }
