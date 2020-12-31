@@ -1,10 +1,12 @@
 package cj.netos.uc.plugin.service;
 
+import cj.netos.uc.model.AppAccessTokenExample;
 import cj.netos.uc.model.AppRefreshToken;
 import cj.netos.uc.model.AppRefreshTokenExample;
 import cj.netos.uc.plugin.mapper.AppRefreshTokenMapper;
 import cj.netos.uc.service.IAppRefreshTokenService;
 import cj.netos.uc.util.Encript;
+import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -56,6 +58,17 @@ public class AppRefreshTokenService implements IAppRefreshTokenService {
     @CjTransaction
     @Override
     public void updateDevice(String principal, String oldDevice, String newDevice) {
+        int pos=oldDevice.indexOf("://");
+        if (pos > -1) {
+            String brand = oldDevice.substring(0, pos);
+            AppRefreshTokenExample example = new AppRefreshTokenExample();
+            example.createCriteria().andPersonEqualTo(principal).andDeviceLike(brand+"://%");
+            try {
+                this.appRefreshTokenMapper.deleteByExample(example);
+            }catch (Exception e){
+                CJSystem.logging().error(getClass(),e);
+            }
+        }
         appRefreshTokenMapper.updateDevice(principal,oldDevice,newDevice);
     }
 }

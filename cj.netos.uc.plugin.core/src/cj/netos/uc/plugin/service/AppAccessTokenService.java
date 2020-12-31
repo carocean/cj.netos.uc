@@ -4,6 +4,7 @@ import cj.netos.uc.model.AppAccessToken;
 import cj.netos.uc.model.AppAccessTokenExample;
 import cj.netos.uc.plugin.mapper.AppAccessTokenMapper;
 import cj.netos.uc.service.IAppAccessTokenService;
+import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.annotation.CjBridge;
 import cj.studio.ecm.annotation.CjService;
 import cj.studio.ecm.annotation.CjServiceRef;
@@ -33,6 +34,17 @@ public class AppAccessTokenService implements IAppAccessTokenService {
     @CjTransaction
     @Override
     public void updateDevice(String principal, String oldDevice, String newDevice) {
+        int pos=oldDevice.indexOf("://");
+        if (pos > -1) {
+            String brand = oldDevice.substring(0, pos);
+            AppAccessTokenExample example = new AppAccessTokenExample();
+            example.createCriteria().andPersonEqualTo(principal).andDeviceLike(brand+"://%");
+            try{
+            this.appAccessTokenMapper.deleteByExample(example);
+            }catch (Exception e){
+                CJSystem.logging().error(getClass(),e);
+            }
+        }
         this.appAccessTokenMapper.updateDevice(principal,oldDevice,newDevice);
     }
 
