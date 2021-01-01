@@ -34,6 +34,9 @@ public class AppAccessTokenService implements IAppAccessTokenService {
     @CjTransaction
     @Override
     public void updateDevice(String principal, String oldDevice, String newDevice) {
+        AppAccessTokenExample example = new AppAccessTokenExample();
+        example.createCriteria().andPersonEqualTo(principal).andDeviceNotEqualTo(oldDevice);
+        appAccessTokenMapper.deleteByExample(example);
         this.appAccessTokenMapper.updateDevice(principal,oldDevice,newDevice);
     }
 
