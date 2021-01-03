@@ -64,7 +64,7 @@ public class AuthPort implements IAuthPort {
         if (app == null) {
             throw new CircuitException("1031", "登录失败，原因：非法应用");
         }
-        AppAccount appAccount = appAccountService.getAccountByCode(securitySession.principal(), accountCode);
+        AppAccount appAccount = null;
         if ("#_anonymous".equals(accountCode)) {
             appAccount = new AppAccount();
             appAccount.setAccountCode("#_anonymous");
@@ -80,6 +80,9 @@ public class AuthPort implements IAuthPort {
         }
         if (appAccount == null) {
             throw new CircuitException("1032", "登录失败，原因：账号不存在");
+        }
+        if(appAccount.getIsEnable()!=null&&appAccount.getIsEnable()==0){
+            throw new CircuitException("1035", "登录失败，原因：账号已注销");
         }
         if (!Encript.md5(password).equals(appAccount.getAccountPwd())) {
             if (!_isPhoneNo(accountCode)) {

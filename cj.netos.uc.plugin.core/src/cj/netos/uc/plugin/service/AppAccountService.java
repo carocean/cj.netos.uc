@@ -108,6 +108,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 0);
+        account.setIsEnable((byte) 1);
         account.setNickName(nickName);
         account.setAvatar(avatar);
         account.setSignature(signature);
@@ -133,6 +134,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 1);
+        account.setIsEnable((byte) 1);
         account.setNickName(nickName);
         account.setAvatar(avatar);
         account.setSignature(signature);
@@ -159,6 +161,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         account.setAccountPwd(Encript.md5(password));
         account.setCreateTime(new Date());
         account.setNameKind((byte) 2);
+        account.setIsEnable((byte) 1);
         account.setNickName(nickName);
         account.setAvatar(avatar);
         account.setSignature(signature);
