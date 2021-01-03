@@ -72,7 +72,7 @@ public class AuthPort implements IAuthPort {
             appAccount.setAccountId(UUID.randomUUID().toString());
             appAccount.setAccountPwd(Encript.md5("*_anonymous"));
             appAccount.setAppId(securitySession.principal());
-            appAccount.setIsEnable((byte) 0);
+            appAccount.setIsEnable((byte) 1);
             appAccount.setCreateTime(new Date());
             appAccount.setUserId(NumberGen.gen());
         } else {
