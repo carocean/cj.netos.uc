@@ -78,10 +78,16 @@ public class ProductService implements IProductService {
     @Override
     public void updateLayoutOfNewestVersion(String product, String os, String useLayout) {
         ProductInfo info = productInfoMapper.selectByPrimaryKey(product);
-        if (info == null||StringUtil.isEmpty(info.getCurrentVersion())) {
+        if (info == null||info.getCurrentVersion()==null) {
             return;
         }
-        ProductVersion version=productVersionMapper.selectByPrimaryKey(product,os,info.getCurrentVersion());
+        Map<String, String> versions = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
+        }.getType());
+        String currentVersion = versions.get(os);
+        if (StringUtil.isEmpty(currentVersion)) {
+            return;
+        }
+        ProductVersion version=productVersionMapper.selectByPrimaryKey(product,os,currentVersion);
         if (version == null) {
             return;
         }

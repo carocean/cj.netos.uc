@@ -131,7 +131,13 @@ public class ProductPorts implements IProductPorts {
         if (info == null || info.getCurrentVersion() == null) {
             return "normal";
         }
-        ProductVersion version = productService.getVersion(id, os, info.getCurrentVersion());
+        Map<String, String> versions = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
+        }.getType());
+        String currentVersion = versions.get(os);
+        if (StringUtil.isEmpty(currentVersion)) {
+            return "normal";
+        }
+        ProductVersion version = productService.getVersion(id, os, currentVersion);
         if (version == null) {
             return "normal";
         }
