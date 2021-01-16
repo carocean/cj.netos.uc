@@ -76,6 +76,21 @@ public class ProductService implements IProductService {
 
     @CjTransaction
     @Override
+    public void updateLayoutOfNewestVersion(String product, String os, String useLayout) {
+        ProductInfo info = productInfoMapper.selectByPrimaryKey(product);
+        if (info == null||StringUtil.isEmpty(info.getCurrentVersion())) {
+            return;
+        }
+        ProductVersion version=productVersionMapper.selectByPrimaryKey(product,os,info.getCurrentVersion());
+        if (version == null) {
+            return;
+        }
+        version.setUseLayout(useLayout);
+        productVersionMapper.updateByPrimaryKey(version);
+    }
+
+    @CjTransaction
+    @Override
     public String getNewestVersionDownloadUrl(String product, String os) {
         ProductInfo info = getProduct(product);
         if (info == null || StringUtil.isEmpty(info.getCurrentVersion())) {
@@ -171,7 +186,7 @@ public class ProductService implements IProductService {
     @CjTransaction
     @Override
     public void updateMarketState(String brand, int state) {
-        productMarketMapper.updateState(brand,state);
+        productMarketMapper.updateState(brand, state);
     }
 
     @CjTransaction

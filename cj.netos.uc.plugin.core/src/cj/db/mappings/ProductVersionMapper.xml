@@ -10,6 +10,7 @@
     <result column="pub_time" jdbcType="VARCHAR" property="pubTime" />
     <result column="pub_type" jdbcType="INTEGER" property="pubType" />
     <result column="force_upgrade" jdbcType="INTEGER" property="forceUpgrade" />
+    <result column="use_layout" jdbcType="VARCHAR" property="useLayout" />
     <result column="note" jdbcType="VARCHAR" property="note" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -74,7 +75,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    product, os, version, readme_file, pub_time, pub_type, force_upgrade, note
+    product, os, version, readme_file, pub_time, pub_type, force_upgrade, use_layout, 
+    note
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.ProductVersionExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -118,10 +120,12 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into product_version (product, os, version, 
       readme_file, pub_time, pub_type, 
-      force_upgrade, note)
+      force_upgrade, use_layout, note
+      )
     values (#{product,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
       #{readmeFile,jdbcType=VARCHAR}, #{pubTime,jdbcType=VARCHAR}, #{pubType,jdbcType=INTEGER}, 
-      #{forceUpgrade,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
+      #{forceUpgrade,jdbcType=INTEGER}, #{useLayout,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.ProductVersion">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -148,6 +152,9 @@
       <if test="forceUpgrade != null">
         force_upgrade,
       </if>
+      <if test="useLayout != null">
+        use_layout,
+      </if>
       <if test="note != null">
         note,
       </if>
@@ -173,6 +180,9 @@
       </if>
       <if test="forceUpgrade != null">
         #{forceUpgrade,jdbcType=INTEGER},
+      </if>
+      <if test="useLayout != null">
+        #{useLayout,jdbcType=VARCHAR},
       </if>
       <if test="note != null">
         #{note,jdbcType=VARCHAR},
@@ -211,6 +221,9 @@
       <if test="record.forceUpgrade != null">
         force_upgrade = #{record.forceUpgrade,jdbcType=INTEGER},
       </if>
+      <if test="record.useLayout != null">
+        use_layout = #{record.useLayout,jdbcType=VARCHAR},
+      </if>
       <if test="record.note != null">
         note = #{record.note,jdbcType=VARCHAR},
       </if>
@@ -229,6 +242,7 @@
       pub_time = #{record.pubTime,jdbcType=VARCHAR},
       pub_type = #{record.pubType,jdbcType=INTEGER},
       force_upgrade = #{record.forceUpgrade,jdbcType=INTEGER},
+      use_layout = #{record.useLayout,jdbcType=VARCHAR},
       note = #{record.note,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -250,6 +264,9 @@
       <if test="forceUpgrade != null">
         force_upgrade = #{forceUpgrade,jdbcType=INTEGER},
       </if>
+      <if test="useLayout != null">
+        use_layout = #{useLayout,jdbcType=VARCHAR},
+      </if>
       <if test="note != null">
         note = #{note,jdbcType=VARCHAR},
       </if>
@@ -265,6 +282,7 @@
       pub_time = #{pubTime,jdbcType=VARCHAR},
       pub_type = #{pubType,jdbcType=INTEGER},
       force_upgrade = #{forceUpgrade,jdbcType=INTEGER},
+      use_layout = #{useLayout,jdbcType=VARCHAR},
       note = #{note,jdbcType=VARCHAR}
     where product = #{product,jdbcType=VARCHAR}
       and os = #{os,jdbcType=VARCHAR}

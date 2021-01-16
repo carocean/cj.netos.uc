@@ -47,6 +47,12 @@ public class ProductVersion {
     private Integer forceUpgrade;
 
     /**
+     * Column: use_layout
+     * Remark: 使用布局。 为了应付ios市场要求，在版审核期间临时使用的显示布局 - normal 即回恢为正常运营产品的布局 - simple 即简单应用ios的布局
+     */
+    private String useLayout;
+
+    /**
      * Column: note
      * Remark: 备注
      */
@@ -106,6 +112,14 @@ public class ProductVersion {
 
     public void setForceUpgrade(Integer forceUpgrade) {
         this.forceUpgrade = forceUpgrade;
+    }
+
+    public String getUseLayout() {
+        return useLayout;
+    }
+
+    public void setUseLayout(String useLayout) {
+        this.useLayout = useLayout == null ? null : useLayout.trim();
     }
 
     public String getNote() {

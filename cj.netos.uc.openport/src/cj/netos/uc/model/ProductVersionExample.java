@@ -607,6 +607,76 @@ public class ProductVersionExample {
             return (Criteria) this;
         }
 
+        public Criteria andUseLayoutIsNull() {
+            addCriterion("use_layout is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutIsNotNull() {
+            addCriterion("use_layout is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutEqualTo(String value) {
+            addCriterion("use_layout =", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutNotEqualTo(String value) {
+            addCriterion("use_layout <>", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutGreaterThan(String value) {
+            addCriterion("use_layout >", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutGreaterThanOrEqualTo(String value) {
+            addCriterion("use_layout >=", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutLessThan(String value) {
+            addCriterion("use_layout <", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutLessThanOrEqualTo(String value) {
+            addCriterion("use_layout <=", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutLike(String value) {
+            addCriterion("use_layout like", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutNotLike(String value) {
+            addCriterion("use_layout not like", value, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutIn(List<String> values) {
+            addCriterion("use_layout in", values, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutNotIn(List<String> values) {
+            addCriterion("use_layout not in", values, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutBetween(String value1, String value2) {
+            addCriterion("use_layout between", value1, value2, "useLayout");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseLayoutNotBetween(String value1, String value2) {
+            addCriterion("use_layout not between", value1, value2, "useLayout");
+            return (Criteria) this;
+        }
+
         public Criteria andNoteIsNull() {
             addCriterion("note is null");
             return (Criteria) this;

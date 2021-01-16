@@ -70,6 +70,12 @@ public interface IProductPorts extends IOpenportService {
                                          @CjOpenportParameter(name = "id", usage = "产品标识") String id
     ) throws CircuitException;
 
+    @CjOpenport(usage = "获取最新产品的布局，返回永不为空，默认是normal", tokenIn = AccessTokenIn.nope)
+    String getUseLayoutOfNewestVersion(ISecuritySession securitySession,
+                                       @CjOpenportParameter(name = "id", usage = "产品标识") String id,
+                                       @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os
+    ) throws CircuitException;
+
     @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空", tokenIn = AccessTokenIn.nope)
     String getNewestVersionDownloadUrl(ISecuritySession securitySession,
                                        @CjOpenportParameter(name = "product", usage = "产品标识") String product,
@@ -94,6 +100,7 @@ public interface IProductPorts extends IOpenportService {
                         @CjOpenportParameter(name = "version", usage = "版本号") String version,
                         @CjOpenportParameter(name = "type", usage = "0调试版；1正式版") int type,
                         @CjOpenportParameter(name = "forceUpgrade", usage = "是否强制升级：0不强制；1强制") int forceUpgrade,
+                        @CjOpenportParameter(name = "useLayout", usage = "使用布局,normal|simple") String useLayout,
                         @CjOpenportParameter(name = "readmeFile", usage = "版本说明文件") String readmeFile,
                         @CjOpenportParameter(name = "note", usage = "功能清单，每一行以;号隔开") String note
     ) throws CircuitException;
@@ -103,6 +110,13 @@ public interface IProductPorts extends IOpenportService {
                               @CjOpenportParameter(name = "product", usage = "产品标识") String product,
                               @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
                               @CjOpenportParameter(name = "version", usage = "版本号") String version
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "更新最新版本的布局")
+    void updateLayoutOfNewestVersion(ISecuritySession securitySession,
+                                     @CjOpenportParameter(name = "product", usage = "产品标识") String product,
+                                     @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
+                                     @CjOpenportParameter(name = "useLayout", usage = "使用布局,normal|simple") String useLayout
     ) throws CircuitException;
 
     @CjOpenport(usage = "分页版本号")

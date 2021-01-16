@@ -34,4 +34,6 @@ public interface IProductService {
 
     List<ProductMarket> listOpenedMarket(String product);
 
+    void updateLayoutOfNewestVersion(String product, String os, String useLayout);
+
 }
