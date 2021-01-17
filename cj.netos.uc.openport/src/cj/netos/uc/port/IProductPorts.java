@@ -76,6 +76,13 @@ public interface IProductPorts extends IOpenportService {
                                        @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os
     ) throws CircuitException;
 
+    @CjOpenport(usage = "获取指定产品的布局，返回永不为空，默认是normal", tokenIn = AccessTokenIn.nope)
+    String getUseLayoutOVersion(ISecuritySession securitySession,
+                                @CjOpenportParameter(name = "id", usage = "产品标识") String id,
+                                @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
+                                @CjOpenportParameter(name = "version", usage = "版本号") String version
+    ) throws CircuitException;
+
     @CjOpenport(usage = "获取产品最新版本下载地址，如果不存在则返回空", tokenIn = AccessTokenIn.nope)
     String getNewestVersionDownloadUrl(ISecuritySession securitySession,
                                        @CjOpenportParameter(name = "product", usage = "产品标识") String product,
@@ -116,6 +123,14 @@ public interface IProductPorts extends IOpenportService {
     void updateLayoutOfNewestVersion(ISecuritySession securitySession,
                                      @CjOpenportParameter(name = "product", usage = "产品标识") String product,
                                      @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
+                                     @CjOpenportParameter(name = "useLayout", usage = "使用布局,normal|simple") String useLayout
+    ) throws CircuitException;
+
+    @CjOpenport(usage = "更新指定版本的布局")
+    void updateLayoutOfVersion(ISecuritySession securitySession,
+                                     @CjOpenportParameter(name = "product", usage = "产品标识") String product,
+                                     @CjOpenportParameter(name = "os", usage = "系统：android|ios") String os,
+                               @CjOpenportParameter(name = "version", usage = "版本号") String version,
                                      @CjOpenportParameter(name = "useLayout", usage = "使用布局,normal|simple") String useLayout
     ) throws CircuitException;
 

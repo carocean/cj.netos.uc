@@ -78,7 +78,7 @@ public class ProductService implements IProductService {
     @Override
     public void updateLayoutOfNewestVersion(String product, String os, String useLayout) {
         ProductInfo info = productInfoMapper.selectByPrimaryKey(product);
-        if (info == null||info.getCurrentVersion()==null) {
+        if (info == null || info.getCurrentVersion() == null) {
             return;
         }
         Map<String, String> versions = new Gson().fromJson(info.getCurrentVersion(), new TypeToken<HashMap<String, String>>() {
@@ -87,12 +87,23 @@ public class ProductService implements IProductService {
         if (StringUtil.isEmpty(currentVersion)) {
             return;
         }
-        ProductVersion version=productVersionMapper.selectByPrimaryKey(product,os,currentVersion);
+        ProductVersion version = productVersionMapper.selectByPrimaryKey(product, os, currentVersion);
         if (version == null) {
             return;
         }
         version.setUseLayout(useLayout);
         productVersionMapper.updateByPrimaryKey(version);
+    }
+
+    @CjTransaction
+    @Override
+    public void updateLayoutOfVersion(String product, String os, String version, String useLayout) {
+        ProductVersion productVersion = productVersionMapper.selectByPrimaryKey(product, os, version);
+        if (productVersion == null) {
+            return;
+        }
+        productVersion.setUseLayout(useLayout);
+        productVersionMapper.updateByPrimaryKey(productVersion);
     }
 
     @CjTransaction

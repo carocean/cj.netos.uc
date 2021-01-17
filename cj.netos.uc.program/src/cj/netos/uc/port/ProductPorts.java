@@ -143,7 +143,17 @@ public class ProductPorts implements IProductPorts {
         }
         return version.getUseLayout();
     }
-
+    @Override
+    public String getUseLayoutOVersion(ISecuritySession securitySession, String id, String os, String version) throws CircuitException {
+        ProductVersion productVersion=productService.getVersion(id,os,version);
+        if (productVersion == null) {
+            return "normal";
+        }
+        if(StringUtil.isEmpty(productVersion.getUseLayout())){
+            return "normal";
+        }
+        return productVersion.getUseLayout();
+    }
     @Override
     public List<ProductInfo> pageProduct(ISecuritySession securitySession, long limit, long offset) throws CircuitException {
         return productService.pageProduct(limit, offset);
@@ -206,6 +216,14 @@ public class ProductPorts implements IProductPorts {
     public void updateLayoutOfNewestVersion(ISecuritySession securitySession, String product, String os, String useLayout) throws CircuitException {
         _checkRights(securitySession);
         productService.updateLayoutOfNewestVersion(product, os, useLayout);
+    }
+
+
+
+    @Override
+    public void updateLayoutOfVersion(ISecuritySession securitySession, String product, String os, String version,String useLayout) throws CircuitException {
+        _checkRights(securitySession);
+        productService.updateLayoutOfVersion(product, os,version, useLayout);
     }
 
     @Override

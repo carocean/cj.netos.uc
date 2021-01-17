@@ -36,4 +36,6 @@ public interface IProductService {
 
     void updateLayoutOfNewestVersion(String product, String os, String useLayout);
 
+    void updateLayoutOfVersion(String product, String os, String version, String useLayout);
+
 }
