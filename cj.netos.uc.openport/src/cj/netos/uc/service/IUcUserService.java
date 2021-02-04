@@ -1,5 +1,6 @@
 package cj.netos.uc.service;
 
+import cj.netos.uc.model.AppAccount;
 import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 
@@ -18,6 +19,9 @@ public interface IUcUserService {
     UcUser registerByIphone(String appid, String phone, String password, String nickName, String avatar, String signature) throws CircuitException;
 
     UcUser registerByEmail(String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException;
+
+
+    AppAccount registerByWeChat(String appid, String state, String code) throws CircuitException;
 
 
     UcUser getUserById(String uid);

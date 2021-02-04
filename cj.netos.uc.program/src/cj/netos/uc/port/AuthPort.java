@@ -11,7 +11,6 @@ import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
 import cj.ultimate.gson2.com.google.gson.Gson;
 import cj.ultimate.gson2.com.google.gson.reflect.TypeToken;
-import cj.ultimate.util.StringUtil;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -35,7 +34,8 @@ public class AuthPort implements IAuthPort {
     IAppAccessTokenService appAccessTokenService;
     @CjServiceRef(refByName = "ucplugin.phoneVerifycodeService")
     IPhoneVerifycodeService phoneVerifycodeService;
-
+    @CjServiceRef(refByName = "ucplugin.ucUserService")
+    IUcUserService ucUserService;
     @Override
     public Map<String, Object> sendVerifyCode(ISecuritySession securitySession, String phone) throws CircuitException {
         return appAccountService.sendVerifyCode(securitySession.principal(), phone);
@@ -94,6 +94,71 @@ public class AuthPort implements IAuthPort {
             }
 
         }
+        //填充角色
+        List<UcRole> ucroles = ucRoleService.pageRoleOfUser(appAccount.getUserId(), 0, Integer.MAX_VALUE);
+        List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(appAccount.getUserId(), app.getTenantId(), 0, Integer.MAX_VALUE);
+        List<AppRole> approles = appRoleService.pageRoleOfAccount(appAccount.getAccountId(), app.getAppId(), 0, Integer.MAX_VALUE);
+        List<String> roles = new ArrayList<>();
+        for (UcRole r : ucroles) {
+            roles.add(String.format("platform:%s", r.getRoleId()));
+        }
+        for (TenantRole r : taroles) {
+            roles.add(String.format("tenant:%s", r.getRoleId()));
+        }
+        for (AppRole r : approles) {
+            roles.add(String.format("app:%s", r.getRoleId()));
+        }
+        String person = appAccount.getAccountId();
+        //accessToken仅仅只是生成一个标识串
+        String accessToken = Encript.md5(String.format("%s%s%s%s", person, device, UUID.randomUUID(), app.getAppSecret()));
+        AppAccessToken appAccessToken = new AppAccessToken();
+        appAccessToken.setAccessToken(accessToken);
+        appAccessToken.setExpireTime(app.getTokenExpire());
+        appAccessToken.setPerson(person);
+        appAccessToken.setDevice(device);
+        appAccessToken.setPubTime(System.currentTimeMillis());
+        appAccessToken.setRoles(new Gson().toJson(roles));
+        appAccessTokenService.updateAccessToken(person, device, appAccessToken);
+
+        Map<String, Object> response = new HashMap<>();
+
+        Map<String, Object> appToken = new HashMap<>();
+        appToken.put("accessToken", accessToken);
+        appToken.put("device", appAccessToken.getDevice());
+        appToken.put("pubTime", appAccessToken.getPubTime());
+        String refreshToken = appRefreshTokenService.updateRefreshToken(person, device).getRefreshToken();
+        appToken.put("refreshToken", refreshToken);
+        appToken.put("expireTime", app.getTokenExpire());
+        response.put("token", appToken);
+
+        PersonInfo info = new PersonInfo(appAccount.getAccountCode(), appAccount.getAppId());
+        info.getRoles().addAll(roles);
+        info.setAvatar(appAccount.getAvatar());
+        info.setNickName(appAccount.getNickName());
+        info.setSignature(appAccount.getSignature());
+        info.setUid(appAccount.getUserId());
+        response.put("subject", info);
+        //渲染框架
+        response.put("portal", app.getPortal());
+        return response;
+    }
+
+    @Override
+    public Map<String, Object> authByWeChat(ISecuritySession securitySession,String device, String state, String code) throws CircuitException {
+        AppAccount appAccount =ucUserService.registerByWeChat(securitySession.principal(),state,code);
+
+        if (appAccount == null) {
+            throw new CircuitException("1032", "登录失败，原因：账号不存在");
+        }
+        if(appAccount.getIsEnable()!=null&&appAccount.getIsEnable()==0){
+            throw new CircuitException("1035", "登录失败，原因：账号已注销");
+        }
+
+        TenantApp app = appService.getApp(securitySession.principal());
+        if (app == null) {
+            throw new CircuitException("1031", "登录失败，原因：非法应用");
+        }
+
         //填充角色
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(appAccount.getUserId(), 0, Integer.MAX_VALUE);
         List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(appAccount.getUserId(), app.getTenantId(), 0, Integer.MAX_VALUE);

@@ -25,11 +25,20 @@ public interface IAuthPort extends IOpenportService {
             @CjOpenportParameter(usage = "账户名，或统一用户名。可以是手机号、邮箱等", name = "accountCode") String accountCode,
             @CjOpenportParameter(usage = "密码,也可以是手机验证码", name = "password") String password) throws CircuitException;
 
+
+    @CjOpenportAppSecurity(usage = "以微信验证")
+    @CjOpenport(usage = "微信验证", tokenIn = AccessTokenIn.nope, command = "post")
+    Map<String, Object> authByWeChat(ISecuritySession securitySession,
+                                     @CjOpenportParameter(usage = "设备号", name = "device", in = PKeyInRequest.content) String device,
+                                     @CjOpenportParameter(name = "state", usage = "自定义的", in = PKeyInRequest.content) String state,
+                                     @CjOpenportParameter(name = "code", usage = "微信code", in = PKeyInRequest.content) String code) throws CircuitException;
+
     @CjOpenportAppSecurity(usage = "")
     @CjOpenport(usage = "发送手机验证码，返回状态码参考网易云手机验证码接口说明", tokenIn = AccessTokenIn.nope, responseStatus = {"200 OK"})
     Map<String, Object> sendVerifyCode(ISecuritySession securitySession,
                                        @CjOpenportParameter(usage = "手机号", name = "phone") String phone
     ) throws CircuitException;
+
 
     @CjOpenportAppSecurity(usage = "")
     @CjOpenport(usage = "验证手机验证码", tokenIn = AccessTokenIn.nope, responseStatus = {"200 OK"})
@@ -48,8 +57,8 @@ public interface IAuthPort extends IOpenportService {
     Map<String, Object> verification(ISecuritySession securitySession,
                                      @CjOpenportParameter(usage = "令牌", name = "token") String token) throws CircuitException;
 
-    @CjOpenport(usage = "更新设备号", command = "post",responseStatus = {"200 OK"})
+    @CjOpenport(usage = "更新设备号", command = "post", responseStatus = {"200 OK"})
     void updateDevice(ISecuritySession securitySession,
-                      @CjOpenportParameter(usage = "设备号", name = "oldDevice",in = PKeyInRequest.content) String oldDevice,
-                      @CjOpenportParameter(usage = "设备号", name = "newDevice",in = PKeyInRequest.content) String newDevice) throws CircuitException;
+                      @CjOpenportParameter(usage = "设备号", name = "oldDevice", in = PKeyInRequest.content) String oldDevice,
+                      @CjOpenportParameter(usage = "设备号", name = "newDevice", in = PKeyInRequest.content) String newDevice) throws CircuitException;
 }
