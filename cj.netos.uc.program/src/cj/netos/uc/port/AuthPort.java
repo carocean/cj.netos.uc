@@ -144,8 +144,8 @@ public class AuthPort implements IAuthPort {
     }
 
     @Override
-    public Map<String, Object> authByWeChat(ISecuritySession securitySession,String device, String state, String code) throws CircuitException {
-        AppAccount appAccount =ucUserService.registerByWeChat(securitySession.principal(),state,code);
+    public Map<String, Object> authByWeChat(ISecuritySession securitySession,String deviceType,String device, String state, String code) throws CircuitException {
+        AppAccount appAccount =ucUserService.registerByWeChat(securitySession.principal(),state,code,deviceType);
 
         if (appAccount == null) {
             throw new CircuitException("1032", "登录失败，原因：账号不存在");

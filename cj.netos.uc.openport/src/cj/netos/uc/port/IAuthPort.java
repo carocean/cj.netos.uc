@@ -29,6 +29,7 @@ public interface IAuthPort extends IOpenportService {
     @CjOpenportAppSecurity(usage = "以微信验证")
     @CjOpenport(usage = "微信验证", tokenIn = AccessTokenIn.nope, command = "post")
     Map<String, Object> authByWeChat(ISecuritySession securitySession,
+                                     @CjOpenportParameter(usage = "终端类型，如app|web等", name = "deviceType") String deviceType,
                                      @CjOpenportParameter(usage = "设备号", name = "device", in = PKeyInRequest.content) String device,
                                      @CjOpenportParameter(name = "state", usage = "自定义的", in = PKeyInRequest.content) String state,
                                      @CjOpenportParameter(name = "code", usage = "微信code", in = PKeyInRequest.content) String code) throws CircuitException;

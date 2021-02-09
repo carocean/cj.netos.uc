@@ -21,7 +21,7 @@ public interface IUcUserService {
     UcUser registerByEmail(String appid, String email, String password, String nickName, String avatar, String signature) throws CircuitException;
 
 
-    AppAccount registerByWeChat(String appid, String state, String code) throws CircuitException;
+    AppAccount registerByWeChat(String appid, String state, String code, String deviceType) throws CircuitException;
 
 
     UcUser getUserById(String uid);

@@ -34,6 +34,8 @@ public class UcUserService implements IUcUserService, IServiceAfter {
     OkHttpClient client;
     String wechatAppid;
     String wechatAppSecret;
+    String wechatWebid;
+    String wechatWebSecret;
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.UcUserMapper")
     UcUserMapper userMapper;
 
@@ -49,6 +51,8 @@ public class UcUserService implements IUcUserService, IServiceAfter {
     public void onAfter(IServiceSite site) {
         wechatAppid = site.getProperty("wechat.appid");
         wechatAppSecret = site.getProperty("wechat.appSecret");
+        wechatWebid = site.getProperty("wechat.webid");
+        wechatWebSecret = site.getProperty("wechat.webSecret");
         client = new OkHttpClient();
     }
 
@@ -156,13 +160,20 @@ public class UcUserService implements IUcUserService, IServiceAfter {
 
     @CjTransaction
     @Override
-    public AppAccount registerByWeChat(String appid, String state, String code) throws CircuitException {
+    public AppAccount registerByWeChat(String appid, String state, String code, String deviceType) throws CircuitException {
         if (StringUtil.isEmpty(code)) {
             throw new CircuitException("404", "code为空");
         }
         CJSystem.logging().info(getClass(), String.format("微信转发来的验证信息：%s %s", state, code));
         //注意：如果用户选了"拒绝"而执行以下代码获取令牌，则下次就不会弹出微信的授权页了。
-        String url = String.format("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code", wechatAppid, wechatAppSecret, code);
+        String useAppid=wechatAppid;
+        String useSecret=wechatAppSecret;
+        if ("web".equals(deviceType)) {
+            useAppid=wechatWebid;
+            useSecret=wechatWebSecret;
+        }
+//        CJSystem.logging().info(getClass(),String.format("type:%s %s %s",deviceType,useAppid,useSecret));
+        String url = String.format("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code", useAppid, useSecret, code);
         try {
             Request request = new Request.Builder()
                     .url(url)
@@ -175,6 +186,9 @@ public class UcUserService implements IUcUserService, IServiceAfter {
             CJSystem.logging().info(getClass(), String.format("微信令牌返回:%s", map));
             String accessToken = (String) map.get("access_token");
             String unionid = (String) map.get("unionid");
+            if (StringUtil.isEmpty(unionid)) {
+                throw new CircuitException("500","微信验证失败。未得到微信用户统一标识");
+            }
             String openid = (String) map.get("openid");
             AppAccount appAccount = appAccountService.getAccountByCode(appid, unionid);
             if (appAccount != null) {
