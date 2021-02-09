@@ -272,6 +272,7 @@ public class AuthPort implements IAuthPort {
         if (app == null) {
             throw new CircuitException("1010", "验证失败，原因：非法应用");
         }
+//        CJSystem.logging().info(getClass(),String.format("token:%s",token));
         AppAccessToken appAccessToken = appAccessTokenService.getAccessToken(token);
         if (appAccessToken == null) {
             throw new CircuitException("1012", "验证失败，原因：令牌无效");
