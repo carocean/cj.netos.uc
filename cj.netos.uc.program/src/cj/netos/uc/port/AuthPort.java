@@ -158,7 +158,7 @@ public class AuthPort implements IAuthPort {
         if (app == null) {
             throw new CircuitException("1031", "登录失败，原因：非法应用");
         }
-
+       UcUser ucUser= ucUserService.getUserById(appAccount.getUserId());
         //填充角色
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(appAccount.getUserId(), 0, Integer.MAX_VALUE);
         List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(appAccount.getUserId(), app.getTenantId(), 0, Integer.MAX_VALUE);
@@ -202,6 +202,7 @@ public class AuthPort implements IAuthPort {
         info.setNickName(appAccount.getNickName());
         info.setSignature(appAccount.getSignature());
         info.setUid(appAccount.getUserId());
+        info.setSex(ucUser.getSex());
         response.put("subject", info);
         //渲染框架
         response.put("portal", app.getPortal());
