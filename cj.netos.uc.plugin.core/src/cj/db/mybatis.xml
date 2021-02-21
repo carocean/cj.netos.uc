@@ -54,5 +54,6 @@
         <mapper resource="cj/db/mappings/ProductInfoMapper.xml"/>
         <mapper resource="cj/db/mappings/ProductVersionMapper.xml"/>
         <mapper resource="cj/db/mappings/ProductMarketMapper.xml"/>
+        <mapper resource="cj/db/mappings/AppAccountSourceMapper.xml"/>
     </mappers>
 </configuration>

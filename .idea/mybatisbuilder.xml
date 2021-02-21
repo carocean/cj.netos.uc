@@ -128,6 +128,16 @@
             </TableInfo>
           </value>
         </entry>
+        <entry key="netos.uc#app_account_source">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="AppAccountSource" />
+              <option name="tableComment" value="账号来源，指账号来源于第三方平台的对应账号&#10;是个映射表&#10;一般用于映射微信平台" />
+              <option name="tableName" value="app_account_source" />
+            </TableInfo>
+          </value>
+        </entry>
         <entry key="netos.uc#app_refresh_token">
           <value>
             <TableInfo>

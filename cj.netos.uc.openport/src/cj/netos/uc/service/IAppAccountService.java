@@ -10,6 +10,8 @@ import java.util.Map;
 public interface IAppAccountService {
     String addAccount(String accountName, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException;
 
+    String addAccountBy(String accountName, String sourceSubSystem, String sourceOpenid, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException;
+
 
     void addByPassword(String uid, String appid, String accountCode, String password, String nickName, String avatar, String signature) throws CircuitException;
 
@@ -55,5 +57,11 @@ public interface IAppAccountService {
     boolean verifyCode(String appid, String phone, String verifyCode) throws CircuitException;
 
     List<AppAccount> findAccountsInApp(String appid, String keywords);
+
+    boolean existsSource(String accountId, String subSystem);
+
+    Map<String, String> listSource(String accountId);
+
+    void addSource(String accountId, String subSystem, String openid);
 
 }

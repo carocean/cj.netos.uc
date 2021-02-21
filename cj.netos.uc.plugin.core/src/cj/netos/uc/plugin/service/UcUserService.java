@@ -168,9 +168,11 @@ public class UcUserService implements IUcUserService, IServiceAfter {
         //注意：如果用户选了"拒绝"而执行以下代码获取令牌，则下次就不会弹出微信的授权页了。
         String useAppid=wechatAppid;
         String useSecret=wechatAppSecret;
+        String subSystem="app";
         if ("web".equals(deviceType)) {
             useAppid=wechatWebid;
             useSecret=wechatWebSecret;
+            subSystem="jsapi";//微信浏览器验证方式，其openid与app方法是不一样的
         }
 //        CJSystem.logging().info(getClass(),String.format("type:%s %s %s",deviceType,useAppid,useSecret));
         String url = String.format("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code", useAppid, useSecret, code);
@@ -189,9 +191,13 @@ public class UcUserService implements IUcUserService, IServiceAfter {
             if (StringUtil.isEmpty(unionid)) {
                 throw new CircuitException("500","微信验证失败。未得到微信用户统一标识");
             }
-            String openid = (String) map.get("openid");
+            String openid = (String) map.get("openid");//只存jsapi的openid，app的openid不必存，因为微信仅jsapi支付需要openid。
+//            CJSystem.logging().info(getClass(),String.format("------openid---%s",openid));
             AppAccount appAccount = appAccountService.getAccountByCode(appid, unionid);
             if (appAccount != null) {
+                if(!appAccountService.existsSource(appAccount.getAccountId(),subSystem)){
+                    appAccountService.addSource(appAccount.getAccountId(),subSystem,openid);
+                }
                 return appAccount;
             }
 
@@ -213,7 +219,7 @@ public class UcUserService implements IUcUserService, IServiceAfter {
 
             userMapper.insert(user);
 
-            this.appAccountService.addAccount(userInfo.getUnionid(), (byte) 3, user.getUserId(), appid, code, userInfo.getNickname(), userInfo.getHeadimgurl(), null);
+            this.appAccountService.addAccountBy(userInfo.getUnionid(),subSystem,openid, (byte) 3, user.getUserId(), appid, code, userInfo.getNickname(), userInfo.getHeadimgurl(), null);
             appAccount = appAccountService.getAccountByCode(appid, unionid);
             return appAccount;
         } catch (Exception e) {

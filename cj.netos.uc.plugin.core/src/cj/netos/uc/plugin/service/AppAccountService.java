@@ -1,9 +1,8 @@
 package cj.netos.uc.plugin.service;
 
-import cj.netos.uc.model.AppAccount;
-import cj.netos.uc.model.AppAccountExample;
-import cj.netos.uc.model.UcUser;
+import cj.netos.uc.model.*;
 import cj.netos.uc.plugin.mapper.AppAccountMapper;
+import cj.netos.uc.plugin.mapper.AppAccountSourceMapper;
 import cj.netos.uc.service.*;
 import cj.netos.uc.util.Encript;
 import cj.netos.uc.util.NumberGen;
@@ -26,6 +25,9 @@ import java.util.*;
 public class AppAccountService implements IAppAccountService, IServiceSetter {
     @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppAccountMapper")
     AppAccountMapper accountMapper;
+    @CjServiceRef(refByName = "mybatis.cj.netos.uc.plugin.mapper.AppAccountSourceMapper")
+    AppAccountSourceMapper appAccountSourceMapper;
+
     IUcUserService ucUserService;
     @CjServiceRef(refByName = "tenantAppRoleService")
     IAppRoleService appRoleService;
@@ -89,6 +91,73 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
         String tenantid = appId.substring(appId.indexOf(".") + 1, appId.length());
         this.appRoleService.addAccountToRole(appId, account.getAccountId(), String.format("users@%s", appId), tenantid, account.getUserId());
         return account.getAccountId();
+    }
+
+    @Override
+    public String addAccountBy(String accountCode, String sourceSubSystem, String sourceOpenid, byte nameKind, String userId, String appId, String accountPwd, String nickName, String avatar, String signature) throws CircuitException {
+        if (StringUtil.isEmpty(accountCode)) {
+            throw new CircuitException("404", "缺少账户名");
+        }
+        if (StringUtil.isEmpty(appId)) {
+            throw new CircuitException("404", "缺少应用编号");
+        }
+        if (StringUtil.isEmpty(userId)) {
+            throw new CircuitException("404", "缺少用户编号");
+        }
+        if (existsAccount(appId, accountCode)) {
+            throw new CircuitException("500", String.format("用户%s在应用%s下已存在账户名：%s", userId, appId, accountCode));
+        }
+        AppAccount account = new AppAccount();
+        account.setAppId(appId);
+        account.setAccountId(String.format("%s@%s", accountCode, appId));
+        account.setAccountCode(accountCode);
+        account.setAccountPwd(Encript.md5(accountPwd));
+        account.setCreateTime(new Date());
+        account.setIsEnable((byte) 1);
+        account.setNameKind(nameKind);
+        account.setUserId(userId);
+        account.setNickName(nickName);
+        account.setAvatar(avatar);
+        account.setSignature(signature);
+        accountMapper.insertSelective(account);
+        String tenantid = appId.substring(appId.indexOf(".") + 1, appId.length());
+        this.appRoleService.addAccountToRole(appId, account.getAccountId(), String.format("users@%s", appId), tenantid, account.getUserId());
+        addSource(account.getAccountId(), sourceSubSystem, sourceOpenid);
+        return account.getAccountId();
+    }
+
+    @CjTransaction
+    @Override
+    public boolean existsSource(String accountId, String subSystem) {
+        AppAccountSourceExample example = new AppAccountSourceExample();
+        example.createCriteria().andAccountIdEqualTo(accountId).andSubSystemEqualTo(subSystem);
+        return appAccountSourceMapper.countByExample(example) > 0;
+    }
+
+    @CjTransaction
+    @Override
+    public Map<String, String> listSource(String accountId) {//key是子系统，v是openid
+        AppAccountSourceExample example = new AppAccountSourceExample();
+        example.createCriteria().andAccountIdEqualTo(accountId);
+        List<AppAccountSource> sources = appAccountSourceMapper.selectByExample(example);
+        Map<String, String> map = new HashMap<>();
+        for (AppAccountSource source : sources) {
+            map.put(source.getSubSystem(), source.getSubSysOpenid());
+        }
+        return map;
+    }
+
+    @CjTransaction
+    @Override
+    public void addSource(String accountId, String subSystem, String openid) {
+        if (StringUtil.isEmpty(subSystem) || StringUtil.isEmpty(openid)) {
+            return;
+        }
+        AppAccountSource source = new AppAccountSource();
+        source.setAccountId(accountId);
+        source.setSubSystem(subSystem);
+        source.setSubSysOpenid(openid);
+        appAccountSourceMapper.insert(source);
     }
 
     @CjTransaction
@@ -280,6 +349,7 @@ public class AppAccountService implements IAppAccountService, IServiceSetter {
     public void updateNickName(String accountId, String nickName) {
         accountMapper.updateNickName(accountId, nickName);
     }
+
 
     @CjTransaction
     @Override

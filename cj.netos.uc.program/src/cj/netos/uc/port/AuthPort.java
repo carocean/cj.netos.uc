@@ -36,6 +36,7 @@ public class AuthPort implements IAuthPort {
     IPhoneVerifycodeService phoneVerifycodeService;
     @CjServiceRef(refByName = "ucplugin.ucUserService")
     IUcUserService ucUserService;
+
     @Override
     public Map<String, Object> sendVerifyCode(ISecuritySession securitySession, String phone) throws CircuitException {
         return appAccountService.sendVerifyCode(securitySession.principal(), phone);
@@ -54,8 +55,8 @@ public class AuthPort implements IAuthPort {
 
     @Override
     public void updateDevice(ISecuritySession securitySession, String oldDevice, String newDevice) throws CircuitException {
-        appAccessTokenService.updateDevice(securitySession.principal(),oldDevice,newDevice);
-        appRefreshTokenService.updateDevice(securitySession.principal(),oldDevice,newDevice);
+        appAccessTokenService.updateDevice(securitySession.principal(), oldDevice, newDevice);
+        appRefreshTokenService.updateDevice(securitySession.principal(), oldDevice, newDevice);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class AuthPort implements IAuthPort {
         if (appAccount == null) {
             throw new CircuitException("1032", "登录失败，原因：账号不存在");
         }
-        if(appAccount.getIsEnable()!=null&&appAccount.getIsEnable()==0){
+        if (appAccount.getIsEnable() != null && appAccount.getIsEnable() == 0) {
             throw new CircuitException("1035", "登录失败，原因：账号已注销");
         }
         if (!Encript.md5(password).equals(appAccount.getAccountPwd())) {
@@ -144,13 +145,13 @@ public class AuthPort implements IAuthPort {
     }
 
     @Override
-    public Map<String, Object> authByWeChat(ISecuritySession securitySession,String deviceType,String device, String state, String code) throws CircuitException {
-        AppAccount appAccount =ucUserService.registerByWeChat(securitySession.principal(),state,code,deviceType);
+    public Map<String, Object> authByWeChat(ISecuritySession securitySession, String deviceType, String device, String state, String code) throws CircuitException {
+        AppAccount appAccount = ucUserService.registerByWeChat(securitySession.principal(), state, code, deviceType);
 
         if (appAccount == null) {
             throw new CircuitException("1032", "登录失败，原因：账号不存在");
         }
-        if(appAccount.getIsEnable()!=null&&appAccount.getIsEnable()==0){
+        if (appAccount.getIsEnable() != null && appAccount.getIsEnable() == 0) {
             throw new CircuitException("1035", "登录失败，原因：账号已注销");
         }
 
@@ -158,7 +159,7 @@ public class AuthPort implements IAuthPort {
         if (app == null) {
             throw new CircuitException("1031", "登录失败，原因：非法应用");
         }
-       UcUser ucUser= ucUserService.getUserById(appAccount.getUserId());
+        UcUser ucUser = ucUserService.getUserById(appAccount.getUserId());
         //填充角色
         List<UcRole> ucroles = ucRoleService.pageRoleOfUser(appAccount.getUserId(), 0, Integer.MAX_VALUE);
         List<TenantRole> taroles = tenantRoleService.pageRoleOfUser(appAccount.getUserId(), app.getTenantId(), 0, Integer.MAX_VALUE);
@@ -279,9 +280,11 @@ public class AuthPort implements IAuthPort {
         }
         String person = appAccessToken.getPerson();
         AppAccount appAccount = appAccountService.getAccount(person);
+        Map<String, String> source = appAccountService.listSource(person);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("person", person);
         map.put("nickName", appAccount != null ? appAccount.getNickName() : null);
+        map.put("source", source);
         map.put("device", appAccessToken.getDevice());
         map.put("portal", app.getPortal());
         map.put("pubTime", appAccessToken.getPubTime());
