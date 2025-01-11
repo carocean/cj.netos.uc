@@ -6,35 +6,35 @@ package cj.netos.uc.model;
 public class AppRole {
     /**
      * Column: role_id
-     * Remark: 应用角色标识 表示为：role_code@app_id
+     * Type: VARCHAR(50)
+     * Remark: 应用角色标识，表示为：role_code@app_id
      */
     private String roleId;
 
     /**
      * Column: role_code
+     * Type: VARCHAR(50)
      * Remark: 角色代码
      */
     private String roleCode;
 
     /**
      * Column: role_name
+     * Type: VARCHAR(50)
      * Remark: 角色名
      */
     private String roleName;
 
     /**
      * Column: app_id
+     * Type: VARCHAR(50)
      * Remark: 应用标识
      */
     private String appId;
 
     /**
-     * Column: tenant_id
-     */
-    private String tenantId;
-
-    /**
      * Column: extend
+     * Type: VARCHAR(50)
      * Remark: 派生于租户角色标识
      */
     private String extend;
@@ -69,14 +69,6 @@ public class AppRole {
 
     public void setAppId(String appId) {
         this.appId = appId == null ? null : appId.trim();
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId == null ? null : tenantId.trim();
     }
 
     public String getExtend() {

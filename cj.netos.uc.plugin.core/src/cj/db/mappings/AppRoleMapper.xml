@@ -7,7 +7,6 @@
     <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="app_id" jdbcType="VARCHAR" property="appId" />
-    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
     <result column="extend" jdbcType="VARCHAR" property="extend" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,7 +71,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @mbg.generated: generated automatically, do not modify! -->
-    role_id, role_code, role_name, app_id, tenant_id, extend
+    role_id, role_code, role_name, app_id, extend
   </sql>
   <select id="selectByExample" parameterType="cj.netos.uc.model.AppRoleExample" resultMap="BaseResultMap">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -111,11 +110,9 @@
   <insert id="insert" parameterType="cj.netos.uc.model.AppRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     insert into app_role (role_id, role_code, role_name, 
-      app_id, tenant_id, extend
-      )
+      app_id, extend)
     values (#{roleId,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
-      #{appId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR}
-      )
+      #{appId,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cj.netos.uc.model.AppRole">
     <!-- @mbg.generated: generated automatically, do not modify! -->
@@ -132,9 +129,6 @@
       </if>
       <if test="appId != null">
         app_id,
-      </if>
-      <if test="tenantId != null">
-        tenant_id,
       </if>
       <if test="extend != null">
         extend,
@@ -153,9 +147,6 @@
       <if test="appId != null">
         #{appId,jdbcType=VARCHAR},
       </if>
-      <if test="tenantId != null">
-        #{tenantId,jdbcType=VARCHAR},
-      </if>
       <if test="extend != null">
         #{extend,jdbcType=VARCHAR},
       </if>
@@ -172,39 +163,35 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_role
     <set>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=VARCHAR},
+      <if test="row.roleId != null">
+        role_id = #{row.roleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleCode != null">
-        role_code = #{record.roleCode,jdbcType=VARCHAR},
+      <if test="row.roleCode != null">
+        role_code = #{row.roleCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleName != null">
-        role_name = #{record.roleName,jdbcType=VARCHAR},
+      <if test="row.roleName != null">
+        role_name = #{row.roleName,jdbcType=VARCHAR},
       </if>
-      <if test="record.appId != null">
-        app_id = #{record.appId,jdbcType=VARCHAR},
+      <if test="row.appId != null">
+        app_id = #{row.appId,jdbcType=VARCHAR},
       </if>
-      <if test="record.tenantId != null">
-        tenant_id = #{record.tenantId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.extend != null">
-        extend = #{record.extend,jdbcType=VARCHAR},
+      <if test="row.extend != null">
+        extend = #{row.extend,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_role
-    set role_id = #{record.roleId,jdbcType=VARCHAR},
-      role_code = #{record.roleCode,jdbcType=VARCHAR},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      app_id = #{record.appId,jdbcType=VARCHAR},
-      tenant_id = #{record.tenantId,jdbcType=VARCHAR},
-      extend = #{record.extend,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set role_id = #{row.roleId,jdbcType=VARCHAR},
+      role_code = #{row.roleCode,jdbcType=VARCHAR},
+      role_name = #{row.roleName,jdbcType=VARCHAR},
+      app_id = #{row.appId,jdbcType=VARCHAR},
+      extend = #{row.extend,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
@@ -221,9 +208,6 @@
       <if test="appId != null">
         app_id = #{appId,jdbcType=VARCHAR},
       </if>
-      <if test="tenantId != null">
-        tenant_id = #{tenantId,jdbcType=VARCHAR},
-      </if>
       <if test="extend != null">
         extend = #{extend,jdbcType=VARCHAR},
       </if>
@@ -236,7 +220,6 @@
     set role_code = #{roleCode,jdbcType=VARCHAR},
       role_name = #{roleName,jdbcType=VARCHAR},
       app_id = #{appId,jdbcType=VARCHAR},
-      tenant_id = #{tenantId,jdbcType=VARCHAR},
       extend = #{extend,jdbcType=VARCHAR}
     where role_id = #{roleId,jdbcType=VARCHAR}
   </update>

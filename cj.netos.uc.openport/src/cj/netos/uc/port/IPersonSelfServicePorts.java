@@ -5,7 +5,6 @@ import cj.netos.uc.model.DomainValue;
 import cj.netos.uc.model.PersonInfo;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
@@ -21,7 +20,7 @@ import java.util.Map;
  * 除了该开放口，其它的开放口均是提供管理员的服务，本口是为访问者(accessToken)提供的自助服务
  */
 @CjOpenports(usage = "公众自助服务")
-public interface IPersonSelfServicePorts extends IOpenportService {
+public interface IPersonSelfServicePorts  {
     @CjOpenport(usage = "修改密码")
     void updatePersonPassword(ISecuritySession securitySession,
                               @CjOpenportParameter(usage = "旧密码", name = "oldpwd") String oldpwd,

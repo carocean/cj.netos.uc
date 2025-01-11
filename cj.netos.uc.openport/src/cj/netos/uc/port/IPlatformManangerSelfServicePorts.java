@@ -3,7 +3,6 @@ package cj.netos.uc.port;
 import cj.netos.uc.model.*;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportAppSecurity;
@@ -22,7 +21,7 @@ import java.util.Map;
  * -
  */
 @CjOpenports(usage = "平台管理者自助服务")
-public interface IPlatformManangerSelfServicePorts extends IOpenportService {
+public interface IPlatformManangerSelfServicePorts  {
     @CjOpenport(usage = "添加用户信息的扩展域组，类似于加一个表")
     void addDomainGroup(ISecuritySession securitySession,
                         @CjOpenportParameter(name = "groupId", usage = "组标识，类似于表名，要指定为英文") String groupId,

@@ -144,27 +144,27 @@
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_account_source
     <set>
-      <if test="record.accountId != null">
-        account_id = #{record.accountId,jdbcType=VARCHAR},
+      <if test="row.accountId != null">
+        account_id = #{row.accountId,jdbcType=VARCHAR},
       </if>
-      <if test="record.subSystem != null">
-        sub_system = #{record.subSystem,jdbcType=VARCHAR},
+      <if test="row.subSystem != null">
+        sub_system = #{row.subSystem,jdbcType=VARCHAR},
       </if>
-      <if test="record.subSysOpenid != null">
-        sub_sys_openid = #{record.subSysOpenid,jdbcType=VARCHAR},
+      <if test="row.subSysOpenid != null">
+        sub_sys_openid = #{row.subSysOpenid,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     <!-- @mbg.generated: generated automatically, do not modify! -->
     update app_account_source
-    set account_id = #{record.accountId,jdbcType=VARCHAR},
-      sub_system = #{record.subSystem,jdbcType=VARCHAR},
-      sub_sys_openid = #{record.subSysOpenid,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set account_id = #{row.accountId,jdbcType=VARCHAR},
+      sub_system = #{row.subSystem,jdbcType=VARCHAR},
+      sub_sys_openid = #{row.subSysOpenid,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

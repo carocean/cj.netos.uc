@@ -24,12 +24,12 @@ public interface AppAccountSourceMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int insert(AppAccountSource record);
+    int insert(AppAccountSource row);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int insertSelective(AppAccountSource record);
+    int insertSelective(AppAccountSource row);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -39,10 +39,10 @@ public interface AppAccountSourceMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int updateByExampleSelective(@Param("record") AppAccountSource record, @Param("example") AppAccountSourceExample example);
+    int updateByExampleSelective(@Param("row") AppAccountSource row, @Param("example") AppAccountSourceExample example);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int updateByExample(@Param("record") AppAccountSource record, @Param("example") AppAccountSourceExample example);
+    int updateByExample(@Param("row") AppAccountSource row, @Param("example") AppAccountSourceExample example);
 }

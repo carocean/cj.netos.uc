@@ -2,7 +2,6 @@ package cj.netos.uc.port;
 
 import cj.netos.uc.model.*;
 import cj.studio.ecm.net.CircuitException;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
@@ -16,7 +15,7 @@ import java.util.List;
  *
  */
 @CjOpenports(usage = "应用管理者自助服务")
-public interface IAppManangerSelfServicePorts extends IOpenportService {
+public interface IAppManangerSelfServicePorts  {
     @CjOpenport(usage = "直接创建一个应用，必须是租户管理员权限")
     String createApp(ISecuritySession securitySession,
                      @CjOpenportParameter(name = "appCode", usage = "应用编号，英文") String appCode,

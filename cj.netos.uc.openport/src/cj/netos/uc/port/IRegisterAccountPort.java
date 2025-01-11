@@ -3,7 +3,6 @@ package cj.netos.uc.port;
 import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
@@ -12,7 +11,7 @@ import cj.studio.openport.annotations.CjOpenportParameter;
 import cj.studio.openport.annotations.CjOpenports;
 
 @CjOpenports(usage = "账号注册服务")
-public interface IRegisterAccountPort extends IOpenportService {
+public interface IRegisterAccountPort {
 
     @CjOpenportAppSecurity(usage = "sign生成方法：md5(appKey+nonce+appSecret).toHexString();注：顺序不能变")
     @CjOpenport(usage = "通过账户密码注册", tokenIn = AccessTokenIn.nope, command = "post")

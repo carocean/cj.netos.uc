@@ -1,8 +1,10 @@
 package cj.netos.uc.port;
 
-import cj.netos.uc.model.*;
+import cj.netos.uc.model.TenantApp;
+import cj.netos.uc.model.TenantRole;
+import cj.netos.uc.model.UcTenant;
+import cj.netos.uc.model.UcUser;
 import cj.studio.ecm.net.CircuitException;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
@@ -17,7 +19,7 @@ import java.util.List;
  *
  */
 @CjOpenports(usage = "租户管理者自助服务")
-public interface ITenantManangerSelfServicePorts extends IOpenportService {
+public interface ITenantManangerSelfServicePorts  {
 
 
     @CjOpenport(usage = "获取租户")

@@ -2,11 +2,11 @@ package cj.netos.uc.plugin.mapper;
 
 import cj.netos.uc.model.AppRole;
 import cj.netos.uc.model.AppRoleExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface AppRoleMapper {
+import java.util.List;
 
+public interface AppRoleMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
@@ -25,12 +25,12 @@ public interface AppRoleMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int insert(AppRole record);
+    int insert(AppRole row);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int insertSelective(AppRole record);
+    int insertSelective(AppRole row);
 
     /**
      * @mbg.generated generated automatically, do not modify!
@@ -45,22 +45,24 @@ public interface AppRoleMapper {
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int updateByExampleSelective(@Param("record") AppRole record, @Param("example") AppRoleExample example);
+    int updateByExampleSelective(@Param("row") AppRole row, @Param("example") AppRoleExample example);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int updateByExample(@Param("record") AppRole record, @Param("example") AppRoleExample example);
+    int updateByExample(@Param("row") AppRole row, @Param("example") AppRoleExample example);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int updateByPrimaryKeySelective(AppRole record);
+    int updateByPrimaryKeySelective(AppRole row);
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
-    int updateByPrimaryKey(AppRole record);
+    int updateByPrimaryKey(AppRole row);
+
+
 
     List<AppRole> pageRole(@Param(value = "appid") String appid, @Param(value = "offset") long office, @Param(value = "limit") long limit);
 }

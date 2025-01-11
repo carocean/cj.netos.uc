@@ -9,12 +9,12 @@
           <option name="driverClass" value="" />
           <option name="driverLibrary" value="" />
           <option name="driverType" value="MySQL" />
-          <option name="host" value="120.27.15.205" />
+          <option name="host" value="localhost" />
           <option name="id" value="9daf2c4228bf4b57a52d594bf54d482d" />
           <option name="name" value="netos.uc" />
           <option name="port" value="3306" />
           <option name="url" value="" />
-          <option name="userName" value="cj" />
+          <option name="userName" value="root" />
         </ConnectionInfo>
       </list>
     </option>
@@ -95,12 +95,23 @@
             <option name="targetProject" value="$PROJECT_DIR$/cj.netos.uc.openport/src" />
           </JavaModelGeneratorConfiguration>
         </option>
+        <option name="selectedTables">
+          <list>
+            <TableInfo>
+              <option name="database" value="netos.uc" />
+              <option name="domainName" value="AppRole" />
+              <option name="tableComment" value="存储应用角色信息" />
+              <option name="tableName" value="app_role" />
+            </TableInfo>
+          </list>
+        </option>
         <option name="sqlMapConfig">
           <SqlMapGeneratorConfiguration>
             <option name="targetPackage" value="cj.db.mappings" />
             <option name="targetProject" value="$PROJECT_DIR$/cj.netos.uc.plugin.core/src" />
           </SqlMapGeneratorConfiguration>
         </option>
+        <option name="targetRuntime" value="MyBatis3" />
       </GeneratorParamWrapper>
     </option>
     <option name="tableInfoMap">
@@ -133,7 +144,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="AppAccountSource" />
-              <option name="tableComment" value="账号来源，指账号来源于第三方平台的对应账号&#10;是个映射表&#10;一般用于映射微信平台" />
+              <option name="tableComment" value="" />
               <option name="tableName" value="app_account_source" />
             </TableInfo>
           </value>
@@ -153,7 +164,7 @@
             <TableInfo>
               <option name="database" value="netos.uc" />
               <option name="domainName" value="AppRole" />
-              <option name="tableComment" value="应用角色" />
+              <option name="tableComment" value="存储应用角色信息" />
               <option name="tableName" value="app_role" />
             </TableInfo>
           </value>

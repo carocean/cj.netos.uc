@@ -43,7 +43,7 @@ public class TenantAppService implements IAppService {
 
     @CjTransaction
     @Override
-    public String addApp(String appCode, String appName, String portal,String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
+    public String addApp(String appCode, String appName, String portal, String tenantId, long tokenExpire, String appLogo, String website, String loginCBUrl, String logoutCBUrl) throws CircuitException {
         if (StringUtil.isEmpty(tenantId)) {
             throw new CircuitException("404", "租户标识为空");
         }
@@ -73,7 +73,7 @@ public class TenantAppService implements IAppService {
         app.setWebsite(website);
         app.setLoginCbUrl(loginCBUrl);
         app.setLogoutCbUrl(logoutCBUrl);
-
+        app.setCtime(System.currentTimeMillis());
         tenantAppMapper.insertSelective(app);
         //同时为app添加固定角色
         if (appRoleService.getRole(appid, "administrators") == null) {
@@ -126,7 +126,7 @@ public class TenantAppService implements IAppService {
     @CjTransaction
     @Override
     public TenantApp getApp(String appid) throws CircuitException {
-        TenantApp app=tenantAppMapper.selectByPrimaryKey(appid);
+        TenantApp app = tenantAppMapper.selectByPrimaryKey(appid);
         return app;
     }
 

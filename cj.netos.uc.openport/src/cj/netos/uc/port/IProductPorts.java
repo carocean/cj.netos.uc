@@ -5,7 +5,6 @@ import cj.netos.uc.model.ProductMarket;
 import cj.netos.uc.model.ProductVersion;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.annotations.CjOpenport;
 import cj.studio.openport.annotations.CjOpenportParameter;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @CjOpenports(usage = "产品配置中心")
-public interface IProductPorts extends IOpenportService {
+public interface IProductPorts {
     @CjOpenport(usage = "添加产品")
     void addProduct(ISecuritySession securitySession,
                     @CjOpenportParameter(name = "id", usage = "产品标识") String id,

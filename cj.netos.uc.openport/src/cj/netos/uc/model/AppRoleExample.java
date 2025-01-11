@@ -4,17 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppRoleExample {
+    /**
+     * @mbg.generated generated automatically, do not modify!
+     */
     protected String orderByClause;
 
+    /**
+     * @mbg.generated generated automatically, do not modify!
+     */
     protected boolean distinct;
 
+    /**
+     * @mbg.generated generated automatically, do not modify!
+     */
     protected List<Criteria> oredCriteria;
 
     /**
      * @mbg.generated generated automatically, do not modify!
      */
     public AppRoleExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     /**
@@ -101,7 +110,7 @@ public class AppRoleExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -417,76 +426,6 @@ public class AppRoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andTenantIdIsNull() {
-            addCriterion("tenant_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdIsNotNull() {
-            addCriterion("tenant_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdEqualTo(String value) {
-            addCriterion("tenant_id =", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdNotEqualTo(String value) {
-            addCriterion("tenant_id <>", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdGreaterThan(String value) {
-            addCriterion("tenant_id >", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdGreaterThanOrEqualTo(String value) {
-            addCriterion("tenant_id >=", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdLessThan(String value) {
-            addCriterion("tenant_id <", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdLessThanOrEqualTo(String value) {
-            addCriterion("tenant_id <=", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdLike(String value) {
-            addCriterion("tenant_id like", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdNotLike(String value) {
-            addCriterion("tenant_id not like", value, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdIn(List<String> values) {
-            addCriterion("tenant_id in", values, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdNotIn(List<String> values) {
-            addCriterion("tenant_id not in", values, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdBetween(String value1, String value2) {
-            addCriterion("tenant_id between", value1, value2, "tenantId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTenantIdNotBetween(String value1, String value2) {
-            addCriterion("tenant_id not between", value1, value2, "tenantId");
-            return (Criteria) this;
-        }
-
         public Criteria andExtendIsNull() {
             addCriterion("extend is null");
             return (Criteria) this;
@@ -559,7 +498,6 @@ public class AppRoleExample {
     }
 
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

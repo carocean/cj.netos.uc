@@ -2,7 +2,6 @@ package cj.netos.uc.port;
 
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.AccessTokenIn;
-import cj.studio.openport.IOpenportService;
 import cj.studio.openport.ISecuritySession;
 import cj.studio.openport.PKeyInRequest;
 import cj.studio.openport.annotations.CjOpenport;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @CjOpenports(usage = "认证服务")
-public interface IAuthPort extends IOpenportService {
+public interface IAuthPort  {
 
 
     @CjOpenportAppSecurity(usage = "sign生成方法：md5(appKey+nonce+appSecret).toHexString();注：顺序不能变")
