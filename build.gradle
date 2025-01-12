@@ -1,8 +1,9 @@
-//常规用法：http://leon-wood.iteye.com/blog/1708644
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
 	apply plugin: 'maven'
+
 	version = engineer_version
     sourceSets { 
 	 main { 
@@ -16,7 +17,8 @@ subprojects {
  	}
    	sourceCompatibility = 1.8
     targetCompatibility = 1.8
-    repositories {
+
+	repositories {
        jcenter()
        mavenCentral()
       	maven{
@@ -90,7 +92,7 @@ subprojects {
 		}
 	}
 }
-    
+
 task release(type: Copy) {
  		doLast {
 			println 'uc 环境发布完毕!'
