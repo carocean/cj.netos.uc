@@ -18,4 +18,4 @@ RUN echo "JAVA_HOME is $JAVA_HOME"
 RUN echo "PATH is $PATH"
 
 # 启动命令，确保环境变量加载
-CMD ["/bin/bash gateway.sh"]
+CMD ["/bin/bash", "gateway.sh","-nohup","&"]
