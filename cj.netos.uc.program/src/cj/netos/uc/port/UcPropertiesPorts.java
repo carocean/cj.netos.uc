@@ -8,7 +8,7 @@ import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
 
 import java.util.List;
-@CjService(name = "/system/properties.service")
+@CjService(name = "/system/properties.ports")
 public class UcPropertiesPorts implements  IUcPropertiesPorts {
     @CjServiceRef(refByName = "ucplugin.ucProperties")
     IUcProperties ucProperties;

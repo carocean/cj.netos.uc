@@ -7,7 +7,7 @@ import cj.studio.ecm.annotation.CjServiceRef;
 import cj.studio.ecm.net.CircuitException;
 import cj.studio.openport.ISecuritySession;
 
-@CjService(name = "/register.service")
+@CjService(name = "/register.ports")
 public class RegisterAccountPort implements IRegisterAccountPort {
     @CjServiceRef(refByName = "ucplugin.ucUserService")
     IUcUserService ucUserService;

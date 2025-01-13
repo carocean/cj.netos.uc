@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@CjService(name = "/auth.service")
+@CjService(name = "/auth.ports")
 public class AuthPort implements IAuthPort {
     @CjServiceRef(refByName = "ucplugin.appAccountService")
     IAppAccountService appAccountService;

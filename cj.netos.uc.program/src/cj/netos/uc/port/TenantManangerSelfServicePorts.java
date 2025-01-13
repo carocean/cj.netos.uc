@@ -12,7 +12,7 @@ import cj.studio.openport.ISecuritySession;
 
 import java.util.List;
 
-@CjService(name = "/tenant/self.service")
+@CjService(name = "/tenant/self.ports")
 public class TenantManangerSelfServicePorts implements ITenantManangerSelfServicePorts {
     @CjServiceRef(refByName = "ucplugin.tenantService")
     ITenantService tenantService;

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CjService(name = "/person/self.service")
+@CjService(name = "/person/self.ports")
 public class PersonSelfServicePorts implements IPersonSelfServicePorts {
     @CjServiceRef(refByName = "ucplugin.appAccountService")
     IAppAccountService appAccountService;

@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CjService(name = "/platform/self.service")
+@CjService(name = "/platform/self.ports")
 public class PlatformManangerSelfServicePorts implements IPlatformManangerSelfServicePorts {
     @CjServiceRef(refByName = "ucplugin.domainService")
     IDomainService domainService;

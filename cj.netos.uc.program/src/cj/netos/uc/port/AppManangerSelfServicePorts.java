@@ -14,7 +14,7 @@ import cj.studio.openport.ISecuritySession;
 
 import java.util.List;
 
-@CjService(name = "/app/self.service")
+@CjService(name = "/app/self.ports")
 public class AppManangerSelfServicePorts implements IAppManangerSelfServicePorts {
     @CjServiceRef(refByName = "ucplugin.tenantAppService")
     IAppService appService;
