@@ -112,6 +112,9 @@ public class UCInit implements IDBInit {
         if (!ucRoleService.hasRoleOfUser("administrators", uid)) {
             ucRoleService.addRoleToUser("administrators", uid);
         }
+        if (!ucRoleService.hasRoleOfUser("mic:members", uid)) {
+            ucRoleService.addRoleToUser("mic:members", uid);
+        }
         if (!ucRoleService.hasRoleOfUser("tenantAdministrators", uid)) {
             ucRoleService.addRoleToUser("tenantAdministrators", uid);
         }
