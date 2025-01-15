@@ -70,6 +70,9 @@ public class UCInit implements IDBInit {
         if (ucRoleService.getRole("administrators") == null) {
             ucRoleService.addRole("administrators", "超级管理员", true);
         }
+        if (ucRoleService.getRole("mic:members") == null) {
+            ucRoleService.addRole("mic:members", "注册中心mic的会员，只有加入会员才可使用注册中心", true);
+        }
         if (ucRoleService.getRole("tenantAdministrators") == null) {
             ucRoleService.addRole("tenantAdministrators", "租户管理员", true);
         }
